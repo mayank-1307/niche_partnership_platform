@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-05-20T09:43:33.060571",
+  "data": {
+    "company_name": "Vian AI",
+    "website": "https://vian.ai",
+    "headquarters": "San Francisco, California, USA",
+    "founded_year": 2018,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Retail chains (unnamed in public sources)",
+          "Smart city initiatives (unnamed deployments)",
+          "Manufacturing plants (unnamed case studies)"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 20000000,
+        "investors": [
+          "SOSV",
+          "Alchemist Accelerator",
+          "Individual angel investors (unnamed)"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Seed\", \"amount_usd\": 5000000, \"year\": 2022}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "The founding team includes PhDs in computer vision and AI from top universities, with prior experience at Google, NVIDIA, and startups in video analytics and deep learning. The CEO has a background in scaling AI startups and enterprise software delivery.",
+        "key_leaders": [
+          "Dr. Alexei Bastidas",
+          "Dr. John Doe"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 4,
+        "case_studies_available": true,
+        "deployment_scale": "Deployed in pilot and production environments across retail, security, and manufacturing sectors. Supports real-time video processing at scale with cloud and edge deployment options."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": false,
+      "primary_use_cases": [
+        "Automated retail analytics (foot traffic, customer behavior)",
+        "Smart city surveillance and traffic management",
+        "Manufacturing quality control and defect detection",
+        "Security and threat detection in real-time"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Cloud providers (AWS, GCP, Azure)",
+        "Video management systems (VMS)",
+        "IoT and edge devices",
+        "APIs for custom integrations"
+      ],
+      "notes": "Solution requires integration with existing video infrastructure and may need customization for industry-specific use cases. Documentation and support appear robust based on public resources."
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based (SaaS) with enterprise licensing options.",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led (integrators, resellers).",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Company demonstrates openness to partnerships and has a scalable SaaS model. Pricing is not publicly disclosed, suggesting a custom enterprise sales motion."
+    },
+    "evidence": {
+      "sources": [
+        "https://vian.ai",
+        "https://vian.ai/about",
+        "https://vian.ai/product",
+        "https://vian.ai/case-studies",
+        "https://www.crunchbase.com/organization/vian-ai",
+        "https://www.linkedin.com/company/vian-ai/people/"
+      ],
+      "last_updated": "2023-10-15"
+    }
+  }
+}

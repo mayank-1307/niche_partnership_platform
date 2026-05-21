@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-05-21T06:25:32.934918",
+  "data": {
+    "company_name": "Vian AI",
+    "website": "https://vian.ai",
+    "headquarters": "San Francisco, California, USA",
+    "founded_year": 2018,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Retail chains (undisclosed names)",
+          "Smart city initiatives (pilot deployments)",
+          "Industrial automation partners"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 12000000,
+        "investors": [
+          "SOSV",
+          "Y Combinator",
+          "Undefined Capital",
+          "Struck Capital"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Seed\", \"amount_usd\": 5000000, \"year\": 2022}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "The founding team includes AI researchers and engineers with backgrounds in computer vision, deep learning, and enterprise software. The CEO, Joseph Nelson, previously co-founded Roboflow, a computer vision platform, and has experience in scaling AI startups. The CTO has a strong academic and industry background in machine learning and video analytics.",
+        "key_leaders": [
+          "Joseph Nelson",
+          "Unnamed CTO"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 3,
+        "case_studies_available": true,
+        "deployment_scale": "Pilot deployments in retail and smart city sectors; enterprise production usage in select cases. Platform supports real-time video processing at scale."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": false,
+      "primary_use_cases": [
+        "Automated video analytics for retail (e.g., foot traffic, customer behavior)",
+        "Real-time security and surveillance insights",
+        "Smart city infrastructure monitoring",
+        "Industrial automation and operational efficiency"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Video ingestion pipelines (RTSP, IP cameras, cloud storage)",
+        "Cloud infrastructure (AWS, GCP, or Azure)",
+        "APIs for custom integrations",
+        "Identity and access management (IAM) systems"
+      ],
+      "notes": "Solution requires integration with existing video infrastructure and cloud environments. Documentation and APIs appear robust, but customization may be needed for specific enterprise use cases. Partner-led implementation is feasible with proper training."
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based (SaaS) with enterprise licensing options",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led (focus on enterprise and channel partners)",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Company demonstrates openness to partnerships, particularly with system integrators and industry-specific resellers. Pricing is not publicly disclosed, suggesting a custom enterprise sales motion. Revenue signals indicate traction in retail and smart city sectors."
+    },
+    "evidence": {
+      "sources": [
+        "https://vian.ai",
+        "https://vian.ai/about",
+        "https://vian.ai/product",
+        "https://vian.ai/customers",
+        "https://www.crunchbase.com/organization/vian-ai",
+        "https://www.ycombinator.com/companies/vian-ai",
+        "https://techcrunch.com/2022/03/15/vian-ai-raises-5m-to-scale-its-video-analytics-platform/"
+      ],
+      "last_updated": "2024-06-10"
+    }
+  }
+}

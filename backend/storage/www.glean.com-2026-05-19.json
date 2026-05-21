@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-05-19T12:12:00.490364",
+  "data": {
+    "company_name": "Glean",
+    "website": "https://www.glean.com",
+    "headquarters": "Palo Alto, California, USA",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 0,
+        "investors": [
+          "Sequoia Capital",
+          "Kleiner Perkins",
+          "Lightspeed Venture Partners"
+        ],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "Co-founders include former Distinguished Engineer at Google (Arvind Jain) and leaders with backgrounds at Google and Facebook (Tony Gentilcore).",
+        "key_leaders": [
+          "Arvind Jain",
+          "Tony Gentilcore"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Growth",
+        "years_in_market": 5,
+        "case_studies_available": false,
+        "deployment_scale": "Large-scale enterprise deployments"
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Enterprise search and knowledge discovery",
+        "Workplace productivity enhancement",
+        "Unifying siloed data sources",
+        "Contextual and personalized search results"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "Moderate to High",
+      "tcs_implementation_readiness": "",
+      "training_effort_required": "Moderate",
+      "support_scalability": "High",
+      "integration_requirements": [
+        "Slack",
+        "Google Workspace (Gmail, Drive, Docs)",
+        "Microsoft 365 (Outlook, SharePoint, Teams)",
+        "Salesforce",
+        "Confluence",
+        "Zoom",
+        "Box",
+        "Dropbox"
+      ],
+      "notes": "Designed for large-scale enterprise deployments with a focus on security and compliance."
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based (annual or multi-year contracts)",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partnerships with cloud providers/enterprise software vendors",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Targets mid-to-large enterprises with complex knowledge management needs."
+    },
+    "evidence": {
+      "sources": [],
+      "last_updated": "2026-05-19T12:12:00.490199"
+    }
+  }
+}

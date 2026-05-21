@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-05-21T07:32:16.187345",
+  "data": {
+    "company_name": "",
+    "website": "",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "has_enterprise_clients_reason": "No evidence or valid domain provided to verify enterprise customers.",
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": false,
+        "is_funded_reason": "No evidence or valid domain provided to verify funding status.",
+        "total_funding_usd": 0,
+        "investors": [],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "",
+        "key_leaders": []
+      },
+      "product_maturity": {
+        "stage": "",
+        "years_in_market": 0,
+        "case_studies_available": false,
+        "case_studies_available_reason": "No evidence or valid domain provided to verify case studies.",
+        "deployment_scale": ""
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": false,
+      "ai_transformation_reason": "No evidence or valid domain provided to assess AI transformation capabilities.",
+      "data_modernization": false,
+      "data_modernization_reason": "No evidence or valid domain provided to assess data modernization capabilities.",
+      "ai_operations": false,
+      "ai_operations_reason": "No evidence or valid domain provided to assess AI operations capabilities.",
+      "conversational_ai": false,
+      "conversational_ai_reason": "No evidence or valid domain provided to assess conversational AI capabilities.",
+      "industry_ai": false,
+      "industry_ai_reason": "No evidence or valid domain provided to assess industry-specific AI capabilities.",
+      "governance_compliance": false,
+      "governance_compliance_reason": "No evidence or valid domain provided to assess governance or compliance capabilities.",
+      "primary_use_cases": []
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "",
+      "tcs_implementation_readiness": "",
+      "training_effort_required": "",
+      "support_scalability": "",
+      "integration_requirements": [],
+      "notes": "No valid domain or company hint provided. Unable to assess delivery feasibility."
+    },
+    "commercial_viability": {
+      "monetization_model": "",
+      "pricing_transparency": false,
+      "pricing_transparency_reason": "No evidence or valid domain provided to assess pricing transparency.",
+      "gtm_model": "",
+      "partner_willingness": false,
+      "partner_willingness_reason": "No evidence or valid domain provided to assess partner willingness.",
+      "estimated_deal_size_usd": 0,
+      "notes": "No valid domain or company hint provided. Unable to assess commercial viability."
+    },
+    "evidence": {
+      "sources": [],
+      "last_updated": "2026-05-21T07:32:16.187227"
+    }
+  }
+}

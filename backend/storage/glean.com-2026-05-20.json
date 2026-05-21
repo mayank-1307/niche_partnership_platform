@@ -1,0 +1,107 @@
+{
+  "generated_at": "2026-05-20T11:57:21.396063",
+  "data": {
+    "company_name": "Glean Technologies Inc.",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, United States",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Atlassian",
+          "Okta",
+          "Confluent",
+          "Gusto",
+          "Databricks",
+          "Nutanix",
+          "Workday",
+          "Snowflake",
+          "Dropbox",
+          "Figma"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 228000000,
+        "investors": [
+          "Kleiner Perkins",
+          "Lightspeed Venture Partners",
+          "General Catalyst",
+          "Slack Fund",
+          "IVP (Institutional Venture Partners)",
+          "Sequoia Capital"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series D\", \"amount_usd\": 200000000, \"year\": 2024}",
+          "{\"round_type\": \"Series C\", \"amount_usd\": 10000000, \"year\": 2022}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Glean was founded by a team of ex-Google engineers and leaders with deep expertise in search, AI, and enterprise software. CEO Arvind Jain previously served as a Distinguished Engineer at Google, where he led infrastructure teams for Google Search and Ads. The founding team includes veterans from Google, Microsoft, and other leading tech companies, with a strong background in scalable systems, machine learning, and enterprise product development.",
+        "key_leaders": [
+          "Arvind Jain",
+          "T.R. Vishwanath",
+          "Pavan Kumar"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Enterprise Scale",
+        "years_in_market": 5,
+        "case_studies_available": true,
+        "deployment_scale": "Glean is deployed across multiple Fortune 500 companies and high-growth enterprises, supporting tens of thousands of users. The platform integrates with over 100 enterprise applications and handles large-scale, secure search across structured and unstructured data sources."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": true,
+      "industry_ai": false,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Enterprise search and knowledge discovery",
+        "Unified workplace search across apps and documents",
+        "AI-driven contextual recommendations for employees",
+        "Secure and governed access to enterprise knowledge",
+        "Employee productivity and collaboration enhancement",
+        "Compliance and data governance for search and discovery"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Integration with enterprise identity providers (e.g., Okta, Azure AD)",
+        "Connectors for workplace apps (e.g., Slack, Microsoft 365, Google Workspace, Salesforce, Confluence)",
+        "APIs for custom integrations and extensibility",
+        "Cloud or on-premise deployment options",
+        "Data indexing and synchronization from multiple sources"
+      ],
+      "notes": "Glean offers comprehensive documentation, deployment guides, and partner support, making it feasible for implementation partners. The platform supports multi-tenant deployments, role-based access control, and scalable infrastructure, which aligns well with enterprise delivery requirements. Customization may be required for complex governance or compliance needs."
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based SaaS, typically sold as an annual enterprise contract.",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales with a focus on enterprise customers, supported by a growing partner ecosystem including system integrators and resellers.",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 100000,
+      "notes": "Glean demonstrates strong commercial viability with a clear enterprise sales motion, repeatable deployment model, and a growing list of high-profile customers. The company has shown openness to partnerships, as evidenced by its partner program and integrations with major enterprise software providers."
+    },
+    "evidence": {
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/about",
+        "https://glean.com/customers",
+        "https://glean.com/leadership",
+        "https://glean.com/press",
+        "https://www.crunchbase.com/organization/glean-ai",
+        "https://techcrunch.com/2024/02/27/glean-raises-200m-to-build-ai-powered-workplace-search/",
+        "https://www.linkedin.com/company/glean-ai/"
+      ],
+      "last_updated": "2024-07-15"
+    }
+  }
+}

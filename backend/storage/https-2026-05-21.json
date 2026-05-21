@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-05-21T07:38:56.175820",
+  "data": {
+    "company_name": "",
+    "website": "",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "has_enterprise_clients_reason": "No evidence of enterprise clients found due to insufficient or invalid input data.",
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": false,
+        "is_funded_reason": "No funding information available due to lack of valid input data.",
+        "total_funding_usd": 0,
+        "investors": [],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "",
+        "key_leaders": []
+      },
+      "product_maturity": {
+        "stage": "",
+        "years_in_market": 0,
+        "case_studies_available": false,
+        "case_studies_available_reason": "No evidence of case studies due to insufficient input data.",
+        "deployment_scale": ""
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": false,
+      "ai_transformation_reason": "No evidence of AI transformation capabilities due to insufficient input data.",
+      "data_modernization": false,
+      "data_modernization_reason": "No evidence of data modernization capabilities due to insufficient input data.",
+      "ai_operations": false,
+      "ai_operations_reason": "No evidence of AI operations capabilities due to insufficient input data.",
+      "conversational_ai": false,
+      "conversational_ai_reason": "No evidence of conversational AI capabilities due to insufficient input data.",
+      "industry_ai": false,
+      "industry_ai_reason": "No evidence of industry-specific AI capabilities due to insufficient input data.",
+      "governance_compliance": false,
+      "governance_compliance_reason": "No evidence of governance or compliance capabilities due to insufficient input data.",
+      "primary_use_cases": []
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "",
+      "tcs_implementation_readiness": "",
+      "training_effort_required": "",
+      "support_scalability": "",
+      "integration_requirements": [],
+      "notes": "Insufficient or invalid input data to assess delivery feasibility."
+    },
+    "commercial_viability": {
+      "monetization_model": "",
+      "pricing_transparency": false,
+      "pricing_transparency_reason": "No evidence of pricing transparency due to insufficient input data.",
+      "gtm_model": "",
+      "partner_willingness": false,
+      "partner_willingness_reason": "No evidence of partner willingness due to insufficient input data.",
+      "estimated_deal_size_usd": 0,
+      "notes": "Insufficient or invalid input data to assess commercial viability."
+    },
+    "evidence": {
+      "sources": [],
+      "last_updated": "2026-05-21T07:38:56.175417"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-05-19T11:51:43.884971",
+  "data": {
+    "company_name": "Vian AI",
+    "website": "https://www.vian.ai",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": false,
+        "total_funding_usd": 0,
+        "investors": [],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "",
+        "key_leaders": []
+      },
+      "product_maturity": {
+        "stage": "",
+        "years_in_market": 0,
+        "case_studies_available": false,
+        "deployment_scale": ""
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": false,
+      "data_modernization": false,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": false,
+      "primary_use_cases": [
+        "AI-driven video analytics",
+        "Computer vision for video analysis",
+        "Automated metadata generation and tagging",
+        "Scene detection and object recognition",
+        "Sentiment and emotion analysis in video content",
+        "Custom AI model training for domain-specific video insights"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "",
+      "tcs_implementation_readiness": "",
+      "training_effort_required": "",
+      "support_scalability": "",
+      "integration_requirements": [],
+      "notes": "Technical maturity assumed high but unverified. No specific details on deployment scale or integration requirements."
+    },
+    "commercial_viability": {
+      "monetization_model": "",
+      "pricing_transparency": false,
+      "gtm_model": "",
+      "partner_willingness": false,
+      "estimated_deal_size_usd": 0,
+      "notes": ""
+    },
+    "evidence": {
+      "sources": [],
+      "last_updated": "2026-05-19T11:51:43.884799"
+    }
+  }
+}
