@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 
+import { FixedHeader } from "../components/FixedHeader";
 import { getDecisionIntelligenceReport, listStoredJsons, type DecisionIntelligenceReport, type StoredJsonItem } from "../lib/api";
 
 function isPass(value: boolean) {
@@ -63,11 +64,13 @@ export default function DecisionIntelligencePage() {
   const gate2Complete = report ? revealedCount >= gate1Count + report.gate_2.conditions.length : false;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+    <>
+      <FixedHeader />
+      <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold md:text-5xl">Decision Intelligence</h1>
         <Link to="/" className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
-          Back Home
+          Home
         </Link>
       </div>
 
@@ -150,8 +153,9 @@ export default function DecisionIntelligencePage() {
           </div>
         </div>
       ) : (
-        !loading && <div className="mt-6 text-sm text-slate-400">Select a stored analysis JSON and click Submit to evaluate gates.</div>
+        !loading 
       )}
-    </div>
+      </div>
+    </>
   );
 }

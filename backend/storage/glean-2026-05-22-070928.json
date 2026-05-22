@@ -1,0 +1,122 @@
+{
+  "generated_at": "2026-05-22T07:09:28.993096",
+  "data": {
+    "company_name": "Glean",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, USA",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Grammarly",
+          "Databricks",
+          "Confluent",
+          "Canva",
+          "Duolingo",
+          "NVIDIA",
+          "Atlassian",
+          "Okta",
+          "Cloudflare",
+          "Figma",
+          "Notion",
+          "Loom"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 360000000,
+        "investors": [
+          "Kleiner Perkins",
+          "Lightspeed Venture Partners",
+          "Sequoia Capital",
+          "General Catalyst",
+          "Coatue",
+          "IVP",
+          "Workday Ventures"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series D\", \"amount\": 200000000, \"year\": 2023}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Glean was founded by former Google search and AI leaders with extensive experience in building large-scale search infrastructure and AI-driven products. CEO Arvind Jain was a Distinguished Engineer at Google and co-founded Rubrik. CTO T.R. Ramachandran was also a Distinguished Engineer at Google, leading search infrastructure. The executive team includes former leaders from Google (Product, Operations), Gong.io (Revenue), and Coupa (Finance), bringing deep expertise in enterprise software, AI, and scaling high-growth companies.",
+        "key_leaders": [
+          "Arvind Jain",
+          "T.R. Ramachandran",
+          "Tony Gentilcore",
+          "Joanna Raitano",
+          "Phil Moyer",
+          "Vivek Raghunathan",
+          "Pooja Meena",
+          "Chris Chae"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Enterprise Scale",
+        "years_in_market": 4,
+        "case_studies_available": true,
+        "deployment_scale": "Enterprise production usage across numerous leading companies, connecting to a wide array of enterprise applications and data sources for global deployments."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": true,
+      "industry_ai": false,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Instant information retrieval across all company apps",
+        "Unified knowledge management",
+        "Accelerated employee onboarding",
+        "Enhanced internal communications",
+        "Improved decision making with AI-powered answers",
+        "Reduced time spent searching for information",
+        "Streamlined customer support with quick access to knowledge"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Slack",
+        "Google Drive",
+        "Salesforce",
+        "Jira",
+        "Notion",
+        "Confluence",
+        "Microsoft 365 (SharePoint, Teams, OneDrive)",
+        "Box",
+        "Dropbox",
+        "Zendesk",
+        "GitHub",
+        "ServiceNow",
+        "Workday",
+        "Asana",
+        "Figma",
+        "HubSpot",
+        "Airtable",
+        "Okta",
+        "Azure Active Directory"
+      ],
+      "notes": "Glean emphasizes secure and quick integration with a wide range of enterprise applications. The platform is designed for enterprise-grade security, privacy, and access controls, which are key considerations for implementation. Its focus on a unified search experience across disparate systems suggests a robust integration framework."
+    },
+    "commercial_viability": {
+      "monetization_model": "SaaS, subscription-based enterprise contracts",
+      "pricing_transparency": false,
+      "gtm_model": "Direct enterprise sales",
+      "partner_willingness": false,
+      "estimated_deal_size_usd": 0,
+      "notes": "Glean targets large enterprises and offers a 'Contact Sales' model, indicating a focus on customized solutions and significant contract values. While no explicit partner program is detailed on the website, the nature of enterprise software often necessitates a partner ecosystem for implementation and resale."
+    },
+    "evidence": {
+      "sources": [
+        "https://glean.com"
+      ],
+      "last_updated": "2026-05-22T07:09:28.992806"
+    }
+  }
+}

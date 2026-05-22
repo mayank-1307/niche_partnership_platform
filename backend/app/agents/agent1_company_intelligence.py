@@ -66,7 +66,11 @@ class CompanyIntelligenceAgent:
 
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_1", message="Summarizing with grounded anti-hallucination rules"))
         try:
-            llm = await mistral_client.chat_json(AGENT1_SUMMARY_PROMPT, json.dumps(prompt))
+            llm = await mistral_client.chat_json(
+                AGENT1_SUMMARY_PROMPT,
+                json.dumps(prompt),
+                agent_name="agent1",
+            )
         except Exception:
             llm = {}
             logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_1", message="LLM summary failed, using fallback synthesis"))

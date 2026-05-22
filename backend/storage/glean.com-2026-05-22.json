@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-05-22T06:56:12.728408",
+  "data": {
+    "company_name": "Glean",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, USA",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Databricks",
+          "Canva",
+          "Grammarly",
+          "Confluent",
+          "Okta",
+          "Atlassian",
+          "NVIDIA",
+          "Duolingo",
+          "Anthropic",
+          "Notion",
+          "Figma"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 360000000,
+        "investors": [
+          "Kleiner Perkins",
+          "Lightspeed Venture Partners",
+          "Sequoia Capital",
+          "General Catalyst",
+          "Coatue",
+          "IVP",
+          "Workday Ventures",
+          "ICONIQ Growth",
+          "Adams Street Partners",
+          "Capital One Ventures",
+          "Citi Ventures",
+          "Databricks Ventures",
+          "Dell Technologies Capital",
+          "GV",
+          "Hewlett Packard Enterprise",
+          "Latitude",
+          "Mubadala Capital",
+          "Next Play Ventures",
+          "Tiger Global Management",
+          "Wellington Management"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series D\", \"amount\": 200000000, \"year\": 2024}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Glean was founded by a team with deep experience in search, infrastructure, and enterprise software from leading tech companies. CEO and Co-founder Arvind Jain was a Distinguished Engineer at Google, where he led search and infrastructure teams, and was also a co-founder of Rubrik. Co-founders T.R. Vishwanath, Piyush Prahladka, and Tony Gavin also held significant roles at Google and Facebook, bringing extensive expertise in building scalable systems and user-centric products.",
+        "key_leaders": [
+          "Arvind Jain",
+          "T.R. Vishwanath",
+          "Piyush Prahladka",
+          "Tony Gavin"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Enterprise Scale",
+        "years_in_market": 5,
+        "case_studies_available": true,
+        "deployment_scale": "Glean is deployed across numerous large enterprises, supporting thousands of users and integrating with a wide array of mission-critical applications globally, demonstrating enterprise production usage and significant user volume."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": true,
+      "industry_ai": false,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Unified enterprise search across all applications",
+        "AI-powered question answering from internal knowledge",
+        "Content generation based on company data",
+        "Knowledge discovery and management",
+        "Employee productivity enhancement",
+        "Improved decision-making through accessible information"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "HIGH",
+      "tcs_implementation_readiness": "Suitable for delivery by implementation/service partners, given the need for extensive integration with diverse enterprise applications, configuration of data sources, and potential customization for specific organizational knowledge structures. The platform's enterprise focus implies robust documentation and support models.",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Google Workspace (Drive, Docs, Gmail, Calendar)",
+        "Microsoft 365 (SharePoint, OneDrive, Outlook, Teams)",
+        "Slack",
+        "Salesforce",
+        "Jira",
+        "Confluence",
+        "Notion",
+        "Figma",
+        "GitHub",
+        "ServiceNow",
+        "Zendesk",
+        "Box",
+        "Dropbox",
+        "Asana",
+        "Workday",
+        "Zoom",
+        "Miro",
+        "Webex",
+        "Azure DevOps",
+        "Okta",
+        "OneLogin",
+        "Custom APIs for internal systems"
+      ],
+      "notes": "Implementation involves connecting to a potentially large number of enterprise applications, requiring significant configuration and data indexing. Granular access controls and security policies need to be carefully mapped to existing identity management systems. Ongoing data source management and optimization will be crucial for maintaining search relevance."
+    },
+    "commercial_viability": {
+      "monetization_model": "SaaS, enterprise subscription model",
+      "pricing_transparency": false,
+      "gtm_model": "Direct enterprise sales",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Glean's focus on large enterprises and significant funding rounds suggest high-value contracts. While no explicit partner program is detailed on the website, the nature of enterprise integrations and deployments typically necessitates collaboration with system integrators and consulting partners. The company's rapid growth and impressive customer list indicate strong market traction and a robust sales motion."
+    },
+    "evidence": {
+      "sources": [],
+      "last_updated": "2026-05-22T06:56:12.728135"
+    }
+  }
+}

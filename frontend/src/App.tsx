@@ -4,6 +4,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+import { FixedHeader } from "./components/FixedHeader";
 import { JsonViewer } from "./components/JsonViewer";
 import { analyzeCompany, downloadJsonUrl, type AnalyzeResponse } from "./lib/api";
 
@@ -83,7 +84,9 @@ export default function App() {
   const companySummaryTitle = result && companyName ? `Company Summary - ${companyName}` : "Company Summary";
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
+    <>
+      <FixedHeader />
+      <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
       <Toaster position="top-right" />
 
 {/* header section */}
@@ -92,7 +95,7 @@ export default function App() {
           <div className="mb-4 flex items-center justify-between gap-4">
             <h1 className="text-3xl font-bold md:text-5xl">Partner Analysis</h1>
             <Link to="/" className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
-              Back Home
+            Home
             </Link>
           </div>
           <p className="mt-3 max-w-3xl text-slate-300">Single-click deep partner company research with two specialized AI agents, evidence tracing, and strict JSON export.</p>
@@ -118,7 +121,7 @@ export default function App() {
             disabled={loading}
             className="rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white disabled:opacity-60"
           >
-            Refresh
+            Reset
           </button>
         </div>
         <p className="mt-3 text-xs text-slate-400">
@@ -215,6 +218,7 @@ export default function App() {
           </div>
         ))}
       </section>
-    </div>
+      </div>
+    </>
   );
 }

@@ -18,7 +18,11 @@ class CompanyAnalysisOrchestrator:
         structured = await json_structuring_agent.run(research, logs)
 
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="system", message="Saving JSON output"))
-        file_id = json_storage_service.save(structured.model_dump(), domain)
+        file_id = json_storage_service.save(
+            structured.model_dump(),
+            domain,
+            company_name=structured.company_name,
+        )
 
         return AnalyzeResponse(
             id=file_id,

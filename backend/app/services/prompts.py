@@ -144,7 +144,6 @@ AGENT1_SUMMARY_PROMPT = dedent(
     """
 ).strip()
 
-
 AGENT2_STRUCTURING_PROMPT = dedent(
     """
     You are Agent 2 (JSON Structuring Agent).
@@ -214,3 +213,4 @@ AGENT2_STRUCTURING_PROMPT = dedent(
     }
     """
 ).strip()
+

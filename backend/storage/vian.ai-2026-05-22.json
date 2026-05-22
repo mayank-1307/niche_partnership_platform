@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-05-22T06:58:03.224000",
+  "data": {
+    "company_name": "Vian AI",
+    "website": "https://vian.ai",
+    "headquarters": "San Francisco, CA, USA",
+    "founded_year": 2022,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 3100000,
+        "investors": [
+          "Root Ventures"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Seed\", \"amount_usd\": 3100000, \"year\": 2023}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "The leadership team comprises seasoned experts in AI, computer vision, and manufacturing. CEO Lior Susan has a strong background in hardware, manufacturing, and venture capital (Eclipse Ventures, Flex). CTO Dr. Shlomo Hareli and Chief Scientist Dr. Yaron Honen bring deep technical expertise from their previous roles at Apple (computer vision) and Intel, having worked on advanced computer vision and 3D sensing technologies. Their collective experience spans enterprise manufacturing, AI product development, and cutting-edge computer vision research.",
+        "key_leaders": [
+          "Lior Susan, CEO",
+          "Dr. Shlomo Hareli, CTO",
+          "Dr. Yaron Honen, Chief Scientist"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 1,
+        "case_studies_available": true,
+        "deployment_scale": "Enterprise production usage with Fortune 500 companies; scalable regional and global deployments supported by cloud, edge, and on-premise options."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": true,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Automated quality control",
+        "Defect detection",
+        "Manufacturing process optimization",
+        "Reducing production costs",
+        "Improving product quality",
+        "Increasing manufacturing throughput",
+        "Enhancing operational safety"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "Yes",
+      "training_effort_required": "LOW",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Existing manufacturing systems (MES, ERP)",
+        "Robotics systems",
+        "Cloud platforms",
+        "Edge devices",
+        "On-premise infrastructure",
+        "APIs",
+        "SDKs"
+      ],
+      "notes": "The platform's flexibility in deployment (cloud, edge, on-prem) and API/SDK availability suggests good integration potential, but actual implementation effort will depend on the complexity of the client's existing infrastructure and specific integration needs."
+    },
+    "commercial_viability": {
+      "monetization_model": "SaaS",
+      "pricing_transparency": false,
+      "gtm_model": "Enterprise sales",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "The focus on enterprise clients and specific manufacturing verticals indicates a high-touch sales process with potentially significant contract values, though no specific figures are publicly available. The availability of APIs/SDKs suggests openness to system integrators and technology partners."
+    },
+    "evidence": {
+      "sources": [
+        "https://vian.ai",
+        "https://vian.ai/blog/vian-ai-raises-3-1m-seed-round-led-by-root-ventures",
+        "https://vian.ai/blog/vian-ai-launches-no-code-visual-inspection-platform",
+        "https://www.linkedin.com/in/liorsusan/",
+        "https://www.linkedin.com/in/shlomo-hareli-phd-21b9b1/",
+        "https://www.linkedin.com/in/yaron-honen-phd-43b4a21/"
+      ],
+      "last_updated": "2024-02-08"
+    }
+  }
+}

@@ -13,17 +13,17 @@ class JsonStorageService:
         self.base_dir = base_dir
         self.base_dir.mkdir(parents=True, exist_ok=True)
 
-    def _slugify_domain(self, domain: str) -> str:
-        clean = domain.replace("https://", "").replace("http://", "").strip().lower()
+    def _slugify(self, value: str) -> str:
+        clean = (value or "").replace("https://", "").replace("http://", "").strip().lower()
         clean = clean.split("/")[0]
         clean = re.sub(r"[^a-z0-9.-]", "-", clean)
         clean = re.sub(r"-{2,}", "-", clean).strip("-")
         return clean or "company"
 
-    def save(self, payload: dict, domain: str) -> str:
-        slug = self._slugify_domain(domain)
-        date_part = datetime.utcnow().strftime("%Y-%m-%d")
-        file_id = f"{slug}-{date_part}"
+    def save(self, payload: dict, domain: str, company_name: str = "") -> str:
+        slug = self._slugify(company_name) if company_name else self._slugify(domain)
+        dt_part = datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
+        file_id = f"{slug}-{dt_part}"
         target = self.base_dir / f"{file_id}.json"
         wrapped = {"generated_at": datetime.utcnow().isoformat(), "data": payload}
         target.write_text(json.dumps(wrapped, indent=2), encoding="utf-8")

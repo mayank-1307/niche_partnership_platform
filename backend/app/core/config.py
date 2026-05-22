@@ -14,9 +14,21 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openai_model: str = "gpt-5-mini"
 
+    llm_provider: str = "mistral"
+    llm_model: str = "mistral-large-latest"
+
     mistral_api_key: str = ""
     mistral_model: str = "mistral-large-latest"
     mistral_base_url: str = "https://api.mistral.ai/v1"
+
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-1.5-flash"
+    gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+    agent1_provider: str = ""
+    agent1_model: str = ""
+    agent2_provider: str = ""
+    agent2_model: str = ""
 
     search_provider: str = "duckduckgo"
     tavily_api_key: str = ""
