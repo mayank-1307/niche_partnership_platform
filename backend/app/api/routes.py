@@ -64,5 +64,5 @@ async def decision_intelligence(file_id: str):
     if not isinstance(structured, dict):
         raise bad_request("Invalid JSON payload")
 
-    report = decision_intelligence_service.evaluate(structured)
+    report = await decision_intelligence_service.evaluate(structured)
     return {"file_id": file_id, "report": report}

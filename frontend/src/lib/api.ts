@@ -27,12 +27,29 @@ export type StoredJsonPayload = {
   data?: Record<string, unknown>;
 };
 
-export type GateCondition = { label: string; pass: boolean; logic?: string };
-export type GateReport = { name: string; pass: boolean; conditions: GateCondition[] };
+export type GateCriterion = { decision: "YES" | "NO"; reason: string };
+export type Gate1Criteria = {
+  existing_enterprise_customers: GateCriterion;
+  institutional_funding: GateCriterion;
+  proven_leadership_team: GateCriterion;
+  production_grade_product_evidence: GateCriterion;
+};
+export type Gate2Criteria = {
+  ai_transformation_alignment: GateCriterion;
+  data_modernization_alignment: GateCriterion;
+  ai_operations_alignment: GateCriterion;
+  conversational_ai_alignment: GateCriterion;
+  industry_ai_alignment: GateCriterion;
+  governance_compliance_alignment: GateCriterion;
+};
 export type DecisionIntelligenceReport = {
-  gate_1: GateReport;
-  gate_2: GateReport;
-  overall: "PASS" | "REJECT";
+  company_name: string;
+  gate_1: { status: "PASS" | "FAIL"; criteria: Gate1Criteria };
+  gate_2: { status: "PASS" | "FAIL"; criteria: Gate2Criteria };
+  overall_partnership_recommendation: {
+    priority: "HIGH_PRIORITY" | "MEDIUM_PRIORITY" | "LOW_PRIORITY";
+    reason: string;
+  };
 };
 
 export async function analyzeCompany(domain: string): Promise<AnalyzeResponse> {
