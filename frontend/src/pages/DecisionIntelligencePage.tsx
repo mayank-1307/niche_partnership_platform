@@ -25,6 +25,11 @@ function labelize(value: string) {
   return value.replace(/_/g, " ");
 }
 
+function getDeterminismLabel(gate: "G1" | "G2", index: number) {
+  if (gate === "G1" && index < 3) return "DETERMINISTIC";
+  return "NON-DETERMINISTIC";
+}
+
 export default function DecisionIntelligencePage() {
   const [items, setItems] = useState<CompanyProfileSummary[]>([]);
   const [selectedId, setSelectedId] = useState("");
@@ -111,28 +116,33 @@ export default function DecisionIntelligencePage() {
               Selected: {profile.company_name || `Profile ${profile.id}`} | Generated {new Date(profile.created_at).toLocaleString()}
             </div>
           )}
-          {!report && (
+          {/* {!report && (
             <div className="mt-3 text-sm text-slate-400">
               Select a company profile and submit to generate Gate 1 and Gate 2 intelligence.
             </div>
-          )}
+          )} */}
         </div>
 
         {report ? (
           <div>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
+                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
                   <ShieldCheck className="h-4 w-4" /> Gate 1 - Enterprise Credibility
                 </div>
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_1.status === "PASS")}`}>
                   {report.gate_1.status}
                 </div>
                 <div className="space-y-2 text-sm">
-                  {Object.entries(report.gate_1.criteria).map(([key, criterion]) => (
+                  {Object.entries(report.gate_1.criteria).map(([key, criterion], index) => (
                     <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
                       <div className="flex items-center justify-between gap-3">
-                        <span>{labelize(key)}</span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-bold uppercase">{`G1.${index + 1} ${labelize(key)}`}</span>
+                          <span className="rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-cyan">
+                            {getDeterminismLabel("G1", index)}
+                          </span>
+                        </div>
                         <span className={isPass(isYes(criterion.decision))}>{criterion.decision}</span>
                       </div>
                       <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>
@@ -142,17 +152,22 @@ export default function DecisionIntelligencePage() {
               </div>
 
               <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
+                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
                   <ShieldCheck className="h-4 w-4" /> Gate 2 - Strategic Relevance
                 </div>
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_2.status === "PASS")}`}>
                   {report.gate_2.status}
                 </div>
                 <div className="space-y-2 text-sm">
-                  {Object.entries(report.gate_2.criteria).map(([key, criterion]) => (
+                  {Object.entries(report.gate_2.criteria).map(([key, criterion], index) => (
                     <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
                       <div className="flex items-center justify-between gap-3">
-                        <span>{labelize(key)}</span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-bold uppercase">{`G2.${index + 1} ${labelize(key)}`}</span>
+                          <span className="rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-cyan">
+                            {getDeterminismLabel("G2", index)}
+                          </span>
+                        </div>
                         <span className={isPass(isYes(criterion.decision))}>{criterion.decision}</span>
                       </div>
                       <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>

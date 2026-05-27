@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
 import { Brain, ShieldCheck, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { FixedHeader } from "./components/FixedHeader";
 import { JsonViewer } from "./components/JsonViewer";
-import { analyzeCompany, downloadJsonUrl, type AnalyzeResponse } from "./lib/api";
+import {
+  analyzeCompany,
+  downloadJsonUrl,
+  getCompanyProfile,
+  listCompanyProfiles,
+  type AnalyzeResponse,
+  type CompanyProfileSummary,
+} from "./lib/api";
 
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" ? (value as Record<string, unknown>) : {};
@@ -41,6 +48,24 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AnalyzeResponse | null>(null);
   const [inputLocked, setInputLocked] = useState(false);
+  const [expandedInsightBlocks, setExpandedInsightBlocks] = useState<Record<string, boolean>>({});
+  const [recentProfiles, setRecentProfiles] = useState<CompanyProfileSummary[]>([]);
+  const [loadingRecentProfiles, setLoadingRecentProfiles] = useState(false);
+
+  useEffect(() => {
+    const loadRecentProfiles = async () => {
+      setLoadingRecentProfiles(true);
+      try {
+        const items = await listCompanyProfiles();
+        setRecentProfiles(items.slice(0, 5));
+      } catch (error: any) {
+        toast.error(error?.response?.data?.detail || "Failed to load recent searches");
+      } finally {
+        setLoadingRecentProfiles(false);
+      }
+    };
+    void loadRecentProfiles();
+  }, []);
 
   const run = async () => {
     if (!domain.trim()) {
@@ -65,6 +90,37 @@ export default function App() {
 
   const refreshForNewAnalysis = () => {
     window.location.reload();
+  };
+
+  const toggleInsightBlock = (blockId: string) => {
+    setExpandedInsightBlocks((prev) => ({ ...prev, [blockId]: !prev[blockId] }));
+  };
+
+  const loadRecentAnalysis = async (profileId: number) => {
+    setLoading(true);
+    try {
+      const profile = await getCompanyProfile(profileId);
+      const structured = profile.artefact?.data;
+      if (!structured || typeof structured !== "object") {
+        toast.error("Saved profile data is invalid");
+        return;
+      }
+
+      setResult({
+        id: String(profile.id),
+        company_summary: `Loaded from saved analysis (${new Date(profile.created_at).toLocaleString()}).`,
+        extracted_insights: {},
+        evidence: [],
+        structured_json: structured,
+        agent_logs: [],
+      });
+      setInputLocked(true);
+      toast.success("Loaded saved analysis from database");
+    } catch (error: any) {
+      toast.error(error?.response?.data?.detail || "Failed to load saved analysis");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const structured = asRecord(result?.structured_json);
@@ -128,8 +184,30 @@ export default function App() {
           </button>
         </div>
         <p className="mt-3 text-xs text-slate-400">
-          Disclaimer : The agents are accessing data from public sites as well as official sites
+          **The agents are accessing data from the official sites as well as publicly available sources**
         </p>
+        <div className="mt-4">
+          <div className="mb-2 text-sm text-cyan">Recent 5 Searches</div>
+          {loadingRecentProfiles ? (
+            <div className="text-xs text-slate-400">Loading recent searches...</div>
+          ) : recentProfiles.length === 0 ? (
+            <div className="text-xs text-slate-400">No recent searches found.</div>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {recentProfiles.map((profile) => (
+                <button
+                  key={profile.id}
+                  type="button"
+                  onClick={() => void loadRecentAnalysis(profile.id)}
+                  disabled={loading}
+                  className="rounded-lg border border-white/20 bg-black/30 px-3 py-2 text-xs text-slate-200 hover:bg-white/10 disabled:opacity-60"
+                >
+                  {(profile.company_name || `Profile ${profile.id}`).trim()} ({new Date(profile.created_at).toLocaleDateString()})
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
@@ -172,65 +250,109 @@ export default function App() {
           <div className="mb-4 flex items-center gap-2 text-sm text-cyan">
             Key Insights Dashboard
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
-              <div className="text-sm uppercase tracking-wide text-slate-400">Company</div>
-              <div className="mt-2 text-base font-semibold text-white">{String(structured.company_name ?? "-")}</div>
-              <div className="mt-1 text-sm text-slate-400">{String(structured.website ?? "-")}</div>
-              <div className="mt-3 text-sm text-slate-300">Headquarters: {String(structured.headquarters ?? "-")}</div>
-              <div className="text-sm text-slate-300">Founded: {String(structured.founded_year ?? "-")}</div>
-            </div>
-
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
-              <div className="text-sm uppercase tracking-wide text-slate-400">Funding</div>
-              <div className="mt-2 text-sm text-slate-300">Funded: {yesNo(funding.is_funded)}</div>
-              <div className="text-sm text-slate-300">Total Funding (USD): {formatUsd(funding.total_funding_usd)}</div>
-              <div className="mt-2 text-sm text-slate-400">Investors</div>
-              <div className="mt-1 text-sm">{investors.length ? investors.join(", ") : "-"}</div>
-              <div className="mt-2 text-sm text-slate-400">Recent Rounds</div>
-              <div className="mt-1 text-sm">{rounds.length ? rounds.join(", ") : "-"}</div>
-            </div>
-
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
-              <div className="text-sm uppercase tracking-wide text-slate-400">Leadership & Maturity</div>
-              <div className="mt-2 text-sm text-slate-300">Founders Experience: {String(leadership.founders_experience ?? "-")}</div>
-              <div className="mt-2 text-sm text-slate-400">Key Leaders</div>
-              <div className="mt-1 text-sm">{leaders.length ? leaders.join(", ") : "-"}</div>
-              <div className="mt-2 text-sm text-slate-300">Stage: {String(productMaturity.stage ?? "-")}</div>
-              <div className="text-sm text-slate-300">Years in Market: {String(productMaturity.years_in_market ?? "-")}</div>
-            </div>
-
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
-              <div className="text-sm uppercase tracking-wide text-slate-400">Strategic Relevance</div>
-              <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                <div>AI Transformation: {yesNo(strategic.ai_transformation)}</div>
-                <div>Data Modernization: {yesNo(strategic.data_modernization)}</div>
-                <div>AI Operations: {yesNo(strategic.ai_operations)}</div>
-                <div>Conversational AI: {yesNo(strategic.conversational_ai)}</div>
-                <div>Industry AI: {yesNo(strategic.industry_ai)}</div>
-                <div>Compliance: {yesNo(strategic.governance_compliance)}</div>
+              <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                <div className="text-sm uppercase tracking-wide text-slate-400">Company, Funding & Key Players</div>
+                <button
+                  type="button"
+                  onClick={() => toggleInsightBlock("company_funding_key_players")}
+                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
+                >
+                  {expandedInsightBlocks.company_funding_key_players ? "Hide" : "Detail"}
+                </button>
               </div>
-              <div className="mt-3 text-sm text-slate-400">Primary Use Cases</div>
-              <div className="mt-1 text-sm">{useCases.length ? useCases.join(", ") : "-"}</div>
+              {expandedInsightBlocks.company_funding_key_players && (
+                <div className="pt-1">
+                  <div className="mt-2 text-base font-semibold text-white">{String(structured.company_name ?? "-")}</div>
+                  <div className="mt-1 text-sm text-slate-400">{String(structured.website ?? "-")}</div>
+                  <div className="mt-3 text-sm text-slate-300">Headquarters: {String(structured.headquarters ?? "-")}</div>
+                  <div className="text-sm text-slate-300">Founded: {String(structured.founded_year ?? "-")}</div>
+                  <div className="mt-3 text-sm text-slate-300">Funded: {yesNo(funding.is_funded)}</div>
+                  <div className="text-sm text-slate-300">Total Funding (USD): {formatUsd(funding.total_funding_usd)}</div>
+                  <div className="mt-2 text-sm text-slate-400">Investors</div>
+                  <div className="mt-1 text-sm">{investors.length ? investors.join(", ") : "-"}</div>
+                  <div className="mt-2 text-sm text-slate-400">Recent Rounds</div>
+                  <div className="mt-1 text-sm">{rounds.length ? rounds.join(", ") : "-"}</div>
+                  <div className="mt-3 text-sm text-slate-300">Founders Experience: {String(leadership.founders_experience ?? "-")}</div>
+                  <div className="mt-2 text-sm text-slate-400">Key Leaders</div>
+                  <div className="mt-1 text-sm">{leaders.length ? leaders.join(", ") : "-"}</div>
+                  <div className="mt-2 text-sm text-slate-300">Stage: {String(productMaturity.stage ?? "-")}</div>
+                  <div className="text-sm text-slate-300">Years in Market: {String(productMaturity.years_in_market ?? "-")}</div>
+                </div>
+              )}
             </div>
 
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
-              <div className="text-sm uppercase tracking-wide text-slate-400">Delivery Feasibility</div>
-              <div className="mt-2 text-sm text-slate-300">Complexity: {String(delivery.implementation_complexity ?? "-")}</div>
-              <div className="text-sm text-slate-300">Readiness: {String(delivery.tcs_implementation_readiness ?? "-")}</div>
-              <div className="text-sm text-slate-300">Training: {String(delivery.training_effort_required ?? "-")}</div>
-              <div className="text-sm text-slate-300">Support: {String(delivery.support_scalability ?? "-")}</div>
-              <div className="mt-2 text-sm text-slate-400">Integration Requirements</div>
-              <div className="mt-1 text-sm">{integrationReqs.length ? integrationReqs.join(", ") : "-"}</div>
+              <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                <div className="text-sm uppercase tracking-wide text-slate-400">Strategic Relevance</div>
+                <button
+                  type="button"
+                  onClick={() => toggleInsightBlock("strategic_relevance")}
+                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
+                >
+                  {expandedInsightBlocks.strategic_relevance ? "Hide" : "Detail"}
+                </button>
+              </div>
+              {expandedInsightBlocks.strategic_relevance && (
+                <div className="pt-1">
+                  <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                    <div>AI Transformation: {yesNo(strategic.ai_transformation)}</div>
+                    <div>Data Modernization: {yesNo(strategic.data_modernization)}</div>
+                    <div>AI Operations: {yesNo(strategic.ai_operations)}</div>
+                    <div>Conversational AI: {yesNo(strategic.conversational_ai)}</div>
+                    <div>Industry AI: {yesNo(strategic.industry_ai)}</div>
+                    <div>Compliance: {yesNo(strategic.governance_compliance)}</div>
+                  </div>
+                  <div className="mt-3 text-sm text-slate-400">Primary Use Cases</div>
+                  <div className="mt-1 text-sm">{useCases.length ? useCases.join(", ") : "-"}</div>
+                </div>
+              )}
             </div>
 
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
-              <div className="text-sm uppercase tracking-wide text-slate-400">Commercial Viability</div>
-              <div className="mt-2 text-sm text-slate-300">Model: {String(commercial.monetization_model ?? "-")}</div>
-              <div className="text-sm text-slate-300">GTM: {String(commercial.gtm_model ?? "-")}</div>
-              <div className="text-sm text-slate-300">Pricing Transparent: {yesNo(commercial.pricing_transparency)}</div>
-              <div className="text-sm text-slate-300">Partner Willingness: {yesNo(commercial.partner_willingness)}</div>
-              <div className="text-sm text-slate-300">Est. Deal Size: {String(commercial.estimated_deal_size_usd ?? "-")}</div>
+              <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                <div className="text-sm uppercase tracking-wide text-slate-400">Delivery Feasibility</div>
+                <button
+                  type="button"
+                  onClick={() => toggleInsightBlock("delivery_feasibility")}
+                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
+                >
+                  {expandedInsightBlocks.delivery_feasibility ? "Hide" : "Detail"}
+                </button>
+              </div>
+              {expandedInsightBlocks.delivery_feasibility && (
+                <div className="pt-1">
+                  <div className="mt-2 text-sm text-slate-300">Complexity: {String(delivery.implementation_complexity ?? "-")}</div>
+                  <div className="text-sm text-slate-300">Readiness: {String(delivery.tcs_implementation_readiness ?? "-")}</div>
+                  <div className="text-sm text-slate-300">Training: {String(delivery.training_effort_required ?? "-")}</div>
+                  <div className="text-sm text-slate-300">Support: {String(delivery.support_scalability ?? "-")}</div>
+                  <div className="mt-2 text-sm text-slate-400">Integration Requirements</div>
+                  <div className="mt-1 text-sm">{integrationReqs.length ? integrationReqs.join(", ") : "-"}</div>
+                </div>
+              )}
+            </div>
+
+            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
+              <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                <div className="text-sm uppercase tracking-wide text-slate-400">Commercial Viability</div>
+                <button
+                  type="button"
+                  onClick={() => toggleInsightBlock("commercial_viability")}
+                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
+                >
+                  {expandedInsightBlocks.commercial_viability ? "Hide" : "Detail"}
+                </button>
+              </div>
+              {expandedInsightBlocks.commercial_viability && (
+                <div className="pt-1">
+                  <div className="mt-2 text-sm text-slate-300">Model: {String(commercial.monetization_model ?? "-")}</div>
+                  <div className="text-sm text-slate-300">GTM: {String(commercial.gtm_model ?? "-")}</div>
+                  <div className="text-sm text-slate-300">Pricing Transparent: {yesNo(commercial.pricing_transparency)}</div>
+                  <div className="text-sm text-slate-300">Partner Willingness: {yesNo(commercial.partner_willingness)}</div>
+                  <div className="text-sm text-slate-300">Est. Deal Size: {String(commercial.estimated_deal_size_usd ?? "-")}</div>
+                </div>
+              )}
             </div>
           </div>
           {!result && <div className="mt-4 text-sm text-slate-400">Run an analysis to populate the key insight blocks.</div>}
