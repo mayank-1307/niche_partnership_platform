@@ -120,3 +120,22 @@ class AnalyzeResponse(BaseModel):
 
 class HealthResponse(BaseModel):
     status: str = "ok"
+
+
+class CompanyProfileSummary(BaseModel):
+    id: int
+    company_name: str | None = None
+    username: str = ""
+    created_at: datetime
+
+
+class CompanyProfileListResponse(BaseModel):
+    items: list[CompanyProfileSummary] = Field(default_factory=list)
+
+
+class CompanyProfileDetail(BaseModel):
+    id: int
+    company_name: str | None = None
+    username: str = ""
+    artefact: dict[str, Any]
+    created_at: datetime

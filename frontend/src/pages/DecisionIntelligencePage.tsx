@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 import { FixedHeader } from "../components/FixedHeader";
-import { getDecisionIntelligenceReport, listStoredJsons, type DecisionIntelligenceReport, type StoredJsonItem } from "../lib/api";
+import {
+  getCompanyProfile,
+  getDecisionIntelligenceReport,
+  listCompanyProfiles,
+  type CompanyProfileDetail,
+  type CompanyProfileSummary,
+  type DecisionIntelligenceReport,
+} from "../lib/api";
 
 function isPass(value: boolean) {
   return value ? "text-mint" : "text-rose-300";
@@ -13,30 +21,48 @@ function isYes(value: "YES" | "NO") {
   return value === "YES";
 }
 
+function labelize(value: string) {
+  return value.replace(/_/g, " ");
+}
+
 export default function DecisionIntelligencePage() {
-  const [items, setItems] = useState<StoredJsonItem[]>([]);
+  const [items, setItems] = useState<CompanyProfileSummary[]>([]);
   const [selectedId, setSelectedId] = useState("");
-  const [submittedId, setSubmittedId] = useState("");
+  const [profile, setProfile] = useState<CompanyProfileDetail | null>(null);
   const [report, setReport] = useState<DecisionIntelligenceReport | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingProfiles, setLoadingProfiles] = useState(false);
 
   useEffect(() => {
-    const load = async () => {
-      const files = await listStoredJsons();
-      setItems(files);
+    const loadProfiles = async () => {
+      setLoadingProfiles(true);
+      try {
+        const profiles = await listCompanyProfiles();
+        setItems(profiles);
+      } catch (error: any) {
+        toast.error(error?.response?.data?.detail || "Failed to load company profiles");
+      } finally {
+        setLoadingProfiles(false);
+      }
     };
-    void load();
+    void loadProfiles();
   }, []);
 
   const submitSelection = async () => {
     if (!selectedId) return;
     setLoading(true);
+    setProfile(null);
     setReport(null);
-    setSubmittedId("");
     try {
-      const res = await getDecisionIntelligenceReport(selectedId);
-      setReport(res);
-      setSubmittedId(selectedId);
+      const [selectedProfile, gateReport] = await Promise.all([
+        getCompanyProfile(Number(selectedId)),
+        getDecisionIntelligenceReport(selectedId),
+      ]);
+      setProfile(selectedProfile);
+      setReport(gateReport);
+      toast.success("Decision intelligence generated");
+    } catch (error: any) {
+      toast.error(error?.response?.data?.detail || "Failed to generate decision intelligence");
     } finally {
       setLoading(false);
     }
@@ -46,92 +72,105 @@ export default function DecisionIntelligencePage() {
     <>
       <FixedHeader />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold md:text-5xl">Decision Intelligence</h1>
-        <Link to="/" className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
-          Home
-        </Link>
-      </div>
+        <Toaster position="top-right" />
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-3xl font-bold md:text-5xl">Decision Intelligence</h1>
+          <Link to="/" className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
+            Home
+          </Link>
+        </div>
 
-      <div className="glass mb-6 rounded-2xl p-5">
-        <div className="mb-2 text-sm text-cyan">Choose Recently Analyzed Company JSON</div>
-        <div className="flex flex-col gap-3 md:flex-row">
-          <select
-            value={selectedId}
-            onChange={(e) => setSelectedId(e.target.value)}
-            className="w-full rounded-xl border border-white/20 bg-slate-100 px-4 py-3 text-slate-900"
-          >
-            <option value="" disabled>
-              {items.length === 0 ? "No stored files found" : "Select a JSON file from storage"}
-            </option>
-            {items.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.filename}
+        <div className="glass mb-6 rounded-2xl p-5">
+          <div className="mb-2 text-sm text-cyan">Choose Company Profile</div>
+          <div className="flex flex-col gap-3 md:flex-row">
+            <select
+              value={selectedId}
+              onChange={(e) => setSelectedId(e.target.value)}
+              className="w-full rounded-xl border border-white/20 bg-slate-100 px-4 py-3 text-slate-900"
+            >
+              <option value="" disabled>
+                {items.length === 0 ? (loadingProfiles ? "Loading profiles..." : "No profiles found") : "Choose recently analyzed partner company json for scoring"}
               </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            onClick={() => void submitSelection()}
-            disabled={!selectedId || loading}
-            className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60"
-          >
-            {loading ? "Generating..." : "Submit"}
-          </button>
-        </div>
-        {!submittedId && <div className="mt-3 text-xs text-slate-400">Pick a file from storage and click Submit to generate the report.</div>}
-      </div>
-
-      {report ? (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div className="glass rounded-2xl p-5">
-            <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
-              <ShieldCheck className="h-4 w-4" /> Gate 1 - Enterprise Credibility
-            </div>
-            <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_1.status === "PASS")}`}>
-              {report.gate_1.status}
-            </div>
-            <div className="space-y-2 text-sm">
-              {Object.entries(report.gate_1.criteria).map(([key, criterion]) => (
-                <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <span>{key.replaceAll("_", " ")}</span>
-                    <span className={isPass(isYes(criterion.decision))}>{criterion.decision}</span>
-                  </div>
-                  <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>
-                </div>
+              {items.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.company_name || `Profile ${item.id}`} ({new Date(item.created_at).toLocaleString()})
+                </option>
               ))}
-            </div>
+            </select>
+            <button
+              type="button"
+              onClick={() => void submitSelection()}
+              disabled={!selectedId || loading}
+              className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60"
+            >
+              {loading ? "Generating..." : "Submit"}
+            </button>
           </div>
-
-          <div className="glass rounded-2xl p-5">
-            <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
-              <ShieldCheck className="h-4 w-4" /> Gate 2 - Strategic Relevance
+          {profile && (
+            <div className="mt-3 text-xs text-slate-400">
+              Selected: {profile.company_name || `Profile ${profile.id}`} | Generated {new Date(profile.created_at).toLocaleString()}
             </div>
-            <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_2.status === "PASS")}`}>
-              {report.gate_2.status}
+          )}
+          {!report && (
+            <div className="mt-3 text-sm text-slate-400">
+              Select a company profile and submit to generate Gate 1 and Gate 2 intelligence.
             </div>
-            <div className="space-y-2 text-sm">
-              {Object.entries(report.gate_2.criteria).map(([key, criterion]) => (
-                <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <span>{key.replaceAll("_", " ")}</span>
-                    <span className={isPass(isYes(criterion.decision))}>{criterion.decision}</span>
-                  </div>
-                  <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="glass rounded-2xl p-5 lg:col-span-2">
-            <div className="mb-2 text-sm text-cyan">Overall Partnership Recommendation</div>
-            <div className="text-lg font-semibold text-white">{report.overall_partnership_recommendation.priority}</div>
-            <div className="mt-2 text-sm text-slate-300">{report.overall_partnership_recommendation.reason}</div>
-          </div>
+          )}
         </div>
-      ) : (
-        !loading 
-      )}
+
+        {report ? (
+          <div>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <div className="glass rounded-2xl p-5">
+                <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
+                  <ShieldCheck className="h-4 w-4" /> Gate 1 - Enterprise Credibility
+                </div>
+                <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_1.status === "PASS")}`}>
+                  {report.gate_1.status}
+                </div>
+                <div className="space-y-2 text-sm">
+                  {Object.entries(report.gate_1.criteria).map(([key, criterion]) => (
+                    <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <span>{labelize(key)}</span>
+                        <span className={isPass(isYes(criterion.decision))}>{criterion.decision}</span>
+                      </div>
+                      <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="glass rounded-2xl p-5">
+                <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
+                  <ShieldCheck className="h-4 w-4" /> Gate 2 - Strategic Relevance
+                </div>
+                <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_2.status === "PASS")}`}>
+                  {report.gate_2.status}
+                </div>
+                <div className="space-y-2 text-sm">
+                  {Object.entries(report.gate_2.criteria).map(([key, criterion]) => (
+                    <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <span>{labelize(key)}</span>
+                        <span className={isPass(isYes(criterion.decision))}>{criterion.decision}</span>
+                      </div>
+                      <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="glass mt-6 w-full rounded-2xl p-5">
+              <div className="mb-2 text-sm text-cyan">Overall Partnership Recommendation</div>
+              <div className="text-lg font-semibold text-white">{report.overall_partnership_recommendation.priority}</div>
+              <div className="mt-2 text-sm text-slate-300">{report.overall_partnership_recommendation.reason}</div>
+            </div> */}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

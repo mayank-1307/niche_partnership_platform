@@ -80,6 +80,9 @@ export default function App() {
   const investors = asStringList(funding.investors);
   const rounds = asStringList(funding.recent_rounds);
   const leaders = asStringList(leadership.key_leaders);
+  const evidence = asRecord(structured.evidence);
+  const evidenceSources = asStringList(evidence.sources);
+  const evidenceLastUpdated = typeof evidence.last_updated === "string" ? evidence.last_updated.trim() : "";
   const companyName = typeof structured.company_name === "string" ? structured.company_name.trim() : "";
   const companySummaryTitle = result && companyName ? `Company Summary - ${companyName}` : "Company Summary";
 
@@ -129,10 +132,36 @@ export default function App() {
         </p>
       </section>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="glass rounded-2xl p-5">
-          <div className="mb-3 flex items-center gap-2 text-sm text-cyan">{companySummaryTitle}</div>
-          <div className="prose prose-invert max-w-none text-sm text-slate-200 whitespace-pre-wrap">{result?.company_summary || "Summary will appear after extraction."}</div>
+      <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+        <div className="flex flex-col gap-6 lg:h-full lg:min-h-0">
+          <div className="glass flex flex-col rounded-2xl p-5 lg:min-h-0 lg:flex-1">
+            <div className="mb-3 flex items-center gap-2 text-sm text-cyan">{companySummaryTitle}</div>
+            <div className="prose prose-invert max-w-none whitespace-pre-wrap text-sm text-slate-200 lg:min-h-0 lg:overflow-auto">{result?.company_summary || "Summary will appear after extraction."}</div>
+          </div>
+
+          {evidenceSources.length > 0 && (
+            <div className="glass flex flex-col rounded-2xl p-5 lg:min-h-0 lg:flex-1">
+              <div className="mb-3 flex items-center gap-2 text-sm text-cyan">Sources</div>
+              <div className="space-y-2 lg:min-h-0 lg:overflow-auto">
+                {evidenceSources.map((source, index) => {
+                  const isUrl = /^https?:\/\//i.test(source);
+
+                  return (
+                    <div key={`${source}-${index}`} className="rounded-lg border border-white/10 bg-black/20 p-3 text-sm text-slate-200">
+                      {isUrl ? (
+                        <a href={source} target="_blank" rel="noreferrer" className="break-words text-cyan hover:text-white">
+                          {source}
+                        </a>
+                      ) : (
+                        <span className="break-words">{source}</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              {evidenceLastUpdated && <div className="mt-3 text-xs text-slate-400">Last updated: {evidenceLastUpdated}</div>}
+            </div>
+          )}
         </div>
 
         <JsonViewer data={result?.structured_json ?? null} downloadUrl={result ? downloadJsonUrl(result.id) : null} companyName={companyName} />

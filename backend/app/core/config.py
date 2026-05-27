@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     serper_api_key: str = ""
 
     backend_cors_origins: str = "http://localhost:5173"
+    database_url: str = ""
 
     request_timeout_seconds: int = 25
     max_pages_to_crawl: int = 12

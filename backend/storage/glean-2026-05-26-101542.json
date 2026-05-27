@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-05-26T10:15:42.294102",
+  "data": {
+    "company_name": "Glean",
+    "website": "https://glean.com",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": false,
+        "total_funding_usd": 0,
+        "investors": [],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "",
+        "key_leaders": []
+      },
+      "product_maturity": {
+        "stage": "",
+        "years_in_market": 0,
+        "case_studies_available": false,
+        "deployment_scale": ""
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": false,
+      "data_modernization": false,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": false,
+      "governance_compliance": false,
+      "primary_use_cases": []
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "",
+      "tcs_implementation_readiness": "",
+      "training_effort_required": "",
+      "support_scalability": "",
+      "integration_requirements": [],
+      "notes": ""
+    },
+    "commercial_viability": {
+      "monetization_model": "",
+      "pricing_transparency": false,
+      "gtm_model": "",
+      "partner_willingness": false,
+      "estimated_deal_size_usd": 0,
+      "notes": ""
+    },
+    "evidence": {
+      "sources": [
+        "https://glean.com"
+      ],
+      "last_updated": "2026-05-26T10:15:42.208774"
+    }
+  }
+}

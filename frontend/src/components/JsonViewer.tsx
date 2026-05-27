@@ -112,7 +112,7 @@ export function JsonViewer({
   };
 
   return (
-    <div className="glass rounded-2xl p-5">
+    <div className="glass h-full rounded-2xl p-5">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm text-cyan">Structured JSON</h3>
         <div className="flex gap-2">

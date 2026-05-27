@@ -27,6 +27,24 @@ export type StoredJsonPayload = {
   data?: Record<string, unknown>;
 };
 
+export type CompanyProfileSummary = {
+  id: number;
+  company_name: string | null;
+  username: string;
+  created_at: string;
+};
+
+export type CompanyProfileDetail = {
+  id: number;
+  company_name: string | null;
+  username: string;
+  created_at: string;
+  artefact: {
+    generated_at?: string;
+    data?: Record<string, unknown>;
+  };
+};
+
 export type GateCriterion = { decision: "YES" | "NO"; reason: string };
 export type Gate1Criteria = {
   existing_enterprise_customers: GateCriterion;
@@ -74,4 +92,14 @@ export async function getStoredJson(fileId: string): Promise<StoredJsonPayload> 
 export async function getDecisionIntelligenceReport(fileId: string): Promise<DecisionIntelligenceReport> {
   const res = await api.get<{ file_id: string; report: DecisionIntelligenceReport }>(`/decision-intelligence/${fileId}`);
   return res.data.report;
+}
+
+export async function listCompanyProfiles(): Promise<CompanyProfileSummary[]> {
+  const res = await api.get<{ items: CompanyProfileSummary[] }>("/decision-intelligence/profiles");
+  return res.data.items ?? [];
+}
+
+export async function getCompanyProfile(id: number): Promise<CompanyProfileDetail> {
+  const res = await api.get<CompanyProfileDetail>(`/decision-intelligence/profiles/${id}`);
+  return res.data;
 }
