@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-05-27T10:56:40.679731",
+  "data": {
+    "company_name": "MindRobotics",
+    "website": "https://www.mindrobotics.com",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": false,
+        "total_funding_usd": 0,
+        "investors": [],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "No publicly available information on founders or executive team backgrounds.",
+        "key_leaders": []
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 0,
+        "case_studies_available": false,
+        "deployment_scale": "Limited public evidence of large-scale deployments; primarily marketed for pilot and enterprise automation use cases."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": true,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": false,
+      "primary_use_cases": [
+        "Intelligent process automation (IPA)",
+        "Robotic process automation (RPA) with AI augmentation",
+        "Enterprise workflow optimization",
+        "AI-driven decision support for operational efficiency"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "Unknown",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "",
+      "integration_requirements": [
+        "Enterprise ERP systems (e.g., SAP, Oracle)",
+        "Cloud platforms (AWS, Azure, GCP)",
+        "Legacy system connectors",
+        "API-based integrations for custom workflows"
+      ],
+      "notes": "Solution appears modular and API-driven, suggesting suitability for partner-led implementation. Documentation and support maturity unclear without further access."
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based (SaaS) and enterprise licensing",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led (limited public evidence on partner ecosystem)",
+      "partner_willingness": false,
+      "estimated_deal_size_usd": 0,
+      "notes": "No public pricing or contract details. Sales motion appears enterprise-focused, but partner ecosystem maturity is unverified."
+    },
+    "evidence": {
+      "sources": [
+        "https://www.mindrobotics.com",
+        "https://www.mindrobotics.com/about",
+        "https://www.mindrobotics.com/products",
+        "https://www.mindrobotics.com/case-studies"
+      ],
+      "last_updated": "2023-11-15"
+    }
+  }
+}

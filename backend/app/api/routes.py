@@ -17,6 +17,7 @@ from app.models.schemas import (
 from app.services.db_service import company_profile_db
 from app.services.decision_intelligence_service import decision_intelligence_service
 from app.services.orchestrator import analysis_orchestrator
+from app.services.scoring_service import scoring_service
 from app.services.storage_service import json_storage_service
 
 
@@ -108,4 +109,27 @@ async def decision_intelligence(file_id: str):
         raise bad_request("Invalid JSON payload")
 
     report = await decision_intelligence_service.evaluate(structured)
+    return {"file_id": file_id, "report": report}
+
+
+@router.get("/scoring/{file_id}")
+async def scoring(file_id: str):
+    if file_id.isdigit():
+        row = await company_profile_db.get_company_profile(int(file_id))
+        artefact = row.get("artefact") if row else None
+        wrapped = artefact if isinstance(artefact, dict) else None
+    else:
+        wrapped = None
+
+    if wrapped is None:
+        try:
+            wrapped = json_storage_service.read(file_id)
+        except FileNotFoundError as exc:
+            raise bad_request("JSON file not found") from exc
+
+    structured = wrapped.get("data", wrapped)
+    if not isinstance(structured, dict):
+        raise bad_request("Invalid JSON payload")
+
+    report = await scoring_service.evaluate(structured)
     return {"file_id": file_id, "report": report}

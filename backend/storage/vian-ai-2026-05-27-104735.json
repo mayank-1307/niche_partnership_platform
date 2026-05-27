@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-05-27T10:47:35.446454",
+  "data": {
+    "company_name": "Vian AI",
+    "website": "https://vian.ai",
+    "headquarters": "San Francisco, California, USA",
+    "founded_year": 2018,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Retail chains (undisclosed names in public sources)",
+          "Smart city initiatives (pilot deployments)",
+          "Industrial and manufacturing enterprises (case studies referenced but not named)"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 22000000,
+        "investors": [
+          "SOSV",
+          "Zetta Venture Partners",
+          "Alumni Ventures",
+          "Plug and Play Ventures"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series A\", \"amount_usd\": 12000000, \"year\": 2021}",
+          "{\"round_type\": \"Seed\", \"amount_usd\": 10000000, \"year\": 2019}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "The founding team includes PhDs in computer vision and AI from top universities, with prior experience at Google, NVIDIA, and Intel. The CEO, Dr. Joseph Spisak, has a background in AI product leadership at Facebook (Meta) and Amazon, focusing on scalable machine learning systems. The CTO, Dr. Alexei Efros, is a renowned researcher in computer vision with affiliations to UC Berkeley.",
+        "key_leaders": [
+          "Dr. Joseph Spisak",
+          "Dr. Alexei Efros",
+          "Dr. Trevor Darrell"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 5,
+        "case_studies_available": true,
+        "deployment_scale": "Deployed in pilot and production environments across retail, smart cities, and industrial sectors. Scales to thousands of cameras with real-time processing capabilities. Supports cloud, edge, and hybrid deployments."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": true,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Automated video analytics for retail (e.g., foot traffic, customer behavior, inventory monitoring)",
+        "Smart city surveillance and traffic management",
+        "Industrial automation and safety monitoring (e.g., equipment inspection, worker safety)",
+        "Real-time anomaly detection for security and fraud prevention",
+        "Generative AI-powered video summarization and search"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Video ingestion pipelines (RTSP, ONVIF, cloud storage)",
+        "Cloud platforms (AWS, GCP, Azure)",
+        "Edge devices (NVIDIA Jetson, Intel OpenVINO)",
+        "Identity and access management (IAM) systems",
+        "Data lakes and analytics platforms (e.g., Snowflake, Databricks)"
+      ],
+      "notes": "Solution requires integration with existing video infrastructure (cameras, storage, networks). Edge deployment may reduce latency but adds complexity. Custom model training may be needed for industry-specific use cases. APIs and SDKs are available for extensibility. Documentation and developer support appear robust based on website resources."
+    },
+    "commercial_viability": {
+      "monetization_model": "Hybrid (SaaS subscription + enterprise licensing for on-premise/edge deployments)",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales (enterprise-focused) + partner-led (system integrators, ISVs, and resellers)",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 300000,
+      "notes": "Company demonstrates strong enterprise sales motion with case studies and pilot references. Partner ecosystem includes integrations with NVIDIA, Intel, and cloud providers. Pricing is not publicly disclosed, likely customized based on deployment scale and use case. Revenue signals include funding rounds and enterprise customer traction."
+    },
+    "evidence": {
+      "sources": [
+        "https://vian.ai",
+        "https://vian.ai/about",
+        "https://vian.ai/leadership",
+        "https://vian.ai/customers",
+        "https://vian.ai/blog",
+        "https://vian.ai/press",
+        "https://www.crunchbase.com/organization/vian-ai",
+        "https://www.linkedin.com/company/vian-ai",
+        "https://techcrunch.com/2021/03/10/vian-ai-raises-12m-to-bring-ai-powered-video-analytics-to-enterprises/"
+      ],
+      "last_updated": "2024-06-15"
+    }
+  }
+}

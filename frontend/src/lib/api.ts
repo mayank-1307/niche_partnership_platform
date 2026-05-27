@@ -46,6 +46,7 @@ export type CompanyProfileDetail = {
 };
 
 export type GateCriterion = { decision: "YES" | "NO"; reason: string };
+export type Gate3Criterion = { decision: "YES" | "PARTIAL" | "NO" | "HIGH" | "COMPLEX"; reason: string };
 export type Gate1Criteria = {
   existing_enterprise_customers: GateCriterion;
   institutional_funding: GateCriterion;
@@ -60,14 +61,49 @@ export type Gate2Criteria = {
   industry_ai_alignment: GateCriterion;
   governance_compliance_alignment: GateCriterion;
 };
+export type Gate3Criteria = {
+  skill_availability: Gate3Criterion;
+  training_effort: Gate3Criterion;
+  integration_feasibility: Gate3Criterion;
+  support_scalability: Gate3Criterion;
+};
+export type Gate4Criteria = {
+  monetization_clarity: GateCriterion;
+  gtm_feasibility: GateCriterion;
+  revenue_upside: GateCriterion;
+  partner_willingness: GateCriterion;
+  commercial_structure_clarity: GateCriterion;
+  startup_stage_fit: GateCriterion;
+};
 export type DecisionIntelligenceReport = {
   company_name: string;
   gate_1: { status: "PASS" | "FAIL"; criteria: Gate1Criteria };
   gate_2: { status: "PASS" | "FAIL"; criteria: Gate2Criteria };
+  gate_3: { status: "PASS" | "DEFER" | "FAIL"; criteria: Gate3Criteria };
+  gate_4: { status: "PASS" | "FAIL"; criteria: Gate4Criteria };
   overall_partnership_recommendation: {
     priority: "HIGH_PRIORITY" | "MEDIUM_PRIORITY" | "LOW_PRIORITY";
     reason: string;
   };
+};
+
+export type ScoringSubCriterion = { score: number; reason: string };
+export type ScoringPillar = {
+  weight: number;
+  raw_score: number;
+  weighted_score: number;
+  summary: string;
+  sub_criteria: Record<string, ScoringSubCriterion>;
+};
+export type ScoringReport = {
+  company_name: string;
+  pillars: {
+    p1_domain_solution_depth: ScoringPillar;
+    p2_product_engineering_readiness: ScoringPillar;
+    p3_ai_transparency_trustworthiness: ScoringPillar;
+  };
+  total_weighted_score: number;
+  overall_summary: string;
 };
 
 export async function analyzeCompany(domain: string): Promise<AnalyzeResponse> {
@@ -102,4 +138,9 @@ export async function listCompanyProfiles(): Promise<CompanyProfileSummary[]> {
 export async function getCompanyProfile(id: number): Promise<CompanyProfileDetail> {
   const res = await api.get<CompanyProfileDetail>(`/decision-intelligence/profiles/${id}`);
   return res.data;
+}
+
+export async function getScoringReport(fileId: string): Promise<ScoringReport> {
+  const res = await api.get<{ file_id: string; report: ScoringReport }>(`/scoring/${fileId}`);
+  return res.data.report;
 }

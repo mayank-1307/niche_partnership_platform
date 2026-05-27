@@ -28,8 +28,9 @@ class DecisionIntelligenceService:
         def as_record(value: Any) -> dict[str, Any]:
             return value if isinstance(value, dict) else {}
 
-        def clean_decision(value: Any) -> str:
-            return "YES" if str(value).strip().upper() == "YES" else "NO"
+        def clean_decision(value: Any, allowed: tuple[str, ...] = ("YES", "NO")) -> str:
+            v = str(value).strip().upper()
+            return v if v in allowed else allowed[-1]
 
         def clean_reason(value: Any) -> str:
             return str(value).strip() if isinstance(value, str) and value.strip() else ""
@@ -52,8 +53,12 @@ class DecisionIntelligenceService:
         company_name = str(raw.get("company_name") or source_json.get("company_name") or "").strip()
         gate_1 = as_record(raw.get("gate_1"))
         gate_2 = as_record(raw.get("gate_2"))
+        gate_3 = as_record(raw.get("gate_3"))
+        gate_4 = as_record(raw.get("gate_4"))
         g1c = as_record(gate_1.get("criteria"))
         g2c = as_record(gate_2.get("criteria"))
+        g3c = as_record(gate_3.get("criteria"))
+        g4c = as_record(gate_4.get("criteria"))
         overall = as_record(raw.get("overall_partnership_recommendation"))
 
         required_g1 = [
@@ -70,16 +75,34 @@ class DecisionIntelligenceService:
             "industry_ai_alignment",
             "governance_compliance_alignment",
         ]
+        required_g3 = [
+            "skill_availability",
+            "training_effort",
+            "integration_feasibility",
+            "support_scalability",
+        ]
+        required_g4 = [
+            "monetization_clarity",
+            "gtm_feasibility",
+            "revenue_upside",
+            "partner_willingness",
+            "commercial_structure_clarity",
+            "startup_stage_fit",
+        ]
 
         # Reject partial/misaligned LLM payloads so fallback logic can handle scoring.
         if not all(get_key_ci(g1c, key) for key in required_g1):
             return None
         if not all(get_key_ci(g2c, key) for key in required_g2):
             return None
+        if not all(get_key_ci(g3c, key) for key in required_g3):
+            return None
+        if not all(get_key_ci(g4c, key) for key in required_g4):
+            return None
 
-        def criterion(block: dict[str, Any], key: str) -> dict[str, str]:
+        def criterion(block: dict[str, Any], key: str, allowed: tuple[str, ...] = ("YES", "NO")) -> dict[str, str]:
             item = as_record(get_key_ci(block, key))
-            return {"decision": clean_decision(item.get("decision")), "reason": clean_reason(item.get("reason"))}
+            return {"decision": clean_decision(item.get("decision"), allowed=allowed), "reason": clean_reason(item.get("reason"))}
 
         normalized = {
             "company_name": company_name,
@@ -101,6 +124,28 @@ class DecisionIntelligenceService:
                     "conversational_ai_alignment": criterion(g2c, "conversational_ai_alignment"),
                     "industry_ai_alignment": criterion(g2c, "industry_ai_alignment"),
                     "governance_compliance_alignment": criterion(g2c, "governance_compliance_alignment"),
+                },
+            },
+            "gate_3": {
+                "status": str(gate_3.get("status")).strip().upper()
+                if str(gate_3.get("status")).strip().upper() in ("PASS", "DEFER", "FAIL")
+                else "FAIL",
+                "criteria": {
+                    "skill_availability": criterion(g3c, "skill_availability", allowed=("YES", "PARTIAL", "NO")),
+                    "training_effort": criterion(g3c, "training_effort", allowed=("YES", "HIGH", "NO")),
+                    "integration_feasibility": criterion(g3c, "integration_feasibility", allowed=("YES", "COMPLEX", "NO")),
+                    "support_scalability": criterion(g3c, "support_scalability", allowed=("YES", "PARTIAL", "NO")),
+                },
+            },
+            "gate_4": {
+                "status": "PASS" if str(gate_4.get("status")).strip().upper() == "PASS" else "FAIL",
+                "criteria": {
+                    "monetization_clarity": criterion(g4c, "monetization_clarity"),
+                    "gtm_feasibility": criterion(g4c, "gtm_feasibility"),
+                    "revenue_upside": criterion(g4c, "revenue_upside"),
+                    "partner_willingness": criterion(g4c, "partner_willingness"),
+                    "commercial_structure_clarity": criterion(g4c, "commercial_structure_clarity"),
+                    "startup_stage_fit": criterion(g4c, "startup_stage_fit"),
                 },
             },
             "overall_partnership_recommendation": {

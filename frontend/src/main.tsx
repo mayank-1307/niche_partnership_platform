@@ -6,6 +6,7 @@ import App from "./App";
 import "./index.css";
 import DecisionIntelligencePage from "./pages/DecisionIntelligencePage";
 import HomePage from "./pages/HomePage";
+import ScoringPage from "./pages/ScoringPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<HomePage />} />
         <Route path="/analysis" element={<App />} />
         <Route path="/decision-intelligence" element={<DecisionIntelligencePage />} />
+        <Route path="/scoring" element={<ScoringPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

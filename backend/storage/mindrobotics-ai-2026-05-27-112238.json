@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-05-27T11:22:38.296147",
+  "data": {
+    "company_name": "MindRobotics AI",
+    "website": "https://www.mindrobotics.com",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": false,
+        "total_funding_usd": 0,
+        "investors": [],
+        "recent_rounds": []
+      },
+      "leadership": {
+        "founders_experience": "Limited public information available. No verifiable details on founders' or executive team's prior companies, exits, or domain expertise.",
+        "key_leaders": []
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 2,
+        "case_studies_available": false,
+        "deployment_scale": "Early-stage deployments with pilot customers. No evidence of large-scale enterprise production usage."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": false,
+      "ai_operations": true,
+      "conversational_ai": true,
+      "industry_ai": false,
+      "governance_compliance": false,
+      "primary_use_cases": [
+        "Autonomous AI agents for workflow automation",
+        "Customer support automation",
+        "Decision-making augmentation",
+        "Operational process optimization"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "LOW",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "LOW",
+      "integration_requirements": [
+        "APIs for third-party system integration",
+        "Cloud-based deployment (AWS, Azure, GCP)",
+        "Identity and access management (IAM) systems"
+      ],
+      "notes": "Limited public documentation on deployment models, partner integrations, or support frameworks. Implementation feasibility depends on customization and integration with existing enterprise systems."
+    },
+    "commercial_viability": {
+      "monetization_model": "SaaS (Subscription-based)",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales with early-stage partner engagement",
+      "partner_willingness": false,
+      "estimated_deal_size_usd": 0,
+      "notes": "No public pricing or enterprise contract details available. Early-stage GTM with limited evidence of partner ecosystem maturity."
+    },
+    "evidence": {
+      "sources": [
+        "https://www.mindrobotics.com",
+        "https://www.mindrobotics.com/about",
+        "https://www.mindrobotics.com/product",
+        "https://www.mindrobotics.com/blog"
+      ],
+      "last_updated": "2023-11-15"
+    }
+  }
+}

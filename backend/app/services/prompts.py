@@ -357,10 +357,182 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
     PASS if at least 1 criteria is YES.
     Else FAIL.
 
+    Gate 3 criteria (Delivery Feasibility):
+    Role and context:
+    - Act as an enterprise solution architect and partnership evaluation expert.
+    - Evaluate delivery feasibility for partnerships between:
+      - Company X: implementation/service provider
+      - Company Y: solution/vendor being evaluated
+    - Assume enterprise scenarios across software, cloud, data, and GenAI systems, including APIs, databases, agents, and enterprise platforms.
+
+    Evaluation objective:
+    Assess whether Company X can effectively deliver, integrate, support, and scale Company Y's solution in an enterprise environment.
+
+    1) skill_availability
+    Definition:
+    Evaluate whether required capabilities to implement the solution are readily available within Company X or can be developed quickly using standard industry skills.
+    Consider:
+    - Cloud skills (AWS, Azure, GCP)
+    - Database experience (SQL, NoSQL)
+    - Experience with GenAI, agents, and APIs
+    - Familiarity with enterprise platforms
+    - Need for niche or proprietary expertise
+    Question:
+    Does the implementation provider have or can easily build capability?
+    Allowed decision options:
+    - YES
+    - PARTIAL
+    - NO
+
+    2) training_effort
+    Definition:
+    Assess whether effort required to train teams is manageable within a reasonable timeline.
+    Consider:
+    - Learning curve of the solution
+    - Availability and quality of documentation
+    - Dependency on vendor-led training
+    - Ease of onboarding new developers and delivery teams
+    Question:
+    Is training effort manageable within reasonable time?
+    Allowed decision options:
+    - YES
+    - HIGH
+    - NO
+
+    3) integration_feasibility
+    Definition:
+    Evaluate how easily the solution can integrate into enterprise systems and workflows.
+    Focus on:
+    - API availability and compatibility
+    - Data layer integration (databases, warehouses, data lakes)
+    - Security and compliance constraints
+    - Workflow and platform embedding
+    Question:
+    Can it integrate into enterprise stacks (data, apps)?
+    Allowed decision options:
+    - YES
+    - COMPLEX
+    - NO
+
+    4) support_scalability
+    Definition:
+    Evaluate ability to operate, maintain, and scale the solution reliably across users, use cases, and workloads.
+    Includes:
+    - Performance and capacity scaling
+    - Monitoring and support operating model
+    - Cost management at scale
+    - Incident handling and production reliability
+    Question:
+    Can the implementation provider support it at scale post-deployment?
+    Allowed decision options:
+    - YES
+    - PARTIAL
+    - NO
+
+    Gate 3 decision rule:
+    - PASS: Mostly YES and manageable delivery feasibility.
+    - DEFER: Mixed result (YES + PARTIAL/COMPLEX/HIGH) that is feasible with mitigation.
+    - FAIL: Majority NO or clearly non-manageable feasibility.
+
+    Gate 4 criteria (Commercial Viability):
+    1) monetization_clarity
+    Definition:
+    Evaluate whether the revenue model is clearly defined and understandable.
+    Consider:
+    - Pricing model (subscription, usage-based, license)
+    - Transparency of pricing
+    - Ease of explaining value to customers
+    - Predictability of revenue streams
+    Question:
+    Is there a clear revenue model (services/license/AI-as-a-service)?
+    Requirement: Required
+    Allowed decision options:
+    - YES
+    - NO
+
+    2) gtm_feasibility
+    Definition:
+    Assess whether the solution can be effectively positioned, sold, and distributed in the market.
+    Consider:
+    - Fit with existing sales channels
+    - Target customer segments (enterprise, SMB, industry-specific)
+    - Sales complexity
+    - Need for specialized sales motion
+    Question:
+    Can it be sold through Company X channels (clients, industries)?
+    Requirement: Required
+    Allowed decision options:
+    - YES
+    - NO
+
+    3) revenue_upside
+    Definition:
+    Evaluate the potential revenue opportunity from the partnership.
+    Consider:
+    - Market demand for the solution
+    - Cross-sell / upsell opportunities
+    - Scalability of deal sizes
+    - Long-term revenue potential
+    Question:
+    Is there meaningful deal size / scalability?
+    Requirement: Required
+    Allowed decision options:
+    - YES
+    - NO
+
+    4) partner_willingness
+    Definition:
+    Assess whether Company Y is open and capable of forming a strong partnership.
+    Consider:
+    - Openness to collaboration
+    - Partner programs or ecosystem presence
+    - Co-selling / co-development readiness
+    - Flexibility in engagement
+    Question:
+    Is the company open to co-sell / co-build / alliance?
+    Requirement: Required
+    Allowed decision options:
+    - YES
+    - NO
+
+    5) commercial_structure_clarity
+    Definition:
+    Evaluate whether the commercial terms and engagement model are well-defined and manageable.
+    Consider:
+    - Contract clarity
+    - Revenue sharing model (if applicable)
+    - Pricing governance
+    - Legal and compliance simplicity
+    Question:
+    Is pricing understandable and workable?
+    Requirement: Required
+    Allowed decision options:
+    - YES
+    - NO
+
+    6) startup_stage_fit
+    Definition:
+    Assess whether the maturity level of Company Y aligns with the scale and expectations of enterprise delivery.
+    Consider:
+    - Company maturity (startup vs established)
+    - Stability of product and roadmap
+    - Risk associated with early-stage companies
+    - Ability to support enterprise clients
+    Question:
+    Not too early (immature) or too mature (SI competitor)?
+    Requirement: Required
+    Allowed decision options:
+    - YES
+    - NO
+
+    Gate 4 decision rule:
+    - PASS: ALL criteria are YES.
+    - FAIL: ANY criteria is NO.
+
     Overall priority:
-    - HIGH_PRIORITY = Gate1 PASS + Gate2 PASS
-    - MEDIUM_PRIORITY = Gate1 PASS + Gate2 FAIL
-    - LOW_PRIORITY = Gate1 FAIL
+    - HIGH_PRIORITY = Gate1 PASS + Gate2 PASS + Gate3 PASS + Gate4 PASS
+    - MEDIUM_PRIORITY = Gate1 PASS and (Gate2 FAIL or Gate3 DEFER) and Gate4 PASS
+    - LOW_PRIORITY = Gate1 FAIL or Gate3 FAIL or Gate4 FAIL
 
     Output schema:
     {
@@ -385,10 +557,101 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
           "governance_compliance_alignment": {"decision": "YES", "reason": ""}
         }
       },
+      "gate_3": {
+        "status": "PASS",
+        "criteria": {
+          "skill_availability": {"decision": "YES", "reason": ""},
+          "training_effort": {"decision": "YES", "reason": ""},
+          "integration_feasibility": {"decision": "YES", "reason": ""},
+          "support_scalability": {"decision": "YES", "reason": ""}
+        }
+      },
+      "gate_4": {
+        "status": "PASS",
+        "criteria": {
+          "monetization_clarity": {"decision": "YES", "reason": ""},
+          "gtm_feasibility": {"decision": "YES", "reason": ""},
+          "revenue_upside": {"decision": "YES", "reason": ""},
+          "partner_willingness": {"decision": "YES", "reason": ""},
+          "commercial_structure_clarity": {"decision": "YES", "reason": ""},
+          "startup_stage_fit": {"decision": "YES", "reason": ""}
+        }
+      },
       "overall_partnership_recommendation": {
         "priority": "HIGH_PRIORITY",
         "reason": ""
       }
+    }
+    """
+).strip()
+
+
+SCORING_PROMPT = dedent(
+    """
+    You are an enterprise solution architect and partnership evaluation expert.
+
+    Evaluate ONLY the provided company JSON and return JSON only.
+    Do not invent facts. If evidence is weak or missing, use lower scores.
+
+    Scoring pillars and weights:
+    - P1 Domain & Solution Depth: weight 25
+    - P2 Product & Engineering Readiness: weight 15
+    - P3 AI Transparency & Trustworthiness: weight 10
+
+    Scoring rules:
+    - Most sub-criteria are scored from 0 to 5.
+    - P1.4 is binary only: 0 or 5.
+    - Each pillar raw score is average of its sub-criteria (0-5 scale).
+    - Each pillar weighted score = (pillar_raw_score / 5) * pillar_weight.
+    - total_weighted_score = sum of three weighted scores.
+    - Keep reasons concise and evidence-oriented.
+
+    Output schema:
+    {
+      "company_name": "",
+      "pillars": {
+        "p1_domain_solution_depth": {
+          "weight": 25,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
+            "p1_1_domain_specific_problem_ownership": {"score": 0, "reason": ""},
+            "p1_2_decision_outcome_orientation": {"score": 0, "reason": ""},
+            "p1_3_embedded_domain_logic": {"score": 0, "reason": ""},
+            "p1_4_not_generic_platform_building_block": {"score": 0, "reason": ""},
+            "p1_5_degree_of_workflow_ownership": {"score": 0, "reason": ""}
+          }
+        },
+        "p2_product_engineering_readiness": {
+          "weight": 15,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
+            "p2_1_scalability_performance": {"score": 0, "reason": ""},
+            "p2_2_mlops_maturity": {"score": 0, "reason": ""},
+            "p2_3_security_compliance_readiness": {"score": 0, "reason": ""},
+            "p2_4_deployment_flexibility": {"score": 0, "reason": ""},
+            "p2_5_api_ecosystem_interoperability": {"score": 0, "reason": ""}
+          }
+        },
+        "p3_ai_transparency_trustworthiness": {
+          "weight": 10,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
+            "p3_1_explainability_of_outcomes": {"score": 0, "reason": ""},
+            "p3_2_model_transparency": {"score": 0, "reason": ""},
+            "p3_3_bias_hallucination_controls": {"score": 0, "reason": ""},
+            "p3_4_human_in_the_loop_support": {"score": 0, "reason": ""},
+            "p3_5_identity_data_protection": {"score": 0, "reason": ""}
+          }
+        }
+      },
+      "total_weighted_score": 0,
+      "overall_summary": ""
     }
     """
 ).strip()
