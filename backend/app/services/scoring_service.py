@@ -1,14 +1,19 @@
 from __future__ import annotations
 
 import json
+import logging
 from typing import Any
 
 from app.services.mistral_client import mistral_client
 from app.services.prompts import SCORING_PROMPT
 
+logger = logging.getLogger(__name__)
+
 
 class ScoringService:
     async def evaluate(self, structured_json: dict[str, Any]) -> dict[str, Any]:
+        company_name = str(structured_json.get("company_name") or "").strip()
+        logger.info("Scoring evaluation started company=%s", company_name)
         llm_report = await mistral_client.chat_json(
             SCORING_PROMPT,
             json.dumps({"company_json": structured_json}),
@@ -16,7 +21,10 @@ class ScoringService:
         )
         normalized = self._normalize_report(llm_report, structured_json)
         if not normalized:
+            top_level = list(llm_report.keys()) if isinstance(llm_report, dict) else []
+            logger.error("Scoring invalid shape company=%s keys=%s", company_name, top_level)
             raise RuntimeError("Scoring LLM returned an invalid JSON shape.")
+        logger.info("Scoring evaluation completed company=%s total=%s", normalized.get("company_name", company_name), normalized.get("total_weighted_score"))
         return normalized
 
     def _normalize_report(self, raw: dict[str, Any], source_json: dict[str, Any]) -> dict[str, Any] | None:

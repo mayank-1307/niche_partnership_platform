@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass
 from typing import Any, Literal
 
@@ -10,6 +11,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from app.core.config import settings
 
 Provider = Literal["mistral", "gemini"]
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -54,6 +56,7 @@ class LLMAgentRuntime:
             return self._clients[provider]
 
         api_key, base_url = self._provider_credentials(provider)
+        logger.info("Creating LLM client provider=%s base_url=%s", provider, base_url)
         self._clients[provider] = AsyncOpenAI(
             api_key=api_key,
             base_url=base_url,
@@ -66,9 +69,11 @@ class LLMAgentRuntime:
         spec = self._build_spec(agent_name)
         api_key, _ = self._provider_credentials(spec.provider)
         if not api_key:
+            logger.error("Missing LLM API key provider=%s agent=%s", spec.provider, spec.name)
             raise RuntimeError(f"{spec.provider.upper()} API key missing")
 
         client = self._get_client(spec.provider)
+        logger.info("LLM JSON request started agent=%s provider=%s model=%s", spec.name, spec.provider, spec.model)
         response = await client.chat.completions.create(
             model=spec.model,
             messages=[
@@ -79,8 +84,9 @@ class LLMAgentRuntime:
             temperature=0.2,
         )
         content = response.choices[0].message.content or "{}"
-        return json.loads(content)
+        parsed = json.loads(content)
+        logger.info("LLM JSON request completed agent=%s provider=%s", spec.name, spec.provider)
+        return parsed
 
 
 llm_agent_runtime = LLMAgentRuntime()
-

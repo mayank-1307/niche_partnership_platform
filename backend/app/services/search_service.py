@@ -1,11 +1,14 @@
 ﻿from __future__ import annotations
 
+import logging
 from typing import Any
 
 import httpx
 from duckduckgo_search import DDGS
 
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 class SearchService:
@@ -62,6 +65,7 @@ class SearchService:
 
         hits: list[dict[str, Any]] = []
         provider = settings.search_provider.lower()
+        logger.info("Search started provider=%s domain=%s", provider or "duckduckgo", normalized_domain)
         for q in queries:
             try:
                 if provider == "tavily" and settings.tavily_api_key:
@@ -70,8 +74,10 @@ class SearchService:
                     res = await self._serper(q, 4)
                 else:
                     res = self._duckduckgo(q, 4)
+                logger.debug("Search query completed provider=%s results=%s query=%s", provider or "duckduckgo", len(res), q)
                 hits.extend(res)
             except Exception:
+                logger.exception("Search query failed provider=%s query=%s", provider or "duckduckgo", q)
                 continue
 
         unique = []
@@ -83,7 +89,9 @@ class SearchService:
             seen.add(u)
             unique.append(h)
 
-        return unique[:20]
+        results = unique[:20]
+        logger.info("Search completed domain=%s unique_results=%s", normalized_domain, len(results))
+        return results
 
 
 search_service = SearchService()

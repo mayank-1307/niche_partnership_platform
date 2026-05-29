@@ -105,10 +105,14 @@ export default function App() {
         toast.error("Saved profile data is invalid");
         return;
       }
+      const savedSummary =
+        typeof structured.company_summary === "string" && structured.company_summary.trim()
+          ? structured.company_summary
+          : profile.artefact?.company_summary || `Loaded from saved analysis (${new Date(profile.created_at).toLocaleString()}).`;
 
       setResult({
         id: String(profile.id),
-        company_summary: `Loaded from saved analysis (${new Date(profile.created_at).toLocaleString()}).`,
+        company_summary: savedSummary,
         extracted_insights: {},
         evidence: [],
         structured_json: structured,
@@ -256,7 +260,7 @@ export default function App() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
-                <div className="text-sm uppercase tracking-wide text-slate-400">Company, Funding & Key Players</div>
+                <div className="text-sm uppercase tracking-wide text-slate-400">Enterprise Credibility</div>
                 <button
                   type="button"
                   onClick={() => toggleInsightBlock("company_funding_key_players")}

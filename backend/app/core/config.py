@@ -10,6 +10,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Company Intelligence Extractor"
     app_version: str = "1.0.0"
+    log_level: str = "INFO"
 
     openai_api_key: str = ""
     openai_model: str = "gpt-5-mini"

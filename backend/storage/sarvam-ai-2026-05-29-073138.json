@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-05-29T07:31:38.740817",
+  "data": {
+    "company_name": "Sarvam AI",
+    "company_summary": "Sarvam AI is an India-based full-stack generative AI company focused on building large language models (LLMs) and voice-first AI solutions tailored for Indic languages and enterprise use cases. The company emphasizes responsible AI, data sovereignty, and vertical-specific applications in sectors like BFSI, healthcare, and government.",
+    "website": "https://sarvam.ai",
+    "headquarters": "Bengaluru, Karnataka, India",
+    "founded_year": 2023,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "State Bank of India (SBI)",
+          "Government of India (pilot projects)",
+          "Unannounced enterprise deployments in BFSI and healthcare"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 41000000,
+        "investors": [
+          "Lightspeed Venture Partners",
+          "Khosla Ventures",
+          "Peak XV Partners (formerly Sequoia Capital India)"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series A\", \"amount_usd\": 41000000, \"year\": 2024}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Founders Vivek Raghavan and Pratyush Kumar are former executives at AI4Bharat (IIT Madras) and have extensive experience in AI, NLP, and large-scale language models. Raghavan previously led AI initiatives at EkStep Foundation and was a key contributor to India's Aadhaar biometric system. Kumar has a background in systems research and has worked at Microsoft Research and IBM Research.",
+        "key_leaders": [
+          "Vivek Raghavan",
+          "Pratyush Kumar"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 1,
+        "case_studies_available": true,
+        "deployment_scale": "Pilot deployments with enterprise clients in India; regional focus on Indic language support; scalable infrastructure for LLM deployment and fine-tuning."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": false,
+      "ai_operations": true,
+      "conversational_ai": true,
+      "industry_ai": true,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Enterprise-grade generative AI for Indic languages",
+        "Voice-first AI assistants for customer support and operations",
+        "Vertical-specific AI solutions for BFSI, healthcare, and government",
+        "LLM fine-tuning and deployment for enterprise use cases",
+        "Responsible AI and data sovereignty for regulated industries"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "APIs for LLM integration and fine-tuning",
+        "Cloud providers (AWS, Azure, or on-premise)",
+        "Identity and access management systems",
+        "Enterprise data pipelines for training and inference",
+        "Voice and telephony integrations for conversational AI"
+      ],
+      "notes": "Solution appears partner-friendly with API-driven access and enterprise support. Implementation may require customization for vertical-specific use cases and language support. Documentation and developer resources are available on the company website."
+    },
+    "commercial_viability": {
+      "monetization_model": "Enterprise contracts, SaaS, and usage-based pricing for API access",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led (focus on system integrators and enterprise clients in India)",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Company demonstrates strong enterprise focus with pilot deployments in regulated sectors. Partnerships with system integrators and cloud providers are likely. Pricing details are not publicly disclosed, suggesting custom enterprise contracts."
+    },
+    "evidence": {
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/about",
+        "https://sarvam.ai/team",
+        "https://sarvam.ai/blog",
+        "https://sarvam.ai/press",
+        "https://techcrunch.com/2024/01/16/sarvam-ai-raises-41m-to-build-india-focused-generative-ai-models/",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-million-in-series-a-funding-led-by-lightspeed-11705410002572.html",
+        "https://yourstory.com/2024/01/sarvam-ai-series-a-funding-lightspeed-khosla-peak-xv"
+      ],
+      "last_updated": "2024-06-15"
+    }
+  }
+}

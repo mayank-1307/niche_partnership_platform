@@ -41,6 +41,7 @@ export type CompanyProfileDetail = {
   created_at: string;
   artefact: {
     generated_at?: string;
+    company_summary?: string;
     data?: Record<string, unknown>;
   };
 };

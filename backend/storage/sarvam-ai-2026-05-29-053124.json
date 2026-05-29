@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-05-29T05:31:24.518042",
+  "data": {
+    "company_name": "Sarvam AI",
+    "website": "https://sarvam.ai",
+    "headquarters": "Bengaluru, Karnataka, India",
+    "founded_year": 2023,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Unacademy",
+          "Koo",
+          "Indian government and public sector entities",
+          "Enterprises in BFSI, healthcare, and education sectors"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 41000000,
+        "investors": [
+          "Lightspeed Venture Partners",
+          "Khosla Ventures",
+          "Peak XV Partners (formerly Sequoia Capital India)"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Seed\", \"amount_usd\": 41000000, \"year\": 2023}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Sarvam AI was founded by Vivek Raghavan and Pratyush Kumar, both of whom have extensive experience in AI, machine learning, and enterprise technology. Vivek Raghavan is a former Chief AI Evangelist at EkStep Foundation and has worked on India's Aadhaar biometric system. Pratyush Kumar is a former researcher at Microsoft Research and has expertise in systems and AI infrastructure. The leadership team includes professionals with backgrounds in AI research, product development, and enterprise delivery.",
+        "key_leaders": [
+          "Vivek Raghavan",
+          "Pratyush Kumar"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 1,
+        "case_studies_available": true,
+        "deployment_scale": "Regional deployments (India-focused) with enterprise pilots and production usage in sectors like education, social media, and BFSI. The company offers APIs and model fine-tuning for enterprise adoption."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": false,
+      "ai_operations": true,
+      "conversational_ai": true,
+      "industry_ai": true,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Enterprise AI adoption for Indic languages",
+        "Customer support automation using conversational AI",
+        "Vertical-specific AI solutions for healthcare, BFSI, and governance",
+        "Model fine-tuning and deployment for enterprise use cases",
+        "Responsible AI and data sovereignty for regulated industries"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "High",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "MEDIUM",
+      "integration_requirements": [
+        "APIs for model integration",
+        "Cloud providers (AWS, Azure, or GCP for deployment)",
+        "Identity and access management systems",
+        "Data pipelines for model fine-tuning",
+        "Enterprise IT infrastructure for on-premise or hybrid deployments"
+      ],
+      "notes": "Sarvam AI offers APIs and fine-tuning tools, which suggests moderate implementation complexity. The company's focus on enterprise use cases implies readiness for partner-led delivery. However, regional focus (India) and language-specific models may require localized expertise for deployment. Documentation and support appear to be geared toward enterprise adoption."
+    },
+    "commercial_viability": {
+      "monetization_model": "SaaS, subscription-based pricing for APIs, and enterprise contracts for custom deployments",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Sarvam AI demonstrates a strong enterprise focus with case studies and funding, indicating commercial viability. The company appears open to partnerships, though pricing details are not publicly available. The go-to-market strategy likely combines direct sales with channel partners for enterprise adoption."
+    },
+    "evidence": {
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/about",
+        "https://sarvam.ai/product",
+        "https://sarvam.ai/case-studies",
+        "https://sarvam.ai/blog",
+        "https://techcrunch.com/2023/12/05/sarvam-ai-raises-41m-to-build-india-focused-generative-ai-models/",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-million-in-seed-round-led-by-lightspeed-11701780003595.html",
+        "https://yourstory.com/2023/12/sarvam-ai-funding-lightspeed-khosla-ventures-peak-xv"
+      ],
+      "last_updated": "2024-06-15"
+    }
+  }
+}

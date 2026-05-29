@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 
 from fastapi import APIRouter, HTTPException, Response
 from fastapi.responses import FileResponse
@@ -22,6 +23,7 @@ from app.services.storage_service import json_storage_service
 
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.get("/health", response_model=HealthResponse)
@@ -34,11 +36,14 @@ async def analyze_company(payload: AnalyzeRequest) -> AnalyzeResponse:
     try:
         domain = normalize_domain(payload.domain)
     except ValueError as exc:
+        logger.warning("Invalid analysis domain submitted: %s", payload.domain)
         raise bad_request(str(exc)) from exc
 
     try:
+        logger.info("Starting company analysis for domain=%s", domain)
         return await analysis_orchestrator.run(domain)
     except Exception as exc:
+        logger.exception("Company analysis failed for domain=%s", domain)
         raise upstream_error(str(exc)) from exc
 
 
@@ -46,12 +51,14 @@ async def analyze_company(payload: AnalyzeRequest) -> AnalyzeResponse:
 async def download_json(file_id: str):
     target = json_storage_service.resolve(file_id)
     if target.exists():
+        logger.info("Serving stored JSON file_id=%s from disk", file_id)
         return FileResponse(path=target, media_type="application/json", filename=f"{file_id}.json")
 
     if file_id.isdigit():
         row = await company_profile_db.get_company_profile(int(file_id))
         artefact = row.get("artefact") if row else None
         if isinstance(artefact, dict):
+            logger.info("Serving stored JSON file_id=%s from database", file_id)
             body = json.dumps(artefact, ensure_ascii=True, indent=2)
             return Response(
                 content=body,
@@ -64,6 +71,7 @@ async def download_json(file_id: str):
 
 @router.get("/stored-jsons")
 async def stored_jsons():
+    logger.debug("Listing disk-stored JSON outputs")
     return {"items": json_storage_service.list_files()}
 
 
@@ -77,6 +85,7 @@ async def stored_json(file_id: str):
 
 @router.get("/decision-intelligence/profiles", response_model=CompanyProfileListResponse)
 async def decision_intelligence_profiles() -> CompanyProfileListResponse:
+    logger.debug("Listing company profiles")
     items = await company_profile_db.list_company_profiles()
     return CompanyProfileListResponse(items=items)
 
@@ -85,12 +94,15 @@ async def decision_intelligence_profiles() -> CompanyProfileListResponse:
 async def decision_intelligence_profile(profile_id: int) -> CompanyProfileDetail:
     row = await company_profile_db.get_company_profile(profile_id)
     if not row:
+        logger.warning("Company profile not found profile_id=%s", profile_id)
         raise HTTPException(status_code=404, detail="Profile not found")
     return CompanyProfileDetail(**row)
 
 
 @router.get("/decision-intelligence/{file_id}")
 async def decision_intelligence(file_id: str):
+    logger.info("Generating decision intelligence file_id=%s", file_id)
+    # Numeric IDs are database profiles; other IDs refer to disk JSON exports.
     if file_id.isdigit():
         row = await company_profile_db.get_company_profile(int(file_id))
         artefact = row.get("artefact") if row else None
@@ -109,11 +121,14 @@ async def decision_intelligence(file_id: str):
         raise bad_request("Invalid JSON payload")
 
     report = await decision_intelligence_service.evaluate(structured)
+    logger.info("Decision intelligence generated file_id=%s", file_id)
     return {"file_id": file_id, "report": report}
 
 
 @router.get("/scoring/{file_id}")
 async def scoring(file_id: str):
+    logger.info("Generating scoring report file_id=%s", file_id)
+    # Numeric IDs are database profiles; other IDs refer to disk JSON exports.
     if file_id.isdigit():
         row = await company_profile_db.get_company_profile(int(file_id))
         artefact = row.get("artefact") if row else None
@@ -132,4 +147,5 @@ async def scoring(file_id: str):
         raise bad_request("Invalid JSON payload")
 
     report = await scoring_service.evaluate(structured)
+    logger.info("Scoring report generated file_id=%s", file_id)
     return {"file_id": file_id, "report": report}

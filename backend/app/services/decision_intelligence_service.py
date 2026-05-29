@@ -1,13 +1,18 @@
 from __future__ import annotations
 
 import json
+import logging
 from typing import Any
 
 from app.services.mistral_client import mistral_client
 from app.services.prompts import DECISION_INTELLIGENCE_PROMPT
 
+logger = logging.getLogger(__name__)
+
 class DecisionIntelligenceService:
     async def evaluate(self, structured_json: dict[str, Any]) -> dict[str, Any]:
+        company_name = str(structured_json.get("company_name") or "").strip()
+        logger.info("Decision intelligence evaluation started company=%s", company_name)
         llm_report = await mistral_client.chat_json(
             DECISION_INTELLIGENCE_PROMPT,
             json.dumps({"company_json": structured_json}),
@@ -16,9 +21,11 @@ class DecisionIntelligenceService:
         normalized = self._normalize_report(llm_report, structured_json)
         if not normalized:
             top_level = list(llm_report.keys()) if isinstance(llm_report, dict) else []
+            logger.error("Decision intelligence invalid shape company=%s keys=%s", company_name, top_level)
             raise RuntimeError(
                 f"Decision Intelligence LLM returned an invalid JSON shape. Top-level keys: {top_level}"
             )
+        logger.info("Decision intelligence evaluation completed company=%s", normalized.get("company_name", company_name))
         return normalized
 
     def _normalize_report(self, raw: dict[str, Any], source_json: dict[str, Any]) -> dict[str, Any] | None:
@@ -90,7 +97,7 @@ class DecisionIntelligenceService:
             "startup_stage_fit",
         ]
 
-        # Reject partial/misaligned LLM payloads so fallback logic can handle scoring.
+        # Reject partial/misaligned LLM payloads before status normalization.
         if not all(get_key_ci(g1c, key) for key in required_g1):
             return None
         if not all(get_key_ci(g2c, key) for key in required_g2):

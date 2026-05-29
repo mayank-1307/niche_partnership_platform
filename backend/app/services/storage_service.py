@@ -1,11 +1,14 @@
 ﻿from __future__ import annotations
 
 import json
+import logging
 import re
 from datetime import datetime
 from pathlib import Path
 
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 class JsonStorageService:
@@ -27,12 +30,14 @@ class JsonStorageService:
         target = self.base_dir / f"{file_id}.json"
         wrapped = {"generated_at": datetime.utcnow().isoformat(), "data": payload}
         target.write_text(json.dumps(wrapped, indent=2), encoding="utf-8")
+        logger.info("Stored JSON output file_id=%s path=%s", file_id, target)
         return file_id
 
     def resolve(self, file_id: str) -> Path:
         return self.base_dir / f"{file_id}.json"
 
     def list_files(self) -> list[dict]:
+        logger.debug("Listing JSON outputs directory=%s", self.base_dir)
         files = sorted(self.base_dir.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
         out: list[dict] = []
         for f in files:
@@ -48,7 +53,9 @@ class JsonStorageService:
     def read(self, file_id: str) -> dict:
         target = self.resolve(file_id)
         if not target.exists():
+            logger.warning("Stored JSON not found file_id=%s path=%s", file_id, target)
             raise FileNotFoundError(file_id)
+        logger.debug("Reading stored JSON file_id=%s path=%s", file_id, target)
         return json.loads(target.read_text(encoding="utf-8"))
 
 

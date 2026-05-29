@@ -99,6 +99,7 @@ class Evidence(BaseModel):
 
 class CompanyIntelligenceJSON(BaseModel):
     company_name: str = ""
+    company_summary: str = ""
     website: str = ""
     headquarters: str = ""
     founded_year: int = 0

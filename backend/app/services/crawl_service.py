@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from urllib import robotparser
 from urllib.parse import urljoin, urlparse
@@ -8,6 +9,8 @@ import httpx
 from bs4 import BeautifulSoup
 
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 KEYWORDS = [
@@ -43,6 +46,7 @@ class CrawlService:
         try:
             xml = await self._fetch_text(client, sitemap_url)
         except Exception:
+            logger.debug("Sitemap unavailable base_url=%s", base_url)
             return []
 
         soup = BeautifulSoup(xml, "xml")
@@ -55,6 +59,7 @@ class CrawlService:
         try:
             html = await self._fetch_text(client, base_url)
         except Exception:
+            logger.debug("Homepage link discovery failed base_url=%s", base_url)
             return [base_url]
 
         soup = BeautifulSoup(html, "html.parser")
@@ -84,15 +89,18 @@ class CrawlService:
             return True
 
     async def crawl(self, base_url: str) -> list[PageContent]:
+        logger.info("Crawl started base_url=%s", base_url)
         async with httpx.AsyncClient(timeout=self.timeout, headers={"User-Agent": "CompanyIntelligenceBot/1.0"}) as client:
             sitemap_urls = await self._get_sitemap_urls(client, base_url)
             discovered = await self._discover_links(client, base_url)
             targets = list(dict.fromkeys(sitemap_urls + discovered))[: settings.max_pages_to_crawl]
+            logger.debug("Crawl targets resolved base_url=%s targets=%s", base_url, len(targets))
 
             pages: list[PageContent] = []
             for url in targets:
                 try:
                     if not await self._allowed_by_robots(client, base_url, url):
+                        logger.debug("Crawl skipped by robots url=%s", url)
                         continue
                     html = await self._fetch_text(client, url)
                     extracted = self._extract_text(html)
@@ -102,8 +110,10 @@ class CrawlService:
                     title = (soup.title.string if soup.title else "").strip()
                     pages.append(PageContent(url=url, title=title, text=extracted[:10000]))
                 except Exception:
+                    logger.exception("Crawl page failed url=%s", url)
                     continue
 
+        logger.info("Crawl completed base_url=%s pages=%s", base_url, len(pages))
         return pages
 
 

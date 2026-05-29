@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from datetime import datetime
 from typing import Any
 
@@ -9,6 +10,8 @@ from app.models.schemas import AgentLog, ResearchObject, SourceEvidence
 from app.services.mistral_client import mistral_client
 from app.services.prompts import AGENT1_SUMMARY_PROMPT
 from app.services.search_service import search_service
+
+logger = logging.getLogger(__name__)
 
 
 class CompanyIntelligenceAgent:
@@ -55,8 +58,10 @@ class CompanyIntelligenceAgent:
 
     async def run(self, domain: str, logs: list[AgentLog]) -> ResearchObject:
         company_name = to_company_name(domain)
+        logger.info("Agent 1 started domain=%s company_hint=%s", domain, company_name)
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_1", message="Collecting public web verification signals"))
         web_hits = await search_service.search(domain, company_name)
+        logger.info("Agent 1 collected web signals domain=%s hits=%s", domain, len(web_hits))
 
         prompt = {
             "domain": domain,
@@ -72,6 +77,7 @@ class CompanyIntelligenceAgent:
                 agent_name="agent1",
             )
         except Exception:
+            logger.exception("Agent 1 LLM summary failed; using fallback synthesis domain=%s", domain)
             llm = {}
             logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_1", message="LLM summary failed, using fallback synthesis"))
 
@@ -89,10 +95,12 @@ class CompanyIntelligenceAgent:
 
         summary_markdown = (llm.get("summary_markdown") or "").strip()
         if not summary_markdown:
+            logger.warning("Agent 1 summary missing from LLM output; using fallback domain=%s", domain)
             summary_markdown = self._fallback_summary(company_name, domain, web_hits)
 
         extracted_insights = llm.get("extracted_insights")
         if not isinstance(extracted_insights, dict) or not extracted_insights:
+            logger.warning("Agent 1 insights missing from LLM output; using fallback domain=%s", domain)
             extracted_insights = self._fallback_insights(web_hits)
 
         confidence_notes = llm.get("confidence_notes")

@@ -1,11 +1,14 @@
 ﻿from __future__ import annotations
 
 import json
+import logging
 from datetime import datetime
 
 from app.models.schemas import AgentLog, CompanyIntelligenceJSON, Evidence, ResearchObject
 from app.services.mistral_client import mistral_client
 from app.services.prompts import AGENT2_STRUCTURING_PROMPT
+
+logger = logging.getLogger(__name__)
 
 
 class JsonStructuringAgent:
@@ -110,6 +113,7 @@ class JsonStructuringAgent:
         return llm
 
     async def run(self, research: ResearchObject, logs: list[AgentLog]) -> CompanyIntelligenceJSON:
+        logger.info("Agent 2 started company=%s", research.company_name)
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_2", message="Structuring strict JSON schema"))
         payload = {
             "company_name": research.company_name,
@@ -126,10 +130,13 @@ class JsonStructuringAgent:
             agent_name="agent2",
         )
         normalized = self._normalize_llm_payload(llm)
+        normalized["company_summary"] = self._to_string(research.summary_markdown or normalized.get("company_summary")).strip()
         model = CompanyIntelligenceJSON.model_validate(normalized)
+        logger.info("Agent 2 produced structured JSON company=%s", model.company_name)
 
         model_sources = [s.strip() for s in model.evidence.sources if isinstance(s, str) and s.strip()]
         if not model_sources:
+            logger.warning("Agent 2 JSON had no evidence sources; using fallback sources company=%s", model.company_name)
             model.evidence = Evidence(
                 sources=self._fallback_evidence_sources(research),
                 last_updated=datetime.utcnow().isoformat(),

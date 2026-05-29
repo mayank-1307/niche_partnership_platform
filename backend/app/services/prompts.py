@@ -152,10 +152,12 @@ AGENT2_STRUCTURING_PROMPT = dedent(
     - numbers default 0
     - strings default ""
     - arrays default []
+    - company_summary must be copied from summary_markdown as a concise plain string
 
     Return JSON only that follows this schema exactly:
     {
       "company_name": "",
+      "company_summary": "",
       "website": "",
       "headquarters": "",
       "founded_year": 0,

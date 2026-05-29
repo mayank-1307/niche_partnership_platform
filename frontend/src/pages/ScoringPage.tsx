@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 import { FixedHeader } from "../components/FixedHeader";
@@ -7,6 +8,12 @@ import { getScoringReport, listCompanyProfiles, type CompanyProfileSummary, type
 
 function labelize(value: string) {
   return value.replace(/_/g, " ");
+}
+
+function scoreClass(score: number) {
+  if (score >= 4) return "text-mint";
+  if (score >= 3) return "text-amber-300";
+  return "text-rose-300";
 }
 
 export default function ScoringPage() {
@@ -59,14 +66,11 @@ export default function ScoringPage() {
       <FixedHeader />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
         <Toaster position="top-right" />
-        <div className="glass mb-6 rounded-3xl p-8 md:p-12">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h1 className="text-3xl font-bold md:text-5xl">Scoring</h1>
-            <Link to="/" className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
-              Home
-            </Link>
-          </div>
-          <p className="text-slate-300">Evaluate weighted scores across 3 pillars.</p>
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-3xl font-bold md:text-5xl">Scoring</h1>
+          <Link to="/" className="rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
+            Home
+          </Link>
         </div>
 
         <div className="glass mb-6 rounded-2xl p-5">
@@ -97,42 +101,60 @@ export default function ScoringPage() {
           </div>
         </div>
 
-        {report && (
-          <div className="space-y-6">
-            <div className="glass rounded-2xl p-5">
-              <div className="text-sm text-cyan">Overall</div>
-              <div className="mt-2 text-xl font-semibold text-white">Total Weighted Score: {report.total_weighted_score}</div>
-              <div className="mt-2 text-sm text-slate-300">{report.overall_summary || "No summary provided."}</div>
-            </div>
-
+        {report ? (
+          <div>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
               {pillars.map((pillar) => (
                 <div key={pillar.code} className="glass rounded-2xl p-5">
-                  <div className="text-sm font-bold uppercase text-cyan">{pillar.code} - {pillar.title}</div>
-                  <div className="mt-2 text-sm text-slate-300">Weight: {pillar.data.weight}</div>
-                  <div className="text-sm text-slate-300">Raw Score: {pillar.data.raw_score} / 5</div>
-                  <div className="text-sm text-slate-300">Weighted Score: {pillar.data.weighted_score}</div>
-                  <div className="mt-2 text-xs text-slate-300">{pillar.data.summary || "No summary provided."}</div>
+                  <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
+                    <ShieldCheck className="h-4 w-4" /> {pillar.code} - {pillar.title}
+                  </div>
+                  <div className={`mb-4 text-lg font-semibold ${scoreClass(pillar.data.raw_score)}`}>
+                    {pillar.data.raw_score} / 5
+                  </div>
+                  <div className="mb-3 flex flex-wrap gap-2 text-xs text-slate-300">
+                    <span className="rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-bold uppercase tracking-wide text-cyan">
+                      Weight {pillar.data.weight}
+                    </span>
+                    <span className="rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-bold uppercase tracking-wide text-cyan">
+                      Weighted {pillar.data.weighted_score}
+                    </span>
+                  </div>
+                  <div className="mb-3 text-xs text-slate-300">{pillar.data.summary || "No summary provided."}</div>
                   <div className="mt-3 space-y-2 text-sm">
                     {Object.entries(pillar.data.sub_criteria).map(([key, sub]) => (
                       <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-semibold uppercase">{labelize(key)}</span>
-                          <span className="text-cyan">{sub.score}</span>
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-bold uppercase">{labelize(key)}</span>
+                          <span className={scoreClass(sub.score)}>{sub.score}</span>
                         </div>
-                        <div className="mt-1 text-xs text-slate-300">{sub.reason || "No reason provided."}</div>
+                        <div className="mt-2 text-xs text-slate-300">{sub.reason || "No reason provided."}</div>
                       </div>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
+
+            <div className="glass mt-6 w-full rounded-2xl p-5">
+              <div className="mb-2 text-sm text-cyan">Scoring Summary</div>
+              <div className="space-y-1 text-sm text-slate-200">
+                <div>
+                  Total Weighted Score: <span className={scoreClass(report.total_weighted_score)}>{report.total_weighted_score}</span>
+                </div>
+                {pillars.map((pillar) => (
+                  <div key={pillar.code}>
+                    {pillar.code}: <span className={scoreClass(pillar.data.raw_score)}>{pillar.data.raw_score} / 5</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 text-sm text-slate-300">{report.overall_summary || "No summary provided."}</div>
+            </div>
           </div>
+        ) : (
+          <div className="text-sm text-slate-400"></div>
         )}
-        {!report && (
-          <div className="text-sm text-slate-400">Select a company profile and submit to generate scoring.</div>
-        )}
-        </div>
+      </div>
     </>
   );
 }
