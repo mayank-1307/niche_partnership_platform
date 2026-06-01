@@ -112,8 +112,8 @@ export function JsonViewer({
   };
 
   return (
-    <div className="glass h-full rounded-2xl p-5">
-      <div className="mb-3 flex items-center justify-between">
+    <div className="glass flex h-full min-h-0 flex-col overflow-hidden rounded-2xl">
+      <div className="flex items-center justify-between px-5 pb-3 pt-5">
         <h3 className="text-sm text-cyan">Structured JSON</h3>
         <div className="flex gap-2">
           {data && (
@@ -142,8 +142,10 @@ export function JsonViewer({
           )}
         </div>
       </div>
-      <div className="max-h-[420px] overflow-auto rounded-xl border border-white/10 bg-black/40 p-4 text-xs">
-        {renderValue(data ?? {})}
+      <div className="min-h-0 flex-1 border-t border-white/10 bg-black/40 p-4 text-xs">
+        <div className="max-h-[420px] overflow-auto">
+          {renderValue(data ?? {})}
+        </div>
       </div>
     </div>
   );

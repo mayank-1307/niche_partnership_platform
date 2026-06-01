@@ -62,6 +62,7 @@ class EnterpriseCredibility(BaseModel):
     funding: Funding = Field(default_factory=Funding)
     leadership: Leadership = Field(default_factory=Leadership)
     product_maturity: ProductMaturity = Field(default_factory=ProductMaturity)
+    sources: list[str] = Field(default_factory=list)
 
 
 class StrategicRelevance(BaseModel):
@@ -72,6 +73,7 @@ class StrategicRelevance(BaseModel):
     industry_ai: bool = False
     governance_compliance: bool = False
     primary_use_cases: list[str] = Field(default_factory=list)
+    sources: list[str] = Field(default_factory=list)
 
 
 class DeliveryFeasibility(BaseModel):
@@ -81,6 +83,7 @@ class DeliveryFeasibility(BaseModel):
     support_scalability: str = ""
     integration_requirements: list[str] = Field(default_factory=list)
     notes: str = ""
+    sources: list[str] = Field(default_factory=list)
 
 
 class CommercialViability(BaseModel):
@@ -90,6 +93,7 @@ class CommercialViability(BaseModel):
     partner_willingness: bool = False
     estimated_deal_size_usd: int = 0
     notes: str = ""
+    sources: list[str] = Field(default_factory=list)
 
 
 class Evidence(BaseModel):
@@ -108,6 +112,24 @@ class CompanyIntelligenceJSON(BaseModel):
     delivery_feasibility: DeliveryFeasibility = Field(default_factory=DeliveryFeasibility)
     commercial_viability: CommercialViability = Field(default_factory=CommercialViability)
     evidence: Evidence = Field(default_factory=Evidence)
+
+
+class GateCriterion(BaseModel):
+    decision: str = "NO"
+    reason: str = ""
+    confidence_score: int = 0
+
+
+class Gate3Criterion(BaseModel):
+    decision: str = "NO"
+    reason: str = ""
+    confidence_score: int = 0
+
+
+class ScoringSubCriterion(BaseModel):
+    score: int = 0
+    reason: str = ""
+    confidence_score: int = 0
 
 
 class AnalyzeResponse(BaseModel):

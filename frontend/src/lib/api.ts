@@ -46,8 +46,8 @@ export type CompanyProfileDetail = {
   };
 };
 
-export type GateCriterion = { decision: "YES" | "NO"; reason: string };
-export type Gate3Criterion = { decision: "YES" | "PARTIAL" | "NO" | "HIGH" | "COMPLEX"; reason: string };
+export type GateCriterion = { decision: "YES" | "NO"; reason: string; confidence_score: number };
+export type Gate3Criterion = { decision: "YES" | "PARTIAL" | "NO" | "HIGH" | "COMPLEX"; reason: string; confidence_score: number };
 export type Gate1Criteria = {
   existing_enterprise_customers: GateCriterion;
   institutional_funding: GateCriterion;
@@ -78,17 +78,17 @@ export type Gate4Criteria = {
 };
 export type DecisionIntelligenceReport = {
   company_name: string;
-  gate_1: { status: "PASS" | "FAIL"; criteria: Gate1Criteria };
-  gate_2: { status: "PASS" | "FAIL"; criteria: Gate2Criteria };
-  gate_3: { status: "PASS" | "DEFER" | "FAIL"; criteria: Gate3Criteria };
-  gate_4: { status: "PASS" | "FAIL"; criteria: Gate4Criteria };
+  gate_1: { status: "PASS" | "FAIL"; summary: string; criteria: Gate1Criteria };
+  gate_2: { status: "PASS" | "FAIL"; summary: string; criteria: Gate2Criteria };
+  gate_3: { status: "PASS" | "DEFER" | "FAIL"; summary: string; criteria: Gate3Criteria };
+  gate_4: { status: "PASS" | "FAIL"; summary: string; criteria: Gate4Criteria };
   overall_partnership_recommendation: {
     priority: "HIGH_PRIORITY" | "MEDIUM_PRIORITY" | "LOW_PRIORITY";
     reason: string;
   };
 };
 
-export type ScoringSubCriterion = { score: number; reason: string };
+export type ScoringSubCriterion = { score: number; reason: string; confidence_score: number };
 export type ScoringPillar = {
   weight: number;
   raw_score: number;

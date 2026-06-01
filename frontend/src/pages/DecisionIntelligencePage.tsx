@@ -146,6 +146,7 @@ export default function DecisionIntelligencePage() {
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_1.status === "PASS")}`}>
                   {report.gate_1.status}
                 </div>
+                <div className="mb-4 text-sm text-slate-300">{report.gate_1.summary || "No summary provided."}</div>
                 <div className="space-y-2 text-sm">
                   {Object.entries(report.gate_1.criteria).map(([key, criterion], index) => (
                     <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
@@ -171,6 +172,7 @@ export default function DecisionIntelligencePage() {
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_2.status === "PASS")}`}>
                   {report.gate_2.status}
                 </div>
+                <div className="mb-4 text-sm text-slate-300">{report.gate_2.summary || "No summary provided."}</div>
                 <div className="space-y-2 text-sm">
                   {Object.entries(report.gate_2.criteria).map(([key, criterion], index) => (
                     <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
@@ -204,6 +206,7 @@ export default function DecisionIntelligencePage() {
                 >
                   {report.gate_3.status}
                 </div>
+                <div className="mb-4 text-sm text-slate-300">{report.gate_3.summary || "No summary provided."}</div>
                 <div className="space-y-2 text-sm">
                   {Object.entries(report.gate_3.criteria).map(([key, criterion], index) => (
                     <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
@@ -229,6 +232,7 @@ export default function DecisionIntelligencePage() {
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_4.status === "PASS")}`}>
                   {report.gate_4.status}
                 </div>
+                <div className="mb-4 text-sm text-slate-300">{report.gate_4.summary || "No summary provided."}</div>
                 <div className="space-y-2 text-sm">
                   {Object.entries(report.gate_4.criteria).map(([key, criterion], index) => (
                     <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">

@@ -43,6 +43,35 @@ function formatUsd(value: unknown): string {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
 }
 
+function renderSourceList(sources: string[]) {
+  if (sources.length === 0) {
+    return <div className="mt-3 text-xs text-slate-500">No section-specific sources were identified.</div>;
+  }
+
+  return (
+    <div className="mt-3">
+      <div className="text-xs uppercase tracking-wide text-slate-400">Relevant Sources</div>
+      <div className="mt-2 space-y-2">
+        {sources.map((source, index) => {
+          const isUrl = /^https?:\/\//i.test(source);
+
+          return (
+            <div key={`${source}-${index}`} className="rounded-lg border border-white/10 bg-black/25 p-2 text-xs text-slate-200">
+              {isUrl ? (
+                <a href={source} target="_blank" rel="noreferrer" className="break-words text-cyan hover:text-white">
+                  {source}
+                </a>
+              ) : (
+                <span className="break-words">{source}</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [domain, setDomain] = useState("");
   const [loading, setLoading] = useState(false);
@@ -135,6 +164,10 @@ export default function App() {
   const strategic = asRecord(structured.strategic_relevance);
   const delivery = asRecord(structured.delivery_feasibility);
   const commercial = asRecord(structured.commercial_viability);
+  const enterpriseSources = asStringList(enterprise.sources);
+  const strategicSources = asStringList(strategic.sources);
+  const deliverySources = asStringList(delivery.sources);
+  const commercialSources = asStringList(commercial.sources);
   const useCases = asStringList(strategic.primary_use_cases);
   const integrationReqs = asStringList(delivery.integration_requirements);
   const investors = asStringList(funding.investors);
@@ -286,6 +319,7 @@ export default function App() {
                   <div className="mt-1 text-sm">{leaders.length ? leaders.join(", ") : "-"}</div>
                   <div className="mt-2 text-sm text-slate-300">Stage: {String(productMaturity.stage ?? "-")}</div>
                   <div className="text-sm text-slate-300">Years in Market: {String(productMaturity.years_in_market ?? "-")}</div>
+                  {renderSourceList(enterpriseSources)}
                 </div>
               )}
             </div>
@@ -313,6 +347,7 @@ export default function App() {
                   </div>
                   <div className="mt-3 text-sm text-slate-400">Primary Use Cases</div>
                   <div className="mt-1 text-sm">{useCases.length ? useCases.join(", ") : "-"}</div>
+                  {renderSourceList(strategicSources)}
                 </div>
               )}
             </div>
@@ -336,6 +371,7 @@ export default function App() {
                   <div className="text-sm text-slate-300">Support: {String(delivery.support_scalability ?? "-")}</div>
                   <div className="mt-2 text-sm text-slate-400">Integration Requirements</div>
                   <div className="mt-1 text-sm">{integrationReqs.length ? integrationReqs.join(", ") : "-"}</div>
+                  {renderSourceList(deliverySources)}
                 </div>
               )}
             </div>
@@ -358,6 +394,7 @@ export default function App() {
                   <div className="text-sm text-slate-300">Pricing Transparent: {yesNo(commercial.pricing_transparency)}</div>
                   <div className="text-sm text-slate-300">Partner Willingness: {yesNo(commercial.partner_willingness)}</div>
                   <div className="text-sm text-slate-300">Est. Deal Size: {String(commercial.estimated_deal_size_usd ?? "-")}</div>
+                  {renderSourceList(commercialSources)}
                 </div>
               )}
             </div>

@@ -153,6 +153,7 @@ AGENT2_STRUCTURING_PROMPT = dedent(
     - strings default ""
     - arrays default []
     - company_summary must be copied from summary_markdown as a concise plain string
+    - Populate `sources` arrays under each major section with only the most relevant URLs/domains from the provided evidence sources.
 
     Return JSON only that follows this schema exactly:
     {
@@ -181,7 +182,8 @@ AGENT2_STRUCTURING_PROMPT = dedent(
           "years_in_market": 0,
           "case_studies_available": false,
           "deployment_scale": ""
-        }
+        },
+        "sources": []
       },
       "strategic_relevance": {
         "ai_transformation": false,
@@ -190,7 +192,8 @@ AGENT2_STRUCTURING_PROMPT = dedent(
         "conversational_ai": false,
         "industry_ai": false,
         "governance_compliance": false,
-        "primary_use_cases": []
+        "primary_use_cases": [],
+        "sources": []
       },
       "delivery_feasibility": {
         "implementation_complexity": "",
@@ -198,7 +201,8 @@ AGENT2_STRUCTURING_PROMPT = dedent(
         "training_effort_required": "",
         "support_scalability": "",
         "integration_requirements": [],
-        "notes": ""
+        "notes": "",
+        "sources": []
       },
       "commercial_viability": {
         "monetization_model": "",
@@ -206,7 +210,8 @@ AGENT2_STRUCTURING_PROMPT = dedent(
         "gtm_model": "",
         "partner_willingness": false,
         "estimated_deal_size_usd": 0,
-        "notes": ""
+        "notes": "",
+        "sources": []
       },
       "evidence": {
         "sources": [],
@@ -225,6 +230,7 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
     Do not invent facts.
     If a field is missing/unclear, default to "NO" with a concise reason.
     Return JSON only.
+    Add a concise summary for each gate. Keep it 1-2 sentences and based only on the evidence provided.
 
     Gate 1 criteria:
     1) existing_enterprise_customers
@@ -541,42 +547,46 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
       "company_name": "",
       "gate_1": {
         "status": "PASS",
+        "summary": "",
         "criteria": {
-          "existing_enterprise_customers": {"decision": "YES", "reason": ""},
-          "institutional_funding": {"decision": "YES", "reason": ""},
-          "proven_leadership_team": {"decision": "YES", "reason": ""},
-          "production_grade_product_evidence": {"decision": "YES", "reason": ""}
+          "existing_enterprise_customers": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "institutional_funding": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "proven_leadership_team": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "production_grade_product_evidence": {"decision": "YES", "reason": "", "confidence_score": 0}
         }
       },
       "gate_2": {
         "status": "PASS",
+        "summary": "",
         "criteria": {
-          "ai_transformation_alignment": {"decision": "YES", "reason": ""},
-          "data_modernization_alignment": {"decision": "YES", "reason": ""},
-          "ai_operations_alignment": {"decision": "YES", "reason": ""},
-          "conversational_ai_alignment": {"decision": "YES", "reason": ""},
-          "industry_ai_alignment": {"decision": "YES", "reason": ""},
-          "governance_compliance_alignment": {"decision": "YES", "reason": ""}
+          "ai_transformation_alignment": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "data_modernization_alignment": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "ai_operations_alignment": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "conversational_ai_alignment": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "industry_ai_alignment": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "governance_compliance_alignment": {"decision": "YES", "reason": "", "confidence_score": 0}
         }
       },
       "gate_3": {
         "status": "PASS",
+        "summary": "",
         "criteria": {
-          "skill_availability": {"decision": "YES", "reason": ""},
-          "training_effort": {"decision": "YES", "reason": ""},
-          "integration_feasibility": {"decision": "YES", "reason": ""},
-          "support_scalability": {"decision": "YES", "reason": ""}
+          "skill_availability": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "training_effort": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "integration_feasibility": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "support_scalability": {"decision": "YES", "reason": "", "confidence_score": 0}
         }
       },
       "gate_4": {
         "status": "PASS",
+        "summary": "",
         "criteria": {
-          "monetization_clarity": {"decision": "YES", "reason": ""},
-          "gtm_feasibility": {"decision": "YES", "reason": ""},
-          "revenue_upside": {"decision": "YES", "reason": ""},
-          "partner_willingness": {"decision": "YES", "reason": ""},
-          "commercial_structure_clarity": {"decision": "YES", "reason": ""},
-          "startup_stage_fit": {"decision": "YES", "reason": ""}
+          "monetization_clarity": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "gtm_feasibility": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "revenue_upside": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "partner_willingness": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "commercial_structure_clarity": {"decision": "YES", "reason": "", "confidence_score": 0},
+          "startup_stage_fit": {"decision": "YES", "reason": "", "confidence_score": 0}
         }
       },
       "overall_partnership_recommendation": {
@@ -605,24 +615,27 @@ SCORING_PROMPT = dedent(
     - P1.4 is binary only: 0 or 5.
     - Each pillar raw score is average of its sub-criteria (0-5 scale).
     - Each pillar weighted score = (pillar_raw_score / 5) * pillar_weight.
-    - total_weighted_score = sum of three weighted scores.
+    - total_weighted_score = sum of the three weighted pillar scores.
+    - Do not invent or override total_weighted_score; it must equal the computed sum of the three pillars.
     - Keep reasons concise and evidence-oriented.
+    - Add confidence_score to every sub-criterion as an integer from 0 to 100 based on evidence quality and completeness.
+    - Use the full 0-100 scale. Do not output 0/1 confidence values.
 
     Output schema:
     {
       "company_name": "",
       "pillars": {
         "p1_domain_solution_depth": {
-          "weight": 25,
-          "raw_score": 0,
-          "weighted_score": 0,
-          "summary": "",
-          "sub_criteria": {
-            "p1_1_domain_specific_problem_ownership": {"score": 0, "reason": ""},
-            "p1_2_decision_outcome_orientation": {"score": 0, "reason": ""},
-            "p1_3_embedded_domain_logic": {"score": 0, "reason": ""},
-            "p1_4_not_generic_platform_building_block": {"score": 0, "reason": ""},
-            "p1_5_degree_of_workflow_ownership": {"score": 0, "reason": ""}
+        "weight": 25,
+        "raw_score": 0,
+        "weighted_score": 0,
+        "summary": "",
+        "sub_criteria": {
+            "p1_1_domain_specific_problem_ownership": {"score": 0, "reason": "", "confidence_score": 0},
+            "p1_2_decision_outcome_orientation": {"score": 0, "reason": "", "confidence_score": 0},
+            "p1_3_embedded_domain_logic": {"score": 0, "reason": "", "confidence_score": 0},
+            "p1_4_not_generic_platform_building_block": {"score": 0, "reason": "", "confidence_score": 0},
+            "p1_5_degree_of_workflow_ownership": {"score": 0, "reason": "", "confidence_score": 0}
           }
         },
         "p2_product_engineering_readiness": {
@@ -631,11 +644,11 @@ SCORING_PROMPT = dedent(
           "weighted_score": 0,
           "summary": "",
           "sub_criteria": {
-            "p2_1_scalability_performance": {"score": 0, "reason": ""},
-            "p2_2_mlops_maturity": {"score": 0, "reason": ""},
-            "p2_3_security_compliance_readiness": {"score": 0, "reason": ""},
-            "p2_4_deployment_flexibility": {"score": 0, "reason": ""},
-            "p2_5_api_ecosystem_interoperability": {"score": 0, "reason": ""}
+            "p2_1_scalability_performance": {"score": 0, "reason": "", "confidence_score": 0},
+            "p2_2_mlops_maturity": {"score": 0, "reason": "", "confidence_score": 0},
+            "p2_3_security_compliance_readiness": {"score": 0, "reason": "", "confidence_score": 0},
+            "p2_4_deployment_flexibility": {"score": 0, "reason": "", "confidence_score": 0},
+            "p2_5_api_ecosystem_interoperability": {"score": 0, "reason": "", "confidence_score": 0}
           }
         },
         "p3_ai_transparency_trustworthiness": {
@@ -644,11 +657,11 @@ SCORING_PROMPT = dedent(
           "weighted_score": 0,
           "summary": "",
           "sub_criteria": {
-            "p3_1_explainability_of_outcomes": {"score": 0, "reason": ""},
-            "p3_2_model_transparency": {"score": 0, "reason": ""},
-            "p3_3_bias_hallucination_controls": {"score": 0, "reason": ""},
-            "p3_4_human_in_the_loop_support": {"score": 0, "reason": ""},
-            "p3_5_identity_data_protection": {"score": 0, "reason": ""}
+            "p3_1_explainability_of_outcomes": {"score": 0, "reason": "", "confidence_score": 0},
+            "p3_2_model_transparency": {"score": 0, "reason": "", "confidence_score": 0},
+            "p3_3_bias_hallucination_controls": {"score": 0, "reason": "", "confidence_score": 0},
+            "p3_4_human_in_the_loop_support": {"score": 0, "reason": "", "confidence_score": 0},
+            "p3_5_identity_data_protection": {"score": 0, "reason": "", "confidence_score": 0}
           }
         }
       },

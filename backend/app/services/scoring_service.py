@@ -37,6 +37,19 @@ class ScoringService:
         def clean_text(value: Any) -> str:
             return str(value).strip() if isinstance(value, str) else ""
 
+        def clean_confidence(value: Any) -> int:
+            try:
+                raw_confidence = float(value)
+            except Exception:
+                return 0
+
+            if 0.0 <= raw_confidence <= 1.0:
+                confidence = int(round(raw_confidence * 100))
+            else:
+                confidence = int(round(raw_confidence))
+
+            return max(0, min(100, confidence))
+
         def clean_score(value: Any, *, min_value: int = 0, max_value: int = 5) -> int:
             try:
                 n = int(float(value))
@@ -93,7 +106,11 @@ class ScoringService:
             score = clean_score(item.get("score"))
             if binary:
                 score = 5 if score >= 3 else 0
-            return {"score": score, "reason": clean_text(item.get("reason"))}
+            return {
+                "score": score,
+                "reason": clean_text(item.get("reason")),
+                "confidence_score": clean_confidence(item.get("confidence_score")),
+            }
 
         p1_norm_sub = {
             "p1_1_domain_specific_problem_ownership": sub_item(p1_sub, "p1_1_domain_specific_problem_ownership"),
@@ -160,7 +177,7 @@ class ScoringService:
                     "sub_criteria": p3_norm_sub,
                 },
             },
-            "total_weighted_score": round(clean_float(raw.get("total_weighted_score")) or total, 2),
+            "total_weighted_score": round(total, 2),
             "overall_summary": clean_text(raw.get("overall_summary")),
         }
         return normalized

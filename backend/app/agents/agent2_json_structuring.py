@@ -84,6 +84,12 @@ class JsonStructuringAgent:
         leadership = ec.get("leadership")
         if isinstance(leadership, dict):
             leadership["key_leaders"] = self._coerce_string_list(leadership.get("key_leaders"))
+        if isinstance(ec, dict):
+            ec["sources"] = self._coerce_string_list(ec.get("sources"))
+
+        sr = llm.get("strategic_relevance")
+        if isinstance(sr, dict):
+            sr["sources"] = self._coerce_string_list(sr.get("sources"))
 
         df = llm.get("delivery_feasibility")
         if isinstance(df, dict):
@@ -97,12 +103,14 @@ class JsonStructuringAgent:
                 if key in df:
                     df[key] = _as_str(df.get(key))
             df["integration_requirements"] = self._coerce_string_list(df.get("integration_requirements"))
+            df["sources"] = self._coerce_string_list(df.get("sources"))
 
         cv = llm.get("commercial_viability")
         if isinstance(cv, dict):
             for key in ("monetization_model", "gtm_model", "notes"):
                 if key in cv:
                     cv[key] = _as_str(cv.get(key))
+            cv["sources"] = self._coerce_string_list(cv.get("sources"))
 
         evidence = llm.get("evidence")
         if isinstance(evidence, dict):

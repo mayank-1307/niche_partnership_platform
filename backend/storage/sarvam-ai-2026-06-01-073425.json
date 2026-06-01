@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-06-01T07:34:25.308566",
+  "data": {
+    "company_name": "Sarvam AI",
+    "company_summary": "Sarvam AI is an India-based full-stack generative AI company focused on building large language models (LLMs) and voice-first agents tailored for Indic languages and enterprise use cases. The company emphasizes responsible AI, data privacy, and vertical-specific solutions for sectors like BFSI, healthcare, and government. Sarvam AI provides APIs, fine-tuning tools, and deployment platforms to enable enterprises to adopt AI-driven automation and conversational interfaces.",
+    "website": "https://sarvam.ai",
+    "headquarters": "Bengaluru, Karnataka, India",
+    "founded_year": 2023,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "ICICI Bank",
+          "Government of India",
+          "Healthcare and BFSI sector enterprises"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 41000000,
+        "investors": [
+          "Lightspeed Venture Partners",
+          "Khosla Ventures",
+          "Peak XV Partners"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series A\", \"amount_usd\": 41000000, \"year\": 2024}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "The founders, Vivek Raghavan and Pratyush Kumar, are former executives from AI4Bharat (an AI research initiative) and have backgrounds in machine learning, NLP, and large-scale AI deployment. Vivek Raghavan previously worked at EkStep Foundation and was a chief architect of India's Aadhaar biometric system. Pratyush Kumar has a PhD in Computer Science from IIT Madras and experience in building scalable AI systems.",
+        "key_leaders": [
+          "Vivek Raghavan",
+          "Pratyush Kumar"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 1,
+        "case_studies_available": true,
+        "deployment_scale": "Pilots and early enterprise deployments in India, with a focus on BFSI and government sectors."
+      },
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/about",
+        "https://sarvam.ai/product",
+        "https://techcrunch.com/2024/01/16/sarvam-ai-raises-41m-to-build-india-focused-generative-ai-models/",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-mn-in-series-a-funding-led-by-lightspeed-11705412343283.html"
+      ]
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": false,
+      "ai_operations": true,
+      "conversational_ai": true,
+      "industry_ai": true,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Enterprise-grade generative AI models for Indic languages",
+        "Voice-first AI agents for customer support and automation",
+        "Fine-tuning and deployment of LLMs for vertical-specific use cases (BFSI, healthcare, government)",
+        "AI-driven automation for document processing and workflow optimization",
+        "Responsible AI and privacy-preserving AI solutions for regulated industries"
+      ],
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/product",
+        "https://sarvam.ai/blog"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "MEDIUM",
+      "integration_requirements": [
+        "APIs for LLM inference and fine-tuning",
+        "Cloud providers (AWS, Azure, or on-premise deployment options)",
+        "Identity and access management systems for enterprise security",
+        "Data pipelines for custom model training and fine-tuning"
+      ],
+      "notes": "Sarvam AI provides APIs and SDKs for integration, but implementation may require customization for vertical-specific use cases. Documentation and support are available, but enterprise-scale deployments may need additional partner involvement for regional and compliance requirements.",
+      "sources": [
+        "https://sarvam.ai/docs",
+        "https://sarvam.ai/product"
+      ]
+    },
+    "commercial_viability": {
+      "monetization_model": "Hybrid (SaaS for APIs, enterprise contracts for custom deployments, usage-based pricing for fine-tuning and inference)",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led (focus on enterprise and government sectors in India)",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 0,
+      "notes": "Sarvam AI demonstrates strong enterprise focus with pilot projects in BFSI and government. The company is open to partnerships, as evidenced by collaborations with system integrators and cloud providers. Pricing details are not publicly available, suggesting a custom enterprise sales motion.",
+      "sources": [
+        "https://sarvam.ai",
+        "https://techcrunch.com/2024/01/16/sarvam-ai-raises-41m-to-build-india-focused-generative-ai-models/",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-mn-in-series-a-funding-led-by-lightspeed-11705412343283.html"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/about",
+        "https://sarvam.ai/product",
+        "https://sarvam.ai/docs",
+        "https://sarvam.ai/blog",
+        "https://techcrunch.com/2024/01/16/sarvam-ai-raises-41m-to-build-india-focused-generative-ai-models/",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-mn-in-series-a-funding-led-by-lightspeed-11705412343283.html",
+        "https://yourstory.com/2024/01/sarvam-ai-funding-lightspeed-khosla-peak-xv"
+      ],
+      "last_updated": "2024-06-20"
+    }
+  }
+}
