@@ -83,12 +83,12 @@ export default function DecisionIntelligencePage() {
 
   const proceedToScoring = () => {
     window.alert(`${passedGatesCount} out of 4 gate(s) passed.`);
-    navigate("/scoring");
+    navigate("/scoring", { state: { profileId: selectedId } });
   };
 
   return (
     <>
-      <FixedHeader />
+      <FixedHeader pageTitle="Decision Intelligence" />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
         <Toaster position="top-right" />
         <div className="mb-6 flex items-center justify-between">
@@ -99,7 +99,7 @@ export default function DecisionIntelligencePage() {
         </div>
 
         <div className="glass mb-6 rounded-2xl p-5">
-          <div className="mb-2 text-sm text-cyan">Choose Company Profile</div>
+          <div className="mb-2 text-sm text-cyan">Choose recently analyzed partner company json for scoring</div>
           <div className="flex flex-col gap-3 md:flex-row">
             <select
               value={selectedId}
@@ -107,7 +107,7 @@ export default function DecisionIntelligencePage() {
               className="w-full rounded-xl border border-white/20 bg-slate-100 px-4 py-3 text-slate-900"
             >
               <option value="" disabled>
-                {items.length === 0 ? (loadingProfiles ? "Loading profiles..." : "No profiles found") : "Choose recently analyzed partner company json for scoring"}
+                {items.length === 0 ? (loadingProfiles ? "Loading profiles..." : "No profiles found") : ""}
               </option>
               {items.map((item) => (
                 <option key={item.id} value={item.id}>

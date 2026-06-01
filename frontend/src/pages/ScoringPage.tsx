@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { ShieldCheck } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { FixedHeader } from "../components/FixedHeader";
-import { getScoringReport, listCompanyProfiles, type CompanyProfileSummary, type ScoringReport } from "../lib/api";
+import { getScoringReport, type ScoringReport } from "../lib/api";
 
 function labelize(value: string) {
-  return value.replace(/_/g, " ");
+  return value.replace(/^(p\d+)_(\d+)_/i, "$1.$2 ").replace(/_/g, " ");
 }
 
 function scoreClass(score: number) {
@@ -17,41 +16,34 @@ function scoreClass(score: number) {
 }
 
 export default function ScoringPage() {
-  const [items, setItems] = useState<CompanyProfileSummary[]>([]);
-  const [selectedId, setSelectedId] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const profileId = typeof location.state?.profileId === "string" ? location.state.profileId : "";
   const [report, setReport] = useState<ScoringReport | null>(null);
   const [loading, setLoading] = useState(false);
-  const [loadingProfiles, setLoadingProfiles] = useState(false);
 
   useEffect(() => {
-    const loadProfiles = async () => {
-      setLoadingProfiles(true);
+    const loadScoring = async () => {
+      if (!profileId) {
+        toast.error("Choose a company profile from Decision Intelligence first");
+        navigate("/decision-intelligence", { replace: true });
+        return;
+      }
+
+      setLoading(true);
+      setReport(null);
       try {
-        const profiles = await listCompanyProfiles();
-        setItems(profiles);
+        const scoringReport = await getScoringReport(profileId);
+        setReport(scoringReport);
+        toast.success("Scoring generated");
       } catch (error: any) {
-        toast.error(error?.response?.data?.detail || "Failed to load company profiles");
+        toast.error(error?.response?.data?.detail || "Failed to generate scoring");
       } finally {
-        setLoadingProfiles(false);
+        setLoading(false);
       }
     };
-    void loadProfiles();
-  }, []);
-
-  const submitSelection = async () => {
-    if (!selectedId) return;
-    setLoading(true);
-    setReport(null);
-    try {
-      const scoringReport = await getScoringReport(selectedId);
-      setReport(scoringReport);
-      toast.success("Scoring generated");
-    } catch (error: any) {
-      toast.error(error?.response?.data?.detail || "Failed to generate scoring");
-    } finally {
-      setLoading(false);
-    }
-  };
+    void loadScoring();
+  }, [navigate, profileId]);
 
   const pillars = report
     ? [
@@ -60,10 +52,11 @@ export default function ScoringPage() {
         { code: "P3", title: "AI Transparency & Trustworthiness", data: report.pillars.p3_ai_transparency_trustworthiness },
       ]
     : [];
+  const totalWeight = pillars.reduce((sum, pillar) => sum + pillar.data.weight, 0);
 
   return (
     <>
-      <FixedHeader />
+      <FixedHeader pageTitle="Scoring" />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
         <Toaster position="top-right" />
         <div className="mb-6 flex items-center justify-between">
@@ -73,41 +66,20 @@ export default function ScoringPage() {
           </Link>
         </div>
 
-        <div className="glass mb-6 rounded-2xl p-5">
-          <div className="mb-2 text-sm text-cyan">Choose Company Profile</div>
-          <div className="flex flex-col gap-3 md:flex-row">
-            <select
-              value={selectedId}
-              onChange={(e) => setSelectedId(e.target.value)}
-              className="w-full rounded-xl border border-white/20 bg-slate-100 px-4 py-3 text-slate-900"
-            >
-              <option value="" disabled>
-                {items.length === 0 ? (loadingProfiles ? "Loading profiles..." : "No profiles found") : "Choose recently analyzed partner company json for scoring"}
-              </option>
-              {items.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.company_name || `Profile ${item.id}`} ({new Date(item.created_at).toLocaleString()})
-                </option>
-              ))}
-            </select>
-            <button
-              type="button"
-              onClick={() => void submitSelection()}
-              disabled={!selectedId || loading}
-              className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60"
-            >
-              {loading ? "Generating..." : "Submit"}
-            </button>
+        {loading && !report ? (
+          <div className="flex min-h-[55vh] items-center justify-center">
+            <div className="text-center">
+              <div className="text-2xl font-semibold text-white md:text-4xl">Evaluation in Progress</div>
+              <div className="mt-3 text-sm text-slate-400">Generating weighted scoring from the selected company profile.</div>
+            </div>
           </div>
-        </div>
-
-        {report ? (
+        ) : report ? (
           <div>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
               {pillars.map((pillar) => (
                 <div key={pillar.code} className="glass rounded-2xl p-5">
                   <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                    <ShieldCheck className="h-4 w-4" /> {pillar.code} - {pillar.title}
+                    {pillar.code} - {pillar.title}
                   </div>
                   <div className={`mb-4 text-lg font-semibold ${scoreClass(pillar.data.raw_score)}`}>
                     {pillar.data.raw_score} / 5
@@ -140,20 +112,13 @@ export default function ScoringPage() {
               <div className="mb-2 text-sm text-cyan">Scoring Summary</div>
               <div className="space-y-1 text-sm text-slate-200">
                 <div>
-                  Total Weighted Score: <span className={scoreClass(report.total_weighted_score)}>{report.total_weighted_score}</span>
+                  Total Weighted Score: <span className={scoreClass(report.total_weighted_score)}>{report.total_weighted_score}/{totalWeight}</span>
                 </div>
-                {pillars.map((pillar) => (
-                  <div key={pillar.code}>
-                    {pillar.code}: <span className={scoreClass(pillar.data.raw_score)}>{pillar.data.raw_score} / 5</span>
-                  </div>
-                ))}
               </div>
               <div className="mt-4 text-sm text-slate-300">{report.overall_summary || "No summary provided."}</div>
             </div>
           </div>
-        ) : (
-          <div className="text-sm text-slate-400"></div>
-        )}
+        ) : null}
       </div>
     </>
   );

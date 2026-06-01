@@ -148,7 +148,7 @@ export default function App() {
 
   return (
     <>
-      <FixedHeader />
+      <FixedHeader pageTitle="Partner Analysis" />
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8">
       <Toaster position="top-right" />
 

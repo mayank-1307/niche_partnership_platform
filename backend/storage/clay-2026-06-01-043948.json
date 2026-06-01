@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-06-01T04:39:48.789233",
+  "data": {
+    "company_name": "Clay",
+    "company_summary": "Clay is a relationship management platform that automates contact and relationship tracking using AI. It aggregates data from emails, calendars, and other sources to help users maintain and strengthen professional and personal relationships.",
+    "website": "https://clay.com",
+    "headquarters": "San Francisco, California, United States",
+    "founded_year": 2018,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": false,
+        "notable_clients": []
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 14000000,
+        "investors": [
+          "Forerunner Ventures",
+          "Uncork Capital",
+          "Elad Gil",
+          "Aydin Senkut (Felicis Ventures)"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series A\", \"amount_usd\": 8000000, \"year\": 2021}",
+          "{\"round_type\": \"Seed\", \"amount_usd\": 6000000, \"year\": 2020}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Clay was founded by Zachary Hamed and Rafael Conde. Zachary Hamed previously worked at Goldman Sachs and has a background in product design and development. Rafael Conde has experience in design and product leadership, having worked with startups and tech companies.",
+        "key_leaders": [
+          "Zachary Hamed",
+          "Rafael Conde"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Commercial",
+        "years_in_market": 5,
+        "case_studies_available": false,
+        "deployment_scale": "Primarily targeted at individual professionals and small teams; no evidence of large-scale enterprise deployments."
+      }
+    },
+    "strategic_relevance": {
+      "ai_transformation": false,
+      "data_modernization": false,
+      "ai_operations": false,
+      "conversational_ai": false,
+      "industry_ai": false,
+      "governance_compliance": false,
+      "primary_use_cases": [
+        "Automated contact and relationship management",
+        "Data aggregation from emails, calendars, and other sources",
+        "Personal and professional relationship tracking"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "LOW",
+      "tcs_implementation_readiness": "LOW",
+      "training_effort_required": "LOW",
+      "support_scalability": "MEDIUM",
+      "integration_requirements": [
+        "Email clients (e.g., Gmail, Outlook)",
+        "Calendar applications",
+        "APIs for data aggregation"
+      ],
+      "notes": "Clay is designed for ease of use with minimal setup. It integrates with common email and calendar platforms, reducing implementation complexity. However, it lacks enterprise-grade features and scalability for large deployments."
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based (SaaS)",
+      "pricing_transparency": true,
+      "gtm_model": "Direct sales and product-led growth (PLG)",
+      "partner_willingness": false,
+      "estimated_deal_size_usd": 0,
+      "notes": "Clay operates on a subscription model with transparent pricing for individual and team plans. It does not appear to have a strong partner ecosystem or enterprise sales motion."
+    },
+    "evidence": {
+      "sources": [
+        "https://clay.com",
+        "https://clay.com/about",
+        "https://clay.com/pricing",
+        "https://www.crunchbase.com/organization/clay-earth",
+        "https://techcrunch.com/2021/03/10/clay-raises-8m-to-help-you-remember-people-you-meet/"
+      ],
+      "last_updated": "2023-10-15"
+    }
+  }
+}
