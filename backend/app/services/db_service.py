@@ -26,11 +26,40 @@ class CompanyProfileDatabase:
                 cur.execute("SELECT 1")
                 cur.fetchone()
 
+    def _ensure_schema_sync(self) -> None:
+        with psycopg.connect(settings.database_url) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS evaluation_reports (
+                        id BIGSERIAL PRIMARY KEY,
+                        profile_id INTEGER NOT NULL REFERENCES company_profiles(id) ON DELETE CASCADE,
+                        evaluation_type TEXT NOT NULL CHECK (evaluation_type IN ('decision_intelligence', 'scoring')),
+                        report_json JSONB NOT NULL,
+                        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                    )
+                    """
+                )
+                cur.execute(
+                    """
+                    CREATE INDEX IF NOT EXISTS idx_evaluation_reports_profile_id
+                    ON evaluation_reports (profile_id)
+                    """
+                )
+                cur.execute(
+                    """
+                    CREATE INDEX IF NOT EXISTS idx_evaluation_reports_type
+                    ON evaluation_reports (evaluation_type)
+                    """
+                )
+                conn.commit()
+
     async def connect(self) -> None:
         if not self.enabled:
             logger.warning("Database integration is disabled; DATABASE_URL is empty")
             return
         await asyncio.to_thread(self._verify_connection)
+        await asyncio.to_thread(self._ensure_schema_sync)
         self._ready = True
         logger.info("Database connection verified")
 
@@ -106,6 +135,49 @@ class CompanyProfileDatabase:
     async def get_company_profile(self, profile_id: int) -> dict[str, Any] | None:
         self._require_ready()
         return await asyncio.to_thread(self._get_company_profile_sync, profile_id)
+
+    def _save_evaluation_report_sync(
+        self,
+        *,
+        profile_id: int,
+        evaluation_type: str,
+        report_json: dict[str, Any],
+    ) -> int:
+        logger.debug(
+            "Saving evaluation report profile_id=%s evaluation_type=%s",
+            profile_id,
+            evaluation_type,
+        )
+        with psycopg.connect(settings.database_url) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO evaluation_reports (profile_id, evaluation_type, report_json)
+                    VALUES (%s, %s, %s)
+                    RETURNING id
+                    """,
+                    (profile_id, evaluation_type, psycopg.types.json.Jsonb(report_json)),
+                )
+                row = cur.fetchone()
+                conn.commit()
+        if not row:
+            raise RuntimeError("Failed to save evaluation report.")
+        return int(row[0])
+
+    async def save_evaluation_report(
+        self,
+        *,
+        profile_id: int,
+        evaluation_type: str,
+        report_json: dict[str, Any],
+    ) -> int:
+        self._require_ready()
+        return await asyncio.to_thread(
+            self._save_evaluation_report_sync,
+            profile_id=profile_id,
+            evaluation_type=evaluation_type,
+            report_json=report_json,
+        )
 
 
 company_profile_db = CompanyProfileDatabase()

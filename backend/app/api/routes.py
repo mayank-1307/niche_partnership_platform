@@ -26,6 +26,40 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
+def _extract_profile_id(file_id: str) -> int | None:
+    return int(file_id) if file_id.isdigit() else None
+
+
+async def _persist_report(file_id: str, evaluation_type: str, report: dict, row_exists: bool) -> None:
+    profile_id = _extract_profile_id(file_id)
+    if profile_id is None or not row_exists:
+        logger.debug(
+            "Skipping evaluation report persistence file_id=%s evaluation_type=%s",
+            file_id,
+            evaluation_type,
+        )
+        return
+
+    try:
+        report_id = await company_profile_db.save_evaluation_report(
+            profile_id=profile_id,
+            evaluation_type=evaluation_type,
+            report_json=report,
+        )
+        logger.info(
+            "Saved evaluation report file_id=%s evaluation_type=%s report_id=%s",
+            file_id,
+            evaluation_type,
+            report_id,
+        )
+    except Exception:
+        logger.exception(
+            "Failed to persist evaluation report file_id=%s evaluation_type=%s",
+            file_id,
+            evaluation_type,
+        )
+
+
 @router.get("/health", response_model=HealthResponse)
 async def health() -> HealthResponse:
     return HealthResponse()
@@ -103,10 +137,12 @@ async def decision_intelligence_profile(profile_id: int) -> CompanyProfileDetail
 async def decision_intelligence(file_id: str):
     logger.info("Generating decision intelligence file_id=%s", file_id)
     # Numeric IDs are database profiles; other IDs refer to disk JSON exports.
+    row_exists = False
     if file_id.isdigit():
         row = await company_profile_db.get_company_profile(int(file_id))
         artefact = row.get("artefact") if row else None
         wrapped = artefact if isinstance(artefact, dict) else None
+        row_exists = row is not None
     else:
         wrapped = None
 
@@ -121,6 +157,7 @@ async def decision_intelligence(file_id: str):
         raise bad_request("Invalid JSON payload")
 
     report = await decision_intelligence_service.evaluate(structured)
+    await _persist_report(file_id, "decision_intelligence", report, row_exists)
     logger.info("Decision intelligence generated file_id=%s", file_id)
     return {"file_id": file_id, "report": report}
 
@@ -129,10 +166,12 @@ async def decision_intelligence(file_id: str):
 async def scoring(file_id: str):
     logger.info("Generating scoring report file_id=%s", file_id)
     # Numeric IDs are database profiles; other IDs refer to disk JSON exports.
+    row_exists = False
     if file_id.isdigit():
         row = await company_profile_db.get_company_profile(int(file_id))
         artefact = row.get("artefact") if row else None
         wrapped = artefact if isinstance(artefact, dict) else None
+        row_exists = row is not None
     else:
         wrapped = None
 
@@ -147,5 +186,6 @@ async def scoring(file_id: str):
         raise bad_request("Invalid JSON payload")
 
     report = await scoring_service.evaluate(structured)
+    await _persist_report(file_id, "scoring", report, row_exists)
     logger.info("Scoring report generated file_id=%s", file_id)
     return {"file_id": file_id, "report": report}

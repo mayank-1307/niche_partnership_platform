@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-06-02T06:08:58.331430",
+  "data": {
+    "company_name": "Glean Technologies Inc.",
+    "company_summary": "Glean is an AI-powered enterprise search and knowledge discovery platform designed to unify and surface information across workplace apps, documents, and systems. The company focuses on delivering contextual, personalized, and secure search experiences for enterprises, enabling employees to find information efficiently within their organization's digital ecosystem.",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, United States",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "enterprise_customers": {
+        "has_enterprise_clients": true,
+        "notable_clients": [
+          "Atlassian",
+          "Databricks",
+          "Gusto",
+          "Okta",
+          "PayPal",
+          "Square",
+          "Uber",
+          "Workday",
+          "Zoom"
+        ]
+      },
+      "funding": {
+        "is_funded": true,
+        "total_funding_usd": 228000000,
+        "investors": [
+          "General Catalyst",
+          "Kleiner Perkins",
+          "Lightspeed Venture Partners",
+          "Sequoia Capital",
+          "ICONIQ Growth",
+          "Temasek",
+          "Slack Fund"
+        ],
+        "recent_rounds": [
+          "{\"round_type\": \"Series D\", \"amount_usd\": 200000000, \"year\": 2024}",
+          "{\"round_type\": \"Series C\", \"amount_usd\": 100000000, \"year\": 2022}"
+        ]
+      },
+      "leadership": {
+        "founders_experience": "Glean was founded by Arvind Jain (CEO), a former Google Distinguished Engineer and engineering leader for Google Search infrastructure. The founding team includes ex-Google engineers with deep expertise in search, AI, and large-scale systems. The leadership team has extensive experience in building enterprise-grade products, search technologies, and AI-driven platforms.",
+        "key_leaders": [
+          "Arvind Jain",
+          "T.R. Vishwanath",
+          "Pavan Kumar",
+          "Howard Lerman"
+        ]
+      },
+      "product_maturity": {
+        "stage": "Enterprise Scale",
+        "years_in_market": 5,
+        "case_studies_available": true,
+        "deployment_scale": "Glean is deployed across multiple Fortune 500 companies and high-growth enterprises, supporting thousands of users per organization. The platform integrates with over 100 enterprise applications and handles large-scale data indexing and retrieval for global workforces."
+      },
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/customers",
+        "https://glean.com/leadership",
+        "https://www.crunchbase.com/organization/glean-ai",
+        "https://techcrunch.com/2024/02/21/glean-raises-200m-at-2-2b-valuation-for-its-enterprise-search-platform/"
+      ]
+    },
+    "strategic_relevance": {
+      "ai_transformation": true,
+      "data_modernization": true,
+      "ai_operations": false,
+      "conversational_ai": true,
+      "industry_ai": false,
+      "governance_compliance": true,
+      "primary_use_cases": [
+        "Enterprise search and knowledge discovery",
+        "Unified workplace search across apps and documents",
+        "AI-powered contextual answers and recommendations",
+        "Employee productivity and onboarding acceleration",
+        "Secure and governed access to organizational knowledge",
+        "Personalized search experiences with role-based access control"
+      ],
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/about"
+      ]
+    },
+    "delivery_feasibility": {
+      "implementation_complexity": "MEDIUM",
+      "tcs_implementation_readiness": "HIGH",
+      "training_effort_required": "MEDIUM",
+      "support_scalability": "HIGH",
+      "integration_requirements": [
+        "Enterprise applications (e.g., Slack, Google Workspace, Microsoft 365, Salesforce, Confluence, Jira)",
+        "Identity providers (e.g., Okta, Azure AD, Ping Identity)",
+        "Document and content repositories (e.g., Box, Dropbox, SharePoint)",
+        "APIs for custom integrations and data connectors",
+        "Cloud infrastructure (AWS, GCP, or Azure)"
+      ],
+      "notes": "Glean offers a well-documented API, pre-built connectors, and a partner ecosystem to facilitate deployment. Implementation typically involves configuration, identity integration, and connector setup. The platform supports multi-tenant and single-tenant deployments, with options for on-premises or cloud-based indexing. Training is required for administrators and end-users to maximize adoption.",
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/press"
+      ]
+    },
+    "commercial_viability": {
+      "monetization_model": "Subscription-based SaaS, with enterprise contracts and annual licensing.",
+      "pricing_transparency": false,
+      "gtm_model": "Direct sales and partner-led, targeting enterprise customers with a focus on IT, HR, and knowledge management leaders.",
+      "partner_willingness": true,
+      "estimated_deal_size_usd": 100000,
+      "notes": "Glean demonstrates strong commercial viability with a clear enterprise sales motion, a growing customer base, and significant funding. The company has established partnerships with system integrators and resellers. Pricing is typically customized based on user count, integrations, and deployment model.",
+      "sources": [
+        "https://glean.com",
+        "https://www.crunchbase.com/organization/glean-ai"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/about",
+        "https://glean.com/customers",
+        "https://glean.com/leadership",
+        "https://glean.com/press",
+        "https://www.crunchbase.com/organization/glean-ai",
+        "https://techcrunch.com/2024/02/21/glean-raises-200m-at-2-2b-valuation-for-its-enterprise-search-platform/",
+        "https://www.linkedin.com/company/glean-ai/"
+      ],
+      "last_updated": "2024-05-20"
+    }
+  }
+}
