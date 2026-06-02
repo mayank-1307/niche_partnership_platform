@@ -99,23 +99,40 @@ class CompanyProfileDatabase:
             username=username,
         )
 
-    def _list_company_profiles_sync(self) -> list[dict[str, Any]]:
-        logger.debug("Fetching company profile list")
+    def _list_company_profiles_sync(self, search: str = "", limit: int = 5) -> list[dict[str, Any]]:
+        logger.debug("Fetching company profile list search=%s limit=%s", search, limit)
+        search_term = search.strip()
+        like_pattern = f"%{search_term}%"
         with psycopg.connect(settings.database_url, row_factory=dict_row) as conn:
             with conn.cursor() as cur:
-                cur.execute(
-                    """
-                    SELECT id, company_name, username, created_at
-                    FROM company_profiles
-                    ORDER BY created_at DESC
-                    """
-                )
+                if search_term:
+                    cur.execute(
+                        """
+                        SELECT id, company_name, username, created_at
+                        FROM company_profiles
+                        WHERE company_name ILIKE %s
+                           OR COALESCE(artefact->>'website', '') ILIKE %s
+                        ORDER BY created_at DESC
+                        LIMIT %s
+                        """,
+                        (like_pattern, like_pattern, limit),
+                    )
+                else:
+                    cur.execute(
+                        """
+                        SELECT id, company_name, username, created_at
+                        FROM company_profiles
+                        ORDER BY created_at DESC
+                        LIMIT %s
+                        """,
+                        (limit,),
+                    )
                 rows = cur.fetchall()
         return [dict(row) for row in rows]
 
-    async def list_company_profiles(self) -> list[dict[str, Any]]:
+    async def list_company_profiles(self, search: str = "", limit: int = 5) -> list[dict[str, Any]]:
         self._require_ready()
-        return await asyncio.to_thread(self._list_company_profiles_sync)
+        return await asyncio.to_thread(self._list_company_profiles_sync, search, limit)
 
     def _get_company_profile_sync(self, profile_id: int) -> dict[str, Any] | None:
         logger.debug("Fetching company profile profile_id=%s", profile_id)

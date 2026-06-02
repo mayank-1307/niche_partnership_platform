@@ -134,8 +134,10 @@ export async function getDecisionIntelligenceReport(fileId: string): Promise<Dec
   return res.data.report;
 }
 
-export async function listCompanyProfiles(): Promise<CompanyProfileSummary[]> {
-  const res = await api.get<{ items: CompanyProfileSummary[] }>("/decision-intelligence/profiles");
+export async function listCompanyProfiles(query = ""): Promise<CompanyProfileSummary[]> {
+  const res = await api.get<{ items: CompanyProfileSummary[] }>("/decision-intelligence/profiles", {
+    params: query.trim() ? { q: query.trim() } : undefined,
+  });
   return res.data.items ?? [];
 }
 

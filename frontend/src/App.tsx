@@ -82,19 +82,41 @@ export default function App() {
   const [loadingRecentProfiles, setLoadingRecentProfiles] = useState(false);
 
   useEffect(() => {
-    const loadRecentProfiles = async () => {
+    if (inputLocked) {
+      return;
+    }
+
+    const query = domain.trim();
+    let active = true;
+    const timer = window.setTimeout(async () => {
+      if (!active) {
+        return;
+      }
       setLoadingRecentProfiles(true);
       try {
-        const items = await listCompanyProfiles();
+        const items = await listCompanyProfiles(query);
+        if (!active) {
+          return;
+        }
         setRecentProfiles(items.slice(0, 5));
       } catch (error: any) {
+        if (!active) {
+          return;
+        }
         toast.error(error?.response?.data?.detail || "Failed to load recent searches");
       } finally {
+        if (!active) {
+          return;
+        }
         setLoadingRecentProfiles(false);
       }
+    }, 300);
+
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
     };
-    void loadRecentProfiles();
-  }, []);
+  }, [domain, inputLocked]);
 
   const run = async () => {
     if (!domain.trim()) {
@@ -221,11 +243,11 @@ export default function App() {
           **The agents are accessing data from the official sites as well as publicly available sources**
         </p>
         <div className="mt-4">
-          <div className="mb-2 text-sm text-cyan">Recent 5 Searches</div>
+          <div className="mb-2 text-sm text-cyan">{domain.trim() ? "Top 5 Matching Searches" : "Recent 5 Searches"}</div>
           {loadingRecentProfiles ? (
             <div className="text-xs text-slate-400">Loading recent searches...</div>
           ) : recentProfiles.length === 0 ? (
-            <div className="text-xs text-slate-400">No recent searches found.</div>
+            <div className="text-xs text-slate-400">{domain.trim() ? "No matching recent searches found." : "No recent searches found."}</div>
           ) : (
             <div className="flex flex-wrap gap-2">
               {recentProfiles.map((profile) => (

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import logging
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Query, Response
 from fastapi.responses import FileResponse
 
 from app.core.errors import bad_request, upstream_error
@@ -119,9 +119,11 @@ async def stored_json(file_id: str):
 
 
 @router.get("/decision-intelligence/profiles", response_model=CompanyProfileListResponse)
-async def decision_intelligence_profiles() -> CompanyProfileListResponse:
-    logger.debug("Listing company profiles")
-    items = await company_profile_db.list_company_profiles()
+async def decision_intelligence_profiles(
+    q: str = Query(default="", description="Optional company name or website search term"),
+) -> CompanyProfileListResponse:
+    logger.debug("Listing company profiles q=%s", q)
+    items = await company_profile_db.list_company_profiles(search=q, limit=5)
     return CompanyProfileListResponse(items=items)
 
 

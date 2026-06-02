@@ -1,0 +1,241 @@
+{
+  "generated_at": "2026-06-02T09:33:24.902711",
+  "data": {
+    "company_name": "Figure AI, Inc.",
+    "website": "https://figure.ai",
+    "headquarters": "Sunnyvale, California, USA",
+    "founded_year": 2022,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "BMW Manufacturing"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 675000000,
+            "investors": [
+              "Microsoft",
+              "OpenAI Startup Fund",
+              "NVIDIA",
+              "Jeff Bezos (Bezos Expeditions)",
+              "PARKER",
+              "Intel Capital",
+              "Align Ventures",
+              "T. Rowe Price Associates",
+              "Bosch Ventures",
+              "Temasek"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series B",
+                "amount_usd": 675000000,
+                "year": 2024
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Figure AI was founded by Brett Adcock, who previously co-founded Vettery (acquired by Adecco) and Archer Aviation (NYSE: ACHR). The leadership team includes experts in robotics, AI, and autonomous systems, with backgrounds from companies like Boston Dynamics, Tesla, Google, and Apple.",
+            "key_leaders": [
+              {
+                "name": "Brett Adcock",
+                "title": "Founder & CEO",
+                "background": "Co-founder of Vettery (acquired by Adecco) and Archer Aviation (NYSE: ACHR)."
+              },
+              {
+                "name": "Jerry Pratt",
+                "title": "Chief Technology Officer",
+                "background": "Former Senior Research Scientist at the Florida Institute for Human & Machine Cognition (IHMC) and robotics expert."
+              },
+              {
+                "name": "Damion Shelton",
+                "title": "VP of Hardware Engineering",
+                "background": "Former Director of Hardware at Agility Robotics and robotics engineer at Boston Dynamics."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Pilot",
+            "years_in_market": 1,
+            "case_studies_available": true,
+            "deployment_scale": "Pilot deployments in enterprise settings, including a partnership with BMW Manufacturing for autonomous tasks in automotive production."
+          }
+        }
+      },
+      "sources": [
+        "https://figure.ai",
+        "https://www.crunchbase.com/organization/figure-ai",
+        "https://techcrunch.com/2024/02/29/figure-ai-raises-675m-at-2-6b-valuation-for-humanoid-robots/",
+        "https://www.bmwgroup.com/en/news/general/2024/bmw-group-and-figure-sign-agreement-for-humanoid-robots.html"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Autonomous humanoid robots for industrial and enterprise applications",
+              "Labor augmentation in manufacturing and logistics",
+              "General-purpose robotics for hazardous or repetitive tasks"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "Manufacturing",
+              "Logistics"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": false,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://figure.ai",
+        "https://www.bmwgroup.com/en/news/general/2024/bmw-group-and-figure-sign-agreement-for-humanoid-robots.html"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "VERY_HIGH",
+            "available_skills": [],
+            "required_skills": [
+              "Robotics integration",
+              "AI and machine learning deployment",
+              "Industrial safety certification",
+              "Enterprise manufacturing systems"
+            ],
+            "gap_notes": "Significant customization and specialized skills required for deployment."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "HIGH",
+            "ramp_time": "",
+            "training_needs": [
+              "Workforce training for robotics operation and maintenance",
+              "Safety and compliance training for industrial environments"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Custom integration with enterprise manufacturing systems",
+              "On-premise deployment with secure networking",
+              "Real-time data processing infrastructure",
+              "Safety and compliance certifications for industrial environments"
+            ],
+            "dependencies": [],
+            "complexity_notes": "High complexity due to customization and safety requirements."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "MEDIUM",
+            "support_model": "",
+            "scaling_constraints": [
+              "Limited large-scale deployment evidence",
+              "High customization needs per enterprise"
+            ]
+          }
+        }
+      },
+      "sources": [
+        "https://figure.ai",
+        "https://www.bmwgroup.com/en/news/general/2024/bmw-group-and-figure-sign-agreement-for-humanoid-robots.html"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Enterprise contracts, pilot programs, and potential robot-as-a-service (RaaS) model",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with strategic enterprise partnerships",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 0,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": false,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Early commercial (Pilot)",
+            "fit_notes": "Focused on high-value enterprise pilots; long-term monetization models not yet proven."
+          }
+        }
+      },
+      "sources": [
+        "https://figure.ai",
+        "https://techcrunch.com/2024/02/29/figure-ai-raises-675m-at-2-6b-valuation-for-humanoid-robots/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://figure.ai"
+      ],
+      "last_updated": "2026-06-02T09:33:24.791894"
+    }
+  }
+}
