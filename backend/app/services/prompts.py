@@ -541,6 +541,8 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
     - HIGH_PRIORITY = Gate1 PASS + Gate2 PASS + Gate3 PASS + Gate4 PASS
     - MEDIUM_PRIORITY = Gate1 PASS and (Gate2 FAIL or Gate3 DEFER) and Gate4 PASS
     - LOW_PRIORITY = Gate1 FAIL or Gate3 FAIL or Gate4 FAIL
+    - The overall_partnership_recommendation.reason should be 1-2 sentences that summarize the business case, main strengths, and main risks.
+    - Mention the most important gate outcomes and the key criteria driving the recommendation.
 
     Output schema:
     {
@@ -626,11 +628,11 @@ SCORING_PROMPT = dedent(
       "company_name": "",
       "pillars": {
         "p1_domain_solution_depth": {
-        "weight": 25,
-        "raw_score": 0,
-        "weighted_score": 0,
-        "summary": "",
-        "sub_criteria": {
+          "weight": 25,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
             "p1_1_domain_specific_problem_ownership": {"score": 0, "reason": "", "confidence_score": 0},
             "p1_2_decision_outcome_orientation": {"score": 0, "reason": "", "confidence_score": 0},
             "p1_3_embedded_domain_logic": {"score": 0, "reason": "", "confidence_score": 0},
@@ -662,6 +664,85 @@ SCORING_PROMPT = dedent(
             "p3_3_bias_hallucination_controls": {"score": 0, "reason": "", "confidence_score": 0},
             "p3_4_human_in_the_loop_support": {"score": 0, "reason": "", "confidence_score": 0},
             "p3_5_identity_data_protection": {"score": 0, "reason": "", "confidence_score": 0}
+          }
+        },
+      },
+      "total_weighted_score": 0,
+      "overall_summary": ""
+    }
+    """
+).strip()
+
+SCORING_PROMPT_P456 = dedent(
+    """
+    You are an enterprise solution architect and partnership evaluation expert.
+
+    Evaluate ONLY the provided company JSON and return JSON only.
+    Do not invent facts. If evidence is weak or missing, use lower scores.
+
+    Scoring pillars and weights:
+    - P4 Business & Strategic Fit for TCS: weight 20
+    - P5 Market Validation & Feedback: weight 15
+    - P6 Delivery Readiness & Risk: weight 15
+
+    Scoring rules:
+    - Most sub-criteria are scored from 0 to 5.
+    - P4.4 is binary only: 0 or 5.
+    - P5.3 is discrete only: 0, 3, or 5.
+    - P5.4 is discrete only: 0, 1, 3, or 5.
+    - P6.4 is discrete only: 0, 1, 3, or 5.
+    - Each pillar raw score is average of its sub-criteria (0-5 scale).
+    - Each pillar weighted score = (pillar_raw_score / 5) * pillar_weight.
+    - total_weighted_score = sum of the three weighted pillar scores.
+    - Do not invent or override total_weighted_score; it must equal the computed sum of the three pillars.
+    - Keep reasons concise and evidence-oriented.
+    - Add confidence_score to every sub-criterion as an integer from 0 to 100 based on evidence quality and completeness.
+    - Use the full 0-100 scale. Do not output 0/1 confidence values.
+
+    Output schema:
+    {
+      "company_name": "",
+      "pillars": {
+        "p4_business_strategic_fit_for_tcs": {
+          "weight": 20,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
+            "p4_1_cost_transparency": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_2_measurable_roi": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_3_value_capture_for_tcs": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_4_ip_ownership_clarity": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_5_scalability_via_tcs": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_6_strategic_ai_alignment": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_7_future_trajectory": {"score": 0, "reason": "", "confidence_score": 0},
+            "p4_8_time_to_value": {"score": 0, "reason": "", "confidence_score": 0}
+          }
+        },
+        "p5_market_validation_feedback": {
+          "weight": 15,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
+            "p5_1_analyst_recognition": {"score": 0, "reason": "", "confidence_score": 0},
+            "p5_2_market_sentiment": {"score": 0, "reason": "", "confidence_score": 0},
+            "p5_3_customer_references_discrete": {"score": 0, "reason": "", "confidence_score": 0},
+            "p5_4_active_deal_pipeline_discrete": {"score": 0, "reason": "", "confidence_score": 0}
+          }
+        },
+        "p6_delivery_readiness_risk": {
+          "weight": 15,
+          "raw_score": 0,
+          "weighted_score": 0,
+          "summary": "",
+          "sub_criteria": {
+            "p6_1_skill_availability": {"score": 0, "reason": "", "confidence_score": 0},
+            "p6_2_training_effort": {"score": 0, "reason": "", "confidence_score": 0},
+            "p6_3_integration_complexity": {"score": 0, "reason": "", "confidence_score": 0},
+            "p6_4_delivery_risk_discrete": {"score": 0, "reason": "", "confidence_score": 0},
+            "p6_5_data_dependency_readiness": {"score": 0, "reason": "", "confidence_score": 0},
+            "p6_6_number_of_employees": {"score": 0, "reason": "", "confidence_score": 0}
           }
         }
       },

@@ -50,6 +50,9 @@ export default function ScoringPage() {
         { code: "P1", title: "Domain & Solution Depth", data: report.pillars.p1_domain_solution_depth },
         { code: "P2", title: "Product & Engineering Readiness", data: report.pillars.p2_product_engineering_readiness },
         { code: "P3", title: "AI Transparency & Trustworthiness", data: report.pillars.p3_ai_transparency_trustworthiness },
+        { code: "P4", title: "Business & Strategic Fit for TCS", data: report.pillars.p4_business_strategic_fit_for_tcs },
+        { code: "P5", title: "Market Validation & Feedback", data: report.pillars.p5_market_validation_feedback },
+        { code: "P6", title: "Delivery Readiness & Risk", data: report.pillars.p6_delivery_readiness_risk },
       ]
     : [];
   const totalWeight = pillars.reduce((sum, pillar) => sum + pillar.data.weight, 0);
@@ -75,7 +78,7 @@ export default function ScoringPage() {
           </div>
         ) : report ? (
           <div>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
               {pillars.map((pillar) => (
                 <div key={pillar.code} className="glass rounded-2xl p-5">
                   <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">

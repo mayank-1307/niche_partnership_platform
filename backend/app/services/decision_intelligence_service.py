@@ -164,6 +164,51 @@ class DecisionIntelligenceService:
                 return f"Limited support, with concerns around {', '.join(detail)}."
             return f"Limited support for {gate_name}."
 
+        def synthesize_overall_summary(
+            gates: dict[str, str],
+            recommendations: dict[str, dict[str, Any]],
+            priority: str,
+        ) -> str:
+            gate_titles = {
+                "gate_1": "Gate 1",
+                "gate_2": "Gate 2",
+                "gate_3": "Gate 3",
+                "gate_4": "Gate 4",
+            }
+            gate_phrase = ", ".join(f"{name} {status}" for name, status in gates.items())
+
+            positive_signals: list[str] = []
+            risk_signals: list[str] = []
+
+            for gate_name, payload in recommendations.items():
+                criteria = as_record(payload.get("criteria"))
+                for criterion_name, item in criteria.items():
+                    if not isinstance(item, dict):
+                        continue
+                    decision = str(item.get("decision")).strip().upper()
+                    label = f"{gate_titles.get(gate_name, gate_name)} {labelize(criterion_name)}"
+                    if decision == "YES":
+                        positive_signals.append(label)
+                    elif decision in ("NO", "HIGH", "COMPLEX"):
+                        risk_signals.append(label)
+
+            if priority == "HIGH_PRIORITY":
+                lead = "Strong overall fit with TCS partnership objectives."
+            elif priority == "MEDIUM_PRIORITY":
+                lead = "Viable opportunity, but it needs targeted mitigation before scaling."
+            else:
+                lead = "Limited partnership fit due to material execution or commercial gaps."
+
+            positive_detail = ", ".join(positive_signals[:3]) if positive_signals else ""
+            risk_detail = ", ".join(risk_signals[:3]) if risk_signals else ""
+
+            parts = [lead, f"Gate view: {gate_phrase}."]
+            if positive_detail:
+                parts.append(f"Key strengths include {positive_detail}.")
+            if risk_detail:
+                parts.append(f"Primary watchouts are {risk_detail}.")
+            return " ".join(parts)
+
         gate1_status = "PASS" if str(gate_1.get("status")).strip().upper() == "PASS" else "FAIL"
         gate1_criteria = {
             "existing_enterprise_customers": criterion(g1c, "existing_enterprise_customers"),
@@ -226,7 +271,42 @@ class DecisionIntelligenceService:
             },
             "overall_partnership_recommendation": {
                 "priority": clean_priority(overall.get("priority")),
-                "reason": clean_reason(overall.get("reason")),
+                "reason": (
+                    clean_summary(
+                        overall.get("reason"),
+                        fallback=synthesize_overall_summary(
+                            {
+                                "Gate 1": gate1_status,
+                                "Gate 2": gate2_status,
+                                "Gate 3": gate3_status,
+                                "Gate 4": gate4_status,
+                            },
+                            {
+                                "gate_1": gate_1,
+                                "gate_2": gate_2,
+                                "gate_3": gate_3,
+                                "gate_4": gate_4,
+                            },
+                            clean_priority(overall.get("priority")) or "LOW_PRIORITY",
+                        ),
+                    )
+                    if len(clean_summary(overall.get("reason"))) >= 80
+                    else synthesize_overall_summary(
+                        {
+                            "Gate 1": gate1_status,
+                            "Gate 2": gate2_status,
+                            "Gate 3": gate3_status,
+                            "Gate 4": gate4_status,
+                        },
+                        {
+                            "gate_1": gate_1,
+                            "gate_2": gate_2,
+                            "gate_3": gate_3,
+                            "gate_4": gate_4,
+                        },
+                        clean_priority(overall.get("priority")) or "LOW_PRIORITY",
+                    )
+                ),
             },
         }
         if not normalized["overall_partnership_recommendation"]["priority"]:

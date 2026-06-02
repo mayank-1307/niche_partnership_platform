@@ -173,9 +173,6 @@ export default function App() {
   const investors = asStringList(funding.investors);
   const rounds = asStringList(funding.recent_rounds);
   const leaders = asStringList(leadership.key_leaders);
-  const evidence = asRecord(structured.evidence);
-  const evidenceSources = asStringList(evidence.sources);
-  const evidenceLastUpdated = typeof evidence.last_updated === "string" ? evidence.last_updated.trim() : "";
   const companyName = typeof structured.company_name === "string" ? structured.company_name.trim() : "";
   const hasCompanyName = Boolean(result && companyName);
 
@@ -248,41 +245,21 @@ export default function App() {
       </section>
 
       <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
-        <div className="flex flex-col gap-6 lg:h-full lg:min-h-0">
-          <div className="glass flex flex-col rounded-2xl p-5 lg:min-h-0 lg:flex-1">
+        <div className="flex flex-col gap-6 lg:h-[31rem] lg:min-h-0">
+          <div className="glass flex h-full flex-col rounded-2xl p-5 lg:min-h-0">
             <div className="mb-3 flex items-center gap-2 text-sm text-cyan">
               <span>Company Summary</span>
               {hasCompanyName && <span className="text-2xl font-bold">{companyName}</span>}
             </div>
-            <div className="prose prose-invert max-w-none whitespace-pre-wrap text-sm text-slate-200 lg:min-h-0 lg:overflow-auto">{result?.company_summary || "Summary will appear after extraction."}</div>
-          </div>
-
-          {evidenceSources.length > 0 && (
-            <div className="glass flex flex-col rounded-2xl p-5 lg:min-h-0 lg:flex-1">
-              <div className="mb-3 flex items-center gap-2 text-sm text-cyan">Sources</div>
-              <div className="space-y-2 lg:min-h-0 lg:overflow-auto">
-                {evidenceSources.map((source, index) => {
-                  const isUrl = /^https?:\/\//i.test(source);
-
-                  return (
-                    <div key={`${source}-${index}`} className="rounded-lg border border-white/10 bg-black/20 p-3 text-sm text-slate-200">
-                      {isUrl ? (
-                        <a href={source} target="_blank" rel="noreferrer" className="break-words text-cyan hover:text-white">
-                          {source}
-                        </a>
-                      ) : (
-                        <span className="break-words">{source}</span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-              {evidenceLastUpdated && <div className="mt-3 text-xs text-slate-400">Last updated: {evidenceLastUpdated}</div>}
+            <div className="prose prose-invert max-w-none flex-1 overflow-auto whitespace-pre-wrap text-sm text-slate-200 lg:min-h-0">
+              {result?.company_summary || "Summary will appear after extraction."}
             </div>
-          )}
+          </div>
         </div>
 
-        <JsonViewer data={result?.structured_json ?? null} downloadUrl={result ? downloadJsonUrl(result.id) : null} companyName={companyName} />
+        <div className="lg:h-[31rem] lg:min-h-0">
+          <JsonViewer data={result?.structured_json ?? null} downloadUrl={result ? downloadJsonUrl(result.id) : null} companyName={companyName} />
+        </div>
       </div>
 
       <section className="mt-6 space-y-4">
@@ -291,7 +268,7 @@ export default function App() {
             Key Insights Dashboard
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
+            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Enterprise Credibility</div>
                 <button
@@ -303,7 +280,7 @@ export default function App() {
                 </button>
               </div>
               {expandedInsightBlocks.company_funding_key_players && (
-                <div className="pt-1">
+                <div className="">
                   <div className="mt-2 text-base font-semibold text-white">{String(structured.company_name ?? "-")}</div>
                   <div className="mt-1 text-sm text-slate-400">{String(structured.website ?? "-")}</div>
                   <div className="mt-3 text-sm text-slate-300">Headquarters: {String(structured.headquarters ?? "-")}</div>
@@ -324,7 +301,7 @@ export default function App() {
               )}
             </div>
 
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
+            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Strategic Relevance</div>
                 <button
@@ -352,7 +329,7 @@ export default function App() {
               )}
             </div>
 
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
+            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Delivery Feasibility</div>
                 <button
@@ -376,7 +353,7 @@ export default function App() {
               )}
             </div>
 
-            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 p-4">
+            <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Commercial Viability</div>
                 <button

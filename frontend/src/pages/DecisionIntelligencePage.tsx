@@ -254,11 +254,17 @@ export default function DecisionIntelligencePage() {
 
             <div className="glass mt-6 w-full rounded-2xl p-5">
               <div className="mb-2 text-sm text-cyan">Gating Summary</div>
-              <div className="space-y-1 text-sm text-slate-200">
+              <div className="space-y-1 text-base text-slate-200">
                 <div>Gate 1: <span className={isPass(report.gate_1.status === "PASS")}>{report.gate_1.status}</span></div>
                 <div>Gate 2: <span className={isPass(report.gate_2.status === "PASS")}>{report.gate_2.status}</span></div>
                 <div>Gate 3: <span className={isPass(report.gate_3.status === "PASS")}>{report.gate_3.status}</span></div>
                 <div>Gate 4: <span className={isPass(report.gate_4.status === "PASS")}>{report.gate_4.status}</span></div>
+              </div>
+              <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-4">
+                <div className="text-xs uppercase tracking-wide text-slate-400">Final Summary</div>
+                <div className="mt-2 text-base text-slate-300">
+                  {report.overall_partnership_recommendation.reason || "No summary provided."}
+                </div>
               </div>
               <div className="mt-4">
                 <button

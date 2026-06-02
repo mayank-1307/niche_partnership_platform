@@ -102,6 +102,9 @@ export type ScoringReport = {
     p1_domain_solution_depth: ScoringPillar;
     p2_product_engineering_readiness: ScoringPillar;
     p3_ai_transparency_trustworthiness: ScoringPillar;
+    p4_business_strategic_fit_for_tcs: ScoringPillar;
+    p5_market_validation_feedback: ScoringPillar;
+    p6_delivery_readiness_risk: ScoringPillar;
   };
   total_weighted_score: number;
   overall_summary: string;

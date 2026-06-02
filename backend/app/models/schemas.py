@@ -132,6 +132,21 @@ class ScoringSubCriterion(BaseModel):
     confidence_score: int = 0
 
 
+class ScoringPillar(BaseModel):
+    weight: int = 0
+    raw_score: float = 0.0
+    weighted_score: float = 0.0
+    summary: str = ""
+    sub_criteria: dict[str, ScoringSubCriterion] = Field(default_factory=dict)
+
+
+class ScoringReport(BaseModel):
+    company_name: str = ""
+    pillars: dict[str, ScoringPillar] = Field(default_factory=dict)
+    total_weighted_score: float = 0.0
+    overall_summary: str = ""
+
+
 class AnalyzeResponse(BaseModel):
     id: str
     company_summary: str
