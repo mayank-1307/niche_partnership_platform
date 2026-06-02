@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
@@ -31,6 +31,43 @@ class ResearchObject(BaseModel):
     extracted_insights: dict[str, Any] = Field(default_factory=dict)
     evidence: list[SourceEvidence] = Field(default_factory=list)
     confidence_notes: list[str] = Field(default_factory=list)
+
+
+class GateAnalysisItem(BaseModel):
+    facts: dict[str, Any] = Field(default_factory=dict)
+
+
+
+class EnterpriseCredibilityGateSection(BaseModel):
+    sub_parts: dict[str, GateAnalysisItem] = Field(default_factory=dict)
+    sources: list[str] = Field(default_factory=list)
+
+
+class StrategicRelevanceGateSection(BaseModel):
+    sub_parts: dict[str, GateAnalysisItem] = Field(default_factory=dict)
+    sources: list[str] = Field(default_factory=list)
+
+
+class DeliveryFeasibilityGateSection(BaseModel):
+    delivery_feasibility: dict[str, GateAnalysisItem] = Field(default_factory=dict)
+    sources: list[str] = Field(default_factory=list)
+
+
+class CommercialViabilityGateSection(BaseModel):
+    sub_parts: dict[str, GateAnalysisItem] = Field(default_factory=dict)
+    sources: list[str] = Field(default_factory=list)
+
+
+class GateBasedCompanyAnalysis(BaseModel):
+    company_name: str = ""
+    website: str = ""
+    headquarters: str = ""
+    founded_year: int = 0
+    enterprise_credibility: EnterpriseCredibilityGateSection = Field(default_factory=EnterpriseCredibilityGateSection)
+    strategic_relevance: StrategicRelevanceGateSection = Field(default_factory=StrategicRelevanceGateSection)
+    delivery_feasibility: DeliveryFeasibilityGateSection = Field(default_factory=DeliveryFeasibilityGateSection)
+    commercial_viability: CommercialViabilityGateSection = Field(default_factory=CommercialViabilityGateSection)
+    evidence: dict[str, Any] = Field(default_factory=dict)
 
 
 class EnterpriseCustomers(BaseModel):
@@ -152,7 +189,7 @@ class AnalyzeResponse(BaseModel):
     company_summary: str
     extracted_insights: dict[str, Any]
     evidence: list[SourceEvidence]
-    structured_json: CompanyIntelligenceJSON
+    structured_json: dict[str, Any]
     agent_logs: list[AgentLog]
 
 

@@ -15,6 +15,7 @@ from app.models.schemas import (
     CompanyProfileListResponse,
     HealthResponse,
 )
+from app.services.company_json_adapter import gate_company_json_to_legacy_view
 from app.services.db_service import company_profile_db
 from app.services.decision_intelligence_service import decision_intelligence_service
 from app.services.orchestrator import analysis_orchestrator
@@ -130,6 +131,17 @@ async def decision_intelligence_profile(profile_id: int) -> CompanyProfileDetail
     if not row:
         logger.warning("Company profile not found profile_id=%s", profile_id)
         raise HTTPException(status_code=404, detail="Profile not found")
+
+    artefact = row.get("artefact") if isinstance(row, dict) else None
+    if isinstance(artefact, dict) and isinstance(artefact.get("data"), dict):
+        row = dict(row)
+        row["artefact"] = {
+            **artefact,
+            "data": gate_company_json_to_legacy_view(
+                artefact.get("data", {}),
+                company_summary=str(artefact.get("company_summary") or ""),
+            ),
+        }
     return CompanyProfileDetail(**row)
 
 

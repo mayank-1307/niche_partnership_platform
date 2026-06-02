@@ -1,10 +1,10 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import logging
 from datetime import datetime
 
-from app.models.schemas import AgentLog, CompanyIntelligenceJSON, Evidence, ResearchObject
+from app.models.schemas import AgentLog, Evidence, GateBasedCompanyAnalysis, ResearchObject
 from app.services.mistral_client import mistral_client
 from app.services.prompts import AGENT2_STRUCTURING_PROMPT
 
@@ -72,55 +72,82 @@ class JsonStructuringAgent:
         def _as_str(value: object) -> str:
             return self._to_string(value).strip()
 
-        ec = llm.get("enterprise_credibility")
-        if not isinstance(ec, dict):
-            ec = {}
-            llm["enterprise_credibility"] = ec
+        def _normalize_item(value: object) -> dict:
+            item = value if isinstance(value, dict) else {}
+            facts = item.get("facts") if isinstance(item.get("facts"), dict) else {}
+            return {"facts": facts}
 
-        funding = ec.get("funding")
-        if isinstance(funding, dict):
-            funding["recent_rounds"] = self._coerce_string_list(funding.get("recent_rounds"))
 
-        leadership = ec.get("leadership")
-        if isinstance(leadership, dict):
-            leadership["key_leaders"] = self._coerce_string_list(leadership.get("key_leaders"))
-        if isinstance(ec, dict):
-            ec["sources"] = self._coerce_string_list(ec.get("sources"))
+        def _normalize_section(section: object, *, container_key: str, item_keys: tuple[str, ...]) -> dict:
+            section_dict = section if isinstance(section, dict) else {}
+            container = section_dict.get(container_key)
+            container_dict = container if isinstance(container, dict) else {}
+            normalized_items = {}
+            for key in item_keys:
+                normalized_items[key] = _normalize_item(container_dict.get(key))
+            normalized = dict(section_dict)
+            normalized[container_key] = normalized_items
+            return normalized
 
-        sr = llm.get("strategic_relevance")
-        if isinstance(sr, dict):
-            sr["sources"] = self._coerce_string_list(sr.get("sources"))
+        llm["company_name"] = _as_str(llm.get("company_name"))
+        llm["website"] = _as_str(llm.get("website"))
+        llm["headquarters"] = _as_str(llm.get("headquarters"))
+        try:
+            llm["founded_year"] = int(float(llm.get("founded_year") or 0))
+        except Exception:
+            llm["founded_year"] = 0
 
-        df = llm.get("delivery_feasibility")
-        if isinstance(df, dict):
-            for key in (
-                "implementation_complexity",
-                "tcs_implementation_readiness",
-                "training_effort_required",
+        llm["enterprise_credibility"] = _normalize_section(
+            llm.get("enterprise_credibility"),
+            container_key="sub_parts",
+            item_keys=(
+                "existing_enterprise_customers",
+                "institutional_funding",
+                "proven_leadership_team",
+                "production_grade_product_evidence",
+            ),
+        )
+        llm["strategic_relevance"] = _normalize_section(
+            llm.get("strategic_relevance"),
+            container_key="sub_parts",
+            item_keys=(
+                "ai_transformation_alignment",
+                "data_modernization_alignment",
+                "ai_operations_alignment",
+                "conversational_ai_alignment",
+                "industry_ai_alignment",
+                "governance_compliance_alignment",
+            ),
+        )
+        llm["delivery_feasibility"] = _normalize_section(
+            llm.get("delivery_feasibility", llm.get("gate_3")),
+            container_key="delivery_feasibility",
+            item_keys=(
+                "skill_availability",
+                "training_effort",
+                "integration_feasibility",
                 "support_scalability",
-                "notes",
-            ):
-                if key in df:
-                    df[key] = _as_str(df.get(key))
-            df["integration_requirements"] = self._coerce_string_list(df.get("integration_requirements"))
-            df["sources"] = self._coerce_string_list(df.get("sources"))
-
-        cv = llm.get("commercial_viability")
-        if isinstance(cv, dict):
-            for key in ("monetization_model", "gtm_model", "notes"):
-                if key in cv:
-                    cv[key] = _as_str(cv.get(key))
-            cv["sources"] = self._coerce_string_list(cv.get("sources"))
-
-        evidence = llm.get("evidence")
-        if isinstance(evidence, dict):
-            evidence["sources"] = self._coerce_string_list(evidence.get("sources"))
-            if "last_updated" in evidence:
-                evidence["last_updated"] = _as_str(evidence.get("last_updated"))
-
+            ),
+        )
+        llm["commercial_viability"] = _normalize_section(
+            llm.get("commercial_viability"),
+            container_key="sub_parts",
+            item_keys=(
+                "monetization_clarity",
+                "gtm_feasibility",
+                "revenue_upside",
+                "partner_willingness",
+                "commercial_structure_clarity",
+                "startup_stage_fit",
+            ),
+        )
+        for key in ("enterprise_credibility", "strategic_relevance", "gate_3", "commercial_viability"):
+            section = llm.get(key)
+            if isinstance(section, dict):
+                section["sources"] = self._coerce_string_list(section.get("sources"))
         return llm
 
-    async def run(self, research: ResearchObject, logs: list[AgentLog]) -> CompanyIntelligenceJSON:
+    async def run(self, research: ResearchObject, logs: list[AgentLog]) -> GateBasedCompanyAnalysis:
         logger.info("Agent 2 started company=%s", research.company_name)
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_2", message="Structuring strict JSON schema"))
         payload = {
@@ -138,19 +165,20 @@ class JsonStructuringAgent:
             agent_name="agent2",
         )
         normalized = self._normalize_llm_payload(llm)
-        normalized["company_summary"] = self._to_string(research.summary_markdown or normalized.get("company_summary")).strip()
-        model = CompanyIntelligenceJSON.model_validate(normalized)
-        logger.info("Agent 2 produced structured JSON company=%s", model.company_name)
-
-        model_sources = [s.strip() for s in model.evidence.sources if isinstance(s, str) and s.strip()]
-        if not model_sources:
+        model = GateBasedCompanyAnalysis.model_validate(normalized)
+        logger.info("Agent 2 produced structured gate-based JSON company=%s", model.company_name)
+        evidence_sources = [s.strip() for s in self._coerce_string_list(model.evidence.get("sources")) if s.strip()]
+        if not evidence_sources:
             logger.warning("Agent 2 JSON had no evidence sources; using fallback sources company=%s", model.company_name)
-            model.evidence = Evidence(
-                sources=self._fallback_evidence_sources(research),
-                last_updated=datetime.utcnow().isoformat(),
-            )
+            model.evidence = {
+                "sources": self._fallback_evidence_sources(research),
+                "last_updated": datetime.utcnow().isoformat(),
+            }
         else:
-            model.evidence.sources = model_sources
+            model.evidence = {
+                **(model.evidence if isinstance(model.evidence, dict) else {}),
+                "sources": evidence_sources,
+            }
         return model
 
 

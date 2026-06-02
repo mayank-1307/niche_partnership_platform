@@ -6,6 +6,7 @@ from datetime import datetime
 from app.agents.agent1_company_intelligence import company_intelligence_agent
 from app.agents.agent2_json_structuring import json_structuring_agent
 from app.models.schemas import AnalyzeResponse, AgentLog
+from app.services.company_json_adapter import gate_company_json_to_legacy_view
 from app.services.db_service import company_profile_db
 from app.services.storage_service import json_storage_service
 
@@ -28,6 +29,10 @@ class CompanyAnalysisOrchestrator:
             raise RuntimeError("Database integration is disabled. Set DATABASE_URL to run analysis.")
 
         structured_payload = structured.model_dump()
+        legacy_structured = gate_company_json_to_legacy_view(
+            structured_payload,
+            company_summary=research.summary_markdown,
+        )
 
         artefact = {
             "generated_at": datetime.utcnow().isoformat(),
@@ -55,7 +60,7 @@ class CompanyAnalysisOrchestrator:
             company_summary=research.summary_markdown,
             extracted_insights=research.extracted_insights,
             evidence=research.evidence,
-            structured_json=structured,
+            structured_json=legacy_structured,
             agent_logs=logs,
         )
 

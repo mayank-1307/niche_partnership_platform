@@ -1,0 +1,244 @@
+{
+  "generated_at": "2026-06-02T09:10:03.082736",
+  "data": {
+    "company_name": "Gong.io Ltd.",
+    "website": "https://gong.io",
+    "headquarters": "San Francisco, California, United States",
+    "founded_year": 2015,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "PayPal",
+              "Shopify",
+              "LinkedIn",
+              "Zendesk",
+              "Slack",
+              "HubSpot",
+              "MuleSoft",
+              "Snowflake",
+              "Dropbox",
+              "Zoom"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 584000000,
+            "investors": [
+              "Sequoia Capital",
+              "Coatue Management",
+              "Salesforce Ventures",
+              "Battery Ventures",
+              "NextWorld Capital",
+              "Tiger Global Management",
+              "Franklin Templeton",
+              "Dragoneer Investment Group"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series E",
+                "amount_usd": 250000000,
+                "year": 2021
+              },
+              {
+                "round_type": "Series D",
+                "amount_usd": 200000000,
+                "year": 2020
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Gong was founded by Amit Bendov (CEO) and Eilon Reshef (CTO). Amit Bendov has a background in enterprise software, previously serving as CEO of SiSense and holding leadership roles at Panaya and NICE Systems. Eilon Reshef has a strong technical background, having worked at Google and as a co-founder of WorkLight, which was acquired by IBM.",
+            "key_leaders": [
+              {
+                "name": "Amit Bendov",
+                "title": "Co-Founder and CEO",
+                "background": "Former CEO of SiSense, leadership roles at Panaya and NICE Systems."
+              },
+              {
+                "name": "Eilon Reshef",
+                "title": "Co-Founder and CTO",
+                "background": "Formerly at Google, co-founder of WorkLight (acquired by IBM)."
+              },
+              {
+                "name": "Nir Zohar",
+                "title": "President and COO",
+                "background": "Previously held leadership roles at Wix and SAP."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 8,
+            "case_studies_available": true,
+            "deployment_scale": "Gong is deployed globally across thousands of enterprises, processing millions of customer interactions. The platform supports large-scale, multi-region deployments with enterprise-grade security and compliance."
+          }
+        }
+      },
+      "sources": [
+        "https://www.gong.io",
+        "https://www.crunchbase.com/organization/gong-io",
+        "https://techcrunch.com/2021/06/24/gong-raises-250m-at-a-7-25b-valuation-for-its-revenue-intelligence-platform/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Sales coaching and enablement",
+              "Revenue intelligence and forecasting",
+              "Customer interaction analytics",
+              "Deal execution and pipeline management",
+              "Competitive intelligence from customer conversations"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Phone",
+              "Email",
+              "Web conferencing"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://www.gong.io",
+        "https://www.gong.io/customers"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "CRM systems (Salesforce, HubSpot, Microsoft Dynamics)",
+              "Web conferencing tools (Zoom, Microsoft Teams, Google Meet)",
+              "Email platforms (Microsoft Outlook, Gmail)",
+              "Identity providers (Okta, Azure AD, Google Workspace)"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Gong offers a cloud-based SaaS model with APIs for integration. Implementation typically involves CRM and communication tool integrations, user onboarding, and training for sales teams."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://www.gong.io",
+        "https://www.gong.io/about"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS, typically priced per user per month with enterprise contracts.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and partner-led (e.g., systems integrators, resellers, and technology alliances).",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 50000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Gong has demonstrated strong commercial traction with a focus on enterprise sales. The company has a mature partner ecosystem and a proven ability to scale with large customers."
+          }
+        }
+      },
+      "sources": [
+        "https://www.gong.io",
+        "https://www.forbes.com/sites/alexkonrad/2020/08/12/gong-raises-200-million-at-2-2-billion-valuation-for-sales-software/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://gong.io"
+      ],
+      "last_updated": "2026-06-02T09:10:02.958659"
+    }
+  }
+}

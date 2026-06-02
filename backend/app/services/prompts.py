@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from textwrap import dedent
 
@@ -147,75 +147,175 @@ AGENT1_SUMMARY_PROMPT = dedent(
 AGENT2_STRUCTURING_PROMPT = dedent(
     """
     You are Agent 2 (JSON Structuring Agent).
-    Convert the research object into strict JSON schema. Keep missing info safe defaults.
-    - booleans default false
-    - numbers default 0
+    Convert the research object into a gate-first analysis JSON. Keep missing info safe defaults.
     - strings default ""
+    - numbers default 0
     - arrays default []
-    - company_summary must be copied from summary_markdown as a concise plain string
-    - Populate `sources` arrays under each major section with only the most relevant URLs/domains from the provided evidence sources.
+    - every sub-part must include:
+      - "facts": object with the extracted data supporting that sub-part
+    - each gate section must include a top-level `sources` array with only the most relevant URLs/domains for that gate
+    - do not put sources on sub-parts
+    - Use the gate structure below exactly. Do not output the old first-draft company JSON.
 
     Return JSON only that follows this schema exactly:
     {
       "company_name": "",
-      "company_summary": "",
       "website": "",
       "headquarters": "",
       "founded_year": 0,
       "enterprise_credibility": {
-        "enterprise_customers": {
-          "has_enterprise_clients": false,
-          "notable_clients": []
-        },
-        "funding": {
-          "is_funded": false,
-          "total_funding_usd": 0,
-          "investors": [],
-          "recent_rounds": []
-        },
-        "leadership": {
-          "founders_experience": "",
-          "key_leaders": []
-        },
-        "product_maturity": {
-          "stage": "",
-          "years_in_market": 0,
-          "case_studies_available": false,
-          "deployment_scale": ""
-        },
-        "sources": []
+        "sources": [],
+        "sub_parts": {
+          "existing_enterprise_customers": {
+            "facts": {
+              "has_enterprise_clients": false,
+              "notable_clients": []
+            }
+          },
+          "institutional_funding": {
+            "facts": {
+              "is_funded": false,
+              "total_funding_usd": 0,
+              "investors": [],
+              "recent_rounds": []
+            }
+          },
+          "proven_leadership_team": {
+            "facts": {
+              "founders_experience": "",
+              "key_leaders": []
+            }
+          },
+          "production_grade_product_evidence": {
+            "facts": {
+              "stage": "",
+              "years_in_market": 0,
+              "case_studies_available": false,
+              "deployment_scale": ""
+            }
+          }
+        }
       },
       "strategic_relevance": {
-        "ai_transformation": false,
-        "data_modernization": false,
-        "ai_operations": false,
-        "conversational_ai": false,
-        "industry_ai": false,
-        "governance_compliance": false,
-        "primary_use_cases": [],
-        "sources": []
+        "sources": [],
+        "sub_parts": {
+          "ai_transformation_alignment": {
+            "facts": {
+              "ai_transformation": false,
+              "use_cases": []
+            }
+          },
+          "data_modernization_alignment": {
+            "facts": {
+              "data_modernization": false,
+              "platforms": [],
+              "capabilities": []
+            }
+          },
+          "ai_operations_alignment": {
+            "facts": {
+              "ai_operations": false,
+              "capabilities": []
+            }
+          },
+          "conversational_ai_alignment": {
+            "facts": {
+              "conversational_ai": false,
+              "interfaces": []
+            }
+          },
+          "industry_ai_alignment": {
+            "facts": {
+              "industry_ai": false,
+              "verticals": []
+            }
+          },
+          "governance_compliance_alignment": {
+            "facts": {
+              "governance_compliance": false,
+              "controls": [],
+              "certifications": []
+            }
+          }
+        }
       },
       "delivery_feasibility": {
-        "implementation_complexity": "",
-        "tcs_implementation_readiness": "",
-        "training_effort_required": "",
-        "support_scalability": "",
-        "integration_requirements": [],
-        "notes": "",
-        "sources": []
+        "sources": [],
+        "delivery_feasibility": {
+          "skill_availability": {
+            "facts": {
+              "implementation_complexity": "",
+              "available_skills": [],
+              "required_skills": [],
+              "gap_notes": ""
+            }
+          },
+          "training_effort": {
+            "facts": {
+              "training_effort_required": "",
+              "ramp_time": "",
+              "training_needs": []
+            }
+          },
+          "integration_feasibility": {
+            "facts": {
+              "integration_requirements": [],
+              "dependencies": [],
+              "complexity_notes": ""
+            }
+          },
+          "support_scalability": {
+            "facts": {
+              "support_scalability": "",
+              "support_model": "",
+              "scaling_constraints": []
+            }
+          }
+        }
       },
       "commercial_viability": {
-        "monetization_model": "",
-        "pricing_transparency": false,
-        "gtm_model": "",
-        "partner_willingness": false,
-        "estimated_deal_size_usd": 0,
-        "notes": "",
-        "sources": []
-      },
-      "evidence": {
         "sources": [],
-        "last_updated": ""
+        "sub_parts": {
+          "monetization_clarity": {
+            "facts": {
+              "monetization_model": "",
+              "pricing_transparency": false,
+              "revenue_structure": ""
+            }
+          },
+          "gtm_feasibility": {
+            "facts": {
+              "gtm_model": "",
+              "channels": [],
+              "sales_motion": ""
+            }
+          },
+          "revenue_upside": {
+            "facts": {
+              "estimated_deal_size_usd": 0,
+              "expansion_paths": []
+            }
+          },
+          "partner_willingness": {
+            "facts": {
+              "partner_willingness": false,
+              "partner_programs": [],
+              "api_ecosystem": []
+            }
+          },
+          "commercial_structure_clarity": {
+            "facts": {
+              "contracting_notes": "",
+              "pricing_governance": ""
+            }
+          },
+          "startup_stage_fit": {
+            "facts": {
+              "stage": "",
+              "fit_notes": ""
+            }
+          }
+        }
       }
     }
     """

@@ -141,7 +141,7 @@ export default function DecisionIntelligencePage() {
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               <div className="glass rounded-2xl p-5">
                 <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  <ShieldCheck className="h-4 w-4" /> Gate 1 - Enterprise Credibility
+                  Gate 1 - Enterprise Credibility
                 </div>
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_1.status === "PASS")}`}>
                   {report.gate_1.status}
@@ -167,7 +167,7 @@ export default function DecisionIntelligencePage() {
 
               <div className="glass rounded-2xl p-5">
                 <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  <ShieldCheck className="h-4 w-4" /> Gate 2 - Strategic Relevance
+                  Gate 2 - Strategic Relevance
                 </div>
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_2.status === "PASS")}`}>
                   {report.gate_2.status}
@@ -193,7 +193,7 @@ export default function DecisionIntelligencePage() {
 
               <div className="glass rounded-2xl p-5">
                 <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  <ShieldCheck className="h-4 w-4" /> Gate 3 - Delivery Feasibility
+                  Gate 3 - Delivery Feasibility
                 </div>
                 <div
                   className={`mb-4 text-lg font-semibold ${
@@ -227,7 +227,7 @@ export default function DecisionIntelligencePage() {
 
               <div className="glass rounded-2xl p-5">
                 <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  <ShieldCheck className="h-4 w-4" /> Gate 4 - Commercial Viability
+                  Gate 4 - Commercial Viability
                 </div>
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_4.status === "PASS")}`}>
                   {report.gate_4.status}
