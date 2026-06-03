@@ -2,20 +2,22 @@ from __future__ import annotations
 
 import json
 import logging
+from email import policy
+from email.parser import BytesParser
 
-from fastapi import APIRouter, HTTPException, Query, Response
+from fastapi import APIRouter, HTTPException, Query, Request, Response
 from fastapi.responses import FileResponse
 
 from app.core.errors import bad_request, upstream_error
 from app.core.utils import normalize_domain
 from app.models.schemas import (
-    AnalyzeRequest,
     AnalyzeResponse,
     CompanyProfileDetail,
     CompanyProfileListResponse,
     HealthResponse,
 )
 from app.services.company_json_adapter import gate_company_json_to_legacy_view
+from app.services.document_ingestion_service import UploadedDocumentContext, extract_uploaded_document
 from app.services.db_service import company_profile_db
 from app.services.decision_intelligence_service import decision_intelligence_service
 from app.services.orchestrator import analysis_orchestrator
@@ -29,6 +31,60 @@ logger = logging.getLogger(__name__)
 
 def _extract_profile_id(file_id: str) -> int | None:
     return int(file_id) if file_id.isdigit() else None
+
+
+async def _parse_multipart_analysis_request(request: Request) -> tuple[str, UploadedDocumentContext | None]:
+    content_type = request.headers.get("content-type", "")
+    raw_body = await request.body()
+    if not raw_body:
+        raise bad_request("Uploaded form data is empty.")
+
+    message = BytesParser(policy=policy.default).parsebytes(
+        b"Content-Type: " + content_type.encode("utf-8", errors="ignore") + b"\r\n\r\n" + raw_body
+    )
+    if not message.is_multipart():
+        raise bad_request("Invalid uploaded form data.")
+
+    domain = ""
+    uploaded_document: UploadedDocumentContext | None = None
+
+    for part in message.iter_parts():
+        field_name = part.get_param("name", header="content-disposition")
+        if not field_name:
+            continue
+
+        if field_name == "domain":
+            domain = part.get_content().strip()
+            continue
+
+        filename = part.get_filename()
+        if field_name == "document" and filename:
+            payload = part.get_payload(decode=True) or b""
+            try:
+                uploaded_document = extract_uploaded_document(
+                    filename=filename,
+                    content_type=part.get_content_type(),
+                    data=payload,
+                )
+            except ValueError as exc:
+                raise bad_request(str(exc)) from exc
+
+    return domain, uploaded_document
+
+
+async def _parse_analysis_request(request: Request) -> tuple[str, UploadedDocumentContext | None]:
+    content_type = request.headers.get("content-type", "").lower()
+    if content_type.startswith("multipart/form-data"):
+        return await _parse_multipart_analysis_request(request)
+
+    try:
+        payload = await request.json()
+    except Exception as exc:
+        raise bad_request("Invalid JSON analysis request") from exc
+
+    if not isinstance(payload, dict):
+        raise bad_request("Invalid analysis request")
+    return str(payload.get("domain") or "").strip(), None
 
 
 async def _persist_report(file_id: str, evaluation_type: str, report: dict, row_exists: bool) -> None:
@@ -67,16 +123,17 @@ async def health() -> HealthResponse:
 
 
 @router.post("/analyze-company", response_model=AnalyzeResponse)
-async def analyze_company(payload: AnalyzeRequest) -> AnalyzeResponse:
+async def analyze_company(request: Request) -> AnalyzeResponse:
     try:
-        domain = normalize_domain(payload.domain)
+        domain, uploaded_document = await _parse_analysis_request(request)
+        domain = normalize_domain(domain)
     except ValueError as exc:
-        logger.warning("Invalid analysis domain submitted: %s", payload.domain)
+        logger.warning("Invalid analysis domain submitted")
         raise bad_request(str(exc)) from exc
 
     try:
         logger.info("Starting company analysis for domain=%s", domain)
-        return await analysis_orchestrator.run(domain)
+        return await analysis_orchestrator.run(domain, uploaded_document=uploaded_document)
     except Exception as exc:
         logger.exception("Company analysis failed for domain=%s", domain)
         raise upstream_error(str(exc)) from exc

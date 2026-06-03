@@ -6,6 +6,7 @@ from datetime import datetime
 from app.agents.agent1_company_intelligence import company_intelligence_agent
 from app.agents.agent2_json_structuring import json_structuring_agent
 from app.models.schemas import AnalyzeResponse, AgentLog
+from app.services.document_ingestion_service import UploadedDocumentContext
 from app.services.company_json_adapter import gate_company_json_to_legacy_view
 from app.services.db_service import company_profile_db
 from app.services.storage_service import json_storage_service
@@ -14,14 +15,22 @@ logger = logging.getLogger(__name__)
 
 
 class CompanyAnalysisOrchestrator:
-    async def run(self, domain: str) -> AnalyzeResponse:
+    async def run(self, domain: str, *, uploaded_document: UploadedDocumentContext | None = None) -> AnalyzeResponse:
         logger.info("Analysis workflow started domain=%s", domain)
         logs: list[AgentLog] = [
             AgentLog(ts=datetime.utcnow().isoformat(), agent="system", message="Starting analysis workflow")
         ]
+        if uploaded_document is not None:
+            logs.append(
+                AgentLog(
+                    ts=datetime.utcnow().isoformat(),
+                    agent="system",
+                    message=f"Received uploaded source document {uploaded_document.filename}",
+                )
+            )
 
         # Agent 1 gathers evidence; Agent 2 converts that evidence into the persisted JSON contract.
-        research = await company_intelligence_agent.run(domain, logs)
+        research = await company_intelligence_agent.run(domain, logs, uploaded_document=uploaded_document)
         structured = await json_structuring_agent.run(research, logs)
 
         if not company_profile_db.enabled:

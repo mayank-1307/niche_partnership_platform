@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Brain, ShieldCheck, Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Brain, Eye, EyeOff, ShieldCheck, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,7 @@ import {
   type AnalyzeResponse,
   type CompanyProfileSummary,
 } from "./lib/api";
+import { formatCurrencyDisplay, formatUsd } from "./lib/format";
 
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" ? (value as Record<string, unknown>) : {};
@@ -26,21 +27,6 @@ function asStringList(value: unknown): string[] {
 
 function yesNo(value: unknown): string {
   return value === true ? "Yes" : value === false ? "No" : "-";
-}
-
-function asNumber(value: unknown): number | null {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value === "string" && value.trim() !== "") {
-    const parsed = Number(value);
-    return Number.isFinite(parsed) ? parsed : null;
-  }
-  return null;
-}
-
-function formatUsd(value: unknown): string {
-  const amount = asNumber(value);
-  if (amount === null) return "-";
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
 }
 
 function renderSourceList(sources: string[]) {
@@ -72,14 +58,33 @@ function renderSourceList(sources: string[]) {
   );
 }
 
+function InsightToggle({ expanded, onClick, label }: { expanded: boolean; onClick: () => void; label: string }) {
+  const Icon = expanded ? EyeOff : Eye;
+  const action = expanded ? "Hide" : "Show";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`${action} ${label} details`}
+      title={`${action} details`}
+      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/20 text-slate-200 transition hover:bg-white/10"
+    >
+      <Icon className="h-4 w-4" />
+    </button>
+  );
+}
+
 export default function App() {
   const [domain, setDomain] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AnalyzeResponse | null>(null);
   const [inputLocked, setInputLocked] = useState(false);
+  const [sourceDocument, setSourceDocument] = useState<File | null>(null);
   const [expandedInsightBlocks, setExpandedInsightBlocks] = useState<Record<string, boolean>>({});
   const [recentProfiles, setRecentProfiles] = useState<CompanyProfileSummary[]>([]);
   const [loadingRecentProfiles, setLoadingRecentProfiles] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (inputLocked) {
@@ -128,7 +133,7 @@ export default function App() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await analyzeCompany(domain);
+      const res = await analyzeCompany(domain, sourceDocument);
       setResult(res);
       toast.success("Analysis complete");
       localStorage.setItem("company-intel-last", JSON.stringify(res));
@@ -145,6 +150,22 @@ export default function App() {
 
   const toggleInsightBlock = (blockId: string) => {
     setExpandedInsightBlocks((prev) => ({ ...prev, [blockId]: !prev[blockId] }));
+  };
+
+  const openDocumentPicker = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleDocumentChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? null;
+    setSourceDocument(file);
+  };
+
+  const clearDocument = () => {
+    setSourceDocument(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const loadRecentAnalysis = async (profileId: number) => {
@@ -219,7 +240,7 @@ export default function App() {
 
 
       <section className="glass mb-8 rounded-2xl p-4 md:p-6">
-        <div className="flex flex-col gap-3 md:flex-row">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
           <input
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
@@ -227,17 +248,51 @@ export default function App() {
             disabled={inputLocked}
             className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan/50"
           />
-          <button onClick={run} disabled={loading || !domain.trim()} className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60">
-            {loading ? "Analyzing..." : "Analyze"}
-          </button>
-          <button
-            type="button"
-            onClick={refreshForNewAnalysis}
-            disabled={loading}
-            className="rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white disabled:opacity-60"
-          >
-            Reset
-          </button>
+          <div className="flex flex-wrap gap-3">
+            <button onClick={run} disabled={loading || !domain.trim()} className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60">
+              {loading ? "Analyzing..." : "Analyze"}
+            </button>
+            <button
+              type="button"
+              onClick={refreshForNewAnalysis}
+              disabled={loading}
+              className="rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white disabled:opacity-60"
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              onClick={openDocumentPicker}
+              disabled={loading || inputLocked}
+              className="rounded-xl border border-cyan/40 bg-cyan/10 px-6 py-3 font-semibold text-cyan transition hover:bg-cyan/20 disabled:opacity-60"
+            >
+              {sourceDocument ? "Change Source File" : "Upload Source File"}
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+              onChange={handleDocumentChange}
+              className="hidden"
+              aria-label="Upload company source document"
+            />
+          </div>
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+          <span>Optional company PDF, DOCX, or text source for grounded analysis.</span>
+          {sourceDocument && (
+            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-slate-200">
+              <span className="max-w-[16rem] truncate">{sourceDocument.name}</span>
+              <button
+                type="button"
+                onClick={clearDocument}
+                disabled={loading || inputLocked}
+                className="font-semibold text-cyan hover:text-white disabled:opacity-60"
+              >
+                Remove
+              </button>
+            </div>
+          )}
         </div>
         <p className="mt-3 text-xs text-slate-400">
           **The agents are accessing data from the official sites as well as publicly available sources**
@@ -293,13 +348,11 @@ export default function App() {
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Enterprise Credibility</div>
-                <button
-                  type="button"
+                <InsightToggle
+                  expanded={Boolean(expandedInsightBlocks.company_funding_key_players)}
                   onClick={() => toggleInsightBlock("company_funding_key_players")}
-                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
-                >
-                  {expandedInsightBlocks.company_funding_key_players ? "Hide" : "Detail"}
-                </button>
+                  label="enterprise credibility"
+                />
               </div>
               {expandedInsightBlocks.company_funding_key_players && (
                 <div className="">
@@ -326,13 +379,11 @@ export default function App() {
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Strategic Relevance</div>
-                <button
-                  type="button"
+                <InsightToggle
+                  expanded={Boolean(expandedInsightBlocks.strategic_relevance)}
                   onClick={() => toggleInsightBlock("strategic_relevance")}
-                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
-                >
-                  {expandedInsightBlocks.strategic_relevance ? "Hide" : "Detail"}
-                </button>
+                  label="strategic relevance"
+                />
               </div>
               {expandedInsightBlocks.strategic_relevance && (
                 <div className="pt-1">
@@ -354,13 +405,11 @@ export default function App() {
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Delivery Feasibility</div>
-                <button
-                  type="button"
+                <InsightToggle
+                  expanded={Boolean(expandedInsightBlocks.delivery_feasibility)}
                   onClick={() => toggleInsightBlock("delivery_feasibility")}
-                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
-                >
-                  {expandedInsightBlocks.delivery_feasibility ? "Hide" : "Detail"}
-                </button>
+                  label="delivery feasibility"
+                />
               </div>
               {expandedInsightBlocks.delivery_feasibility && (
                 <div className="pt-1">
@@ -378,13 +427,11 @@ export default function App() {
             <div className="max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
               <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
                 <div className="text-sm uppercase tracking-wide text-slate-400">Commercial Viability</div>
-                <button
-                  type="button"
+                <InsightToggle
+                  expanded={Boolean(expandedInsightBlocks.commercial_viability)}
                   onClick={() => toggleInsightBlock("commercial_viability")}
-                  className="rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:bg-white/10"
-                >
-                  {expandedInsightBlocks.commercial_viability ? "Hide" : "Detail"}
-                </button>
+                  label="commercial viability"
+                />
               </div>
               {expandedInsightBlocks.commercial_viability && (
                 <div className="pt-1">
@@ -392,7 +439,9 @@ export default function App() {
                   <div className="text-sm text-slate-300">GTM: {String(commercial.gtm_model ?? "-")}</div>
                   <div className="text-sm text-slate-300">Pricing Transparent: {yesNo(commercial.pricing_transparency)}</div>
                   <div className="text-sm text-slate-300">Partner Willingness: {yesNo(commercial.partner_willingness)}</div>
-                  <div className="text-sm text-slate-300">Est. Deal Size: {String(commercial.estimated_deal_size_usd ?? "-")}</div>
+                  <div className="text-sm text-slate-300">
+                    Estimated Deal Size: {formatCurrencyDisplay(commercial.estimated_deal_size_usd, "estimated_deal_size_usd") ?? "-"}
+                  </div>
                   {renderSourceList(commercialSources)}
                 </div>
               )}

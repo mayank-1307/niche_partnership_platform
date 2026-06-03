@@ -7,6 +7,7 @@ from typing import Any
 
 from app.core.utils import to_company_name
 from app.models.schemas import AgentLog, ResearchObject, SourceEvidence
+from app.services.document_ingestion_service import UploadedDocumentContext
 from app.services.mistral_client import mistral_client
 from app.services.prompts import AGENT1_SUMMARY_PROMPT
 from app.services.search_service import search_service
@@ -15,11 +16,26 @@ logger = logging.getLogger(__name__)
 
 
 class CompanyIntelligenceAgent:
-    def _fallback_summary(self, company_name: str, domain: str, web_hits: list[dict[str, Any]]) -> str:
+    def _fallback_summary(
+        self,
+        company_name: str,
+        domain: str,
+        web_hits: list[dict[str, Any]],
+        uploaded_document: UploadedDocumentContext | None = None,
+    ) -> str:
         lines = [
             f"{company_name} ({domain}) company intelligence summary:",
             "The summary below is synthesized from currently available public web evidence.",
         ]
+
+        if uploaded_document is not None:
+            lines.append(
+                f"- Uploaded document source: {uploaded_document.filename} "
+                f"({uploaded_document.content_type or 'unknown type'})"
+            )
+            preview_lines = uploaded_document.excerpt.splitlines()
+            if preview_lines:
+                lines.append(f"- Document excerpt: {preview_lines[0][:320]}")
 
         for hit in web_hits[:10]:
             title = (hit.get("title") or "").strip()
@@ -56,7 +72,13 @@ class CompanyIntelligenceAgent:
             "founded_year": "",
         }
 
-    async def run(self, domain: str, logs: list[AgentLog]) -> ResearchObject:
+    async def run(
+        self,
+        domain: str,
+        logs: list[AgentLog],
+        *,
+        uploaded_document: UploadedDocumentContext | None = None,
+    ) -> ResearchObject:
         company_name = to_company_name(domain)
         logger.info("Agent 1 started domain=%s company_hint=%s", domain, company_name)
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_1", message="Collecting public web verification signals"))
@@ -68,6 +90,13 @@ class CompanyIntelligenceAgent:
             "company_name_hint": company_name,
             "web_search": web_hits,
         }
+        if uploaded_document is not None:
+            prompt["uploaded_document"] = {
+                "filename": uploaded_document.filename,
+                "content_type": uploaded_document.content_type,
+                "text_excerpt": uploaded_document.excerpt,
+                "truncated": uploaded_document.truncated,
+            }
 
         logs.append(AgentLog(ts=datetime.utcnow().isoformat(), agent="agent_1", message="Summarizing with grounded anti-hallucination rules"))
         try:
@@ -92,11 +121,22 @@ class CompanyIntelligenceAgent:
             for hit in web_hits
             if hit.get("url")
         ]
+        if uploaded_document is not None:
+            evidence.insert(
+                0,
+                SourceEvidence(
+                    url=f"uploaded-document://{uploaded_document.filename}",
+                    title=uploaded_document.filename,
+                    snippet=uploaded_document.excerpt[:1000],
+                    relevance_score=0.95,
+                    credibility_score=0.95,
+                ),
+            )
 
         summary_markdown = (llm.get("summary_markdown") or "").strip()
         if not summary_markdown:
             logger.warning("Agent 1 summary missing from LLM output; using fallback domain=%s", domain)
-            summary_markdown = self._fallback_summary(company_name, domain, web_hits)
+            summary_markdown = self._fallback_summary(company_name, domain, web_hits, uploaded_document)
 
         extracted_insights = llm.get("extracted_insights")
         if not isinstance(extracted_insights, dict) or not extracted_insights:
@@ -108,6 +148,17 @@ class CompanyIntelligenceAgent:
             confidence_notes = []
         if not web_hits:
             confidence_notes = [*confidence_notes, "No web search results were retrieved for this domain in this run."]
+        if uploaded_document is not None and uploaded_document.truncated:
+            confidence_notes = [*confidence_notes, "Uploaded document text was truncated before LLM analysis."]
+
+        uploaded_document_payload = None
+        if uploaded_document is not None:
+            uploaded_document_payload = {
+                "filename": uploaded_document.filename,
+                "content_type": uploaded_document.content_type,
+                "text_excerpt": uploaded_document.excerpt,
+                "truncated": uploaded_document.truncated,
+            }
 
         return ResearchObject(
             company_name=llm.get("company_name") or company_name,
@@ -116,6 +167,7 @@ class CompanyIntelligenceAgent:
             extracted_insights=extracted_insights,
             confidence_notes=confidence_notes,
             evidence=evidence[:20],
+            uploaded_document=uploaded_document_payload,
         )
 
 

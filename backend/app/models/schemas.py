@@ -31,6 +31,7 @@ class ResearchObject(BaseModel):
     extracted_insights: dict[str, Any] = Field(default_factory=dict)
     evidence: list[SourceEvidence] = Field(default_factory=list)
     confidence_notes: list[str] = Field(default_factory=list)
+    uploaded_document: dict[str, Any] | None = None
 
 
 class GateAnalysisItem(BaseModel):

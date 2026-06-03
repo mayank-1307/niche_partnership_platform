@@ -83,10 +83,12 @@ class DecisionIntelligenceService:
         gate_2 = as_record(raw.get("gate_2"))
         gate_3 = as_record(raw.get("gate_3"))
         gate_4 = as_record(raw.get("gate_4"))
+        gate_5 = as_record(raw.get("gate_5"))
         g1c = as_record(gate_1.get("criteria"))
         g2c = as_record(gate_2.get("criteria"))
         g3c = as_record(gate_3.get("criteria"))
         g4c = as_record(gate_4.get("criteria"))
+        g5c = as_record(gate_5.get("criteria"))
         overall = as_record(raw.get("overall_partnership_recommendation"))
 
         required_g1 = [
@@ -117,6 +119,10 @@ class DecisionIntelligenceService:
             "commercial_structure_clarity",
             "startup_stage_fit",
         ]
+        required_g5 = [
+            "restricted_geography",
+            "existing_company_x_partnership_conflict",
+        ]
 
         # Reject partial/misaligned LLM payloads before status normalization.
         if not all(get_key_ci(g1c, key) for key in required_g1):
@@ -126,6 +132,8 @@ class DecisionIntelligenceService:
         if not all(get_key_ci(g3c, key) for key in required_g3):
             return None
         if not all(get_key_ci(g4c, key) for key in required_g4):
+            return None
+        if not all(get_key_ci(g5c, key) for key in required_g5):
             return None
 
         def criterion(block: dict[str, Any], key: str, allowed: tuple[str, ...] = ("YES", "NO")) -> dict[str, Any]:
@@ -164,6 +172,17 @@ class DecisionIntelligenceService:
                 return f"Limited support, with concerns around {', '.join(detail)}."
             return f"Limited support for {gate_name}."
 
+        def synthesize_gate5_summary(gate_status: str, criteria: dict[str, dict[str, Any]]) -> str:
+            restricted = str(criteria.get("restricted_geography", {}).get("decision")).upper()
+            conflict = str(criteria.get("existing_company_x_partnership_conflict", {}).get("decision")).upper()
+            if gate_status == "FAIL":
+                return "Restricted geography or regulatory exposure requires rejection."
+            if gate_status == "REVIEW":
+                return "No restricted geography was identified, but a Company X partnership conflict requires review."
+            if restricted == "NO" and conflict == "NO":
+                return "No restricted geography or Company X partnership conflict was identified."
+            return "Geo and compliance risk requires further validation."
+
         def synthesize_overall_summary(
             gates: dict[str, str],
             recommendations: dict[str, dict[str, Any]],
@@ -174,6 +193,7 @@ class DecisionIntelligenceService:
                 "gate_2": "Gate 2",
                 "gate_3": "Gate 3",
                 "gate_4": "Gate 4",
+                "gate_5": "Gate 5",
             }
             gate_phrase = ", ".join(f"{name} {status}" for name, status in gates.items())
 
@@ -187,13 +207,18 @@ class DecisionIntelligenceService:
                         continue
                     decision = str(item.get("decision")).strip().upper()
                     label = f"{gate_titles.get(gate_name, gate_name)} {labelize(criterion_name)}"
-                    if decision == "YES":
+                    if gate_name == "gate_5":
+                        if decision == "NO":
+                            positive_signals.append(label)
+                        elif decision == "YES":
+                            risk_signals.append(label)
+                    elif decision == "YES":
                         positive_signals.append(label)
                     elif decision in ("NO", "HIGH", "COMPLEX"):
                         risk_signals.append(label)
 
             if priority == "HIGH_PRIORITY":
-                lead = "Strong overall fit with TCS partnership objectives."
+                lead = "Strong overall fit with Company X partnership objectives."
             elif priority == "MEDIUM_PRIORITY":
                 lead = "Viable opportunity, but it needs targeted mitigation before scaling."
             else:
@@ -247,6 +272,25 @@ class DecisionIntelligenceService:
             "startup_stage_fit": criterion(g4c, "startup_stage_fit"),
         }
 
+        gate5_criteria = {
+            "restricted_geography": criterion(g5c, "restricted_geography"),
+            "existing_company_x_partnership_conflict": criterion(g5c, "existing_company_x_partnership_conflict"),
+        }
+        if gate5_criteria["restricted_geography"]["decision"] == "YES":
+            gate5_status = "FAIL"
+        elif gate5_criteria["existing_company_x_partnership_conflict"]["decision"] == "YES":
+            gate5_status = "REVIEW"
+        else:
+            gate5_status = "PASS"
+
+        priority = clean_priority(overall.get("priority"))
+        if gate1_status == "FAIL" or gate3_status == "FAIL" or gate4_status == "FAIL" or gate5_status == "FAIL":
+            priority = "LOW_PRIORITY"
+        elif gate1_status == "PASS" and gate2_status == "PASS" and gate3_status == "PASS" and gate4_status == "PASS" and gate5_status == "PASS":
+            priority = "HIGH_PRIORITY"
+        elif gate1_status == "PASS" and gate4_status == "PASS" and gate5_status in ("PASS", "REVIEW"):
+            priority = "MEDIUM_PRIORITY"
+
         normalized = {
             "company_name": company_name,
             "gate_1": {
@@ -269,8 +313,13 @@ class DecisionIntelligenceService:
                 "summary": clean_summary(gate_4.get("summary"), fallback=synthesize_gate_summary("Gate 4", gate4_status, gate4_criteria)),
                 "criteria": gate4_criteria,
             },
+            "gate_5": {
+                "status": gate5_status,
+                "summary": clean_summary(gate_5.get("summary"), fallback=synthesize_gate5_summary(gate5_status, gate5_criteria)),
+                "criteria": gate5_criteria,
+            },
             "overall_partnership_recommendation": {
-                "priority": clean_priority(overall.get("priority")),
+                "priority": priority,
                 "reason": (
                     clean_summary(
                         overall.get("reason"),
@@ -280,14 +329,16 @@ class DecisionIntelligenceService:
                                 "Gate 2": gate2_status,
                                 "Gate 3": gate3_status,
                                 "Gate 4": gate4_status,
+                                "Gate 5": gate5_status,
                             },
                             {
                                 "gate_1": gate_1,
                                 "gate_2": gate_2,
                                 "gate_3": gate_3,
                                 "gate_4": gate_4,
+                                "gate_5": gate_5,
                             },
-                            clean_priority(overall.get("priority")) or "LOW_PRIORITY",
+                            priority or "LOW_PRIORITY",
                         ),
                     )
                     if len(clean_summary(overall.get("reason"))) >= 80
@@ -297,14 +348,16 @@ class DecisionIntelligenceService:
                             "Gate 2": gate2_status,
                             "Gate 3": gate3_status,
                             "Gate 4": gate4_status,
+                            "Gate 5": gate5_status,
                         },
                         {
                             "gate_1": gate_1,
                             "gate_2": gate_2,
                             "gate_3": gate_3,
                             "gate_4": gate_4,
+                            "gate_5": gate_5,
                         },
-                        clean_priority(overall.get("priority")) or "LOW_PRIORITY",
+                        priority or "LOW_PRIORITY",
                     )
                 ),
             },

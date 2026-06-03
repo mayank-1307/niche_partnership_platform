@@ -158,6 +158,8 @@ class JsonStructuringAgent:
             "confidence_notes": research.confidence_notes,
             "evidence_sources": [e.model_dump() for e in research.evidence],
         }
+        if research.uploaded_document:
+            payload["uploaded_document"] = research.uploaded_document
 
         llm = await mistral_client.chat_json(
             AGENT2_STRUCTURING_PROMPT,
@@ -179,6 +181,14 @@ class JsonStructuringAgent:
                 **(model.evidence if isinstance(model.evidence, dict) else {}),
                 "sources": evidence_sources,
             }
+        if research.uploaded_document:
+            document_source = f"uploaded-document://{research.uploaded_document.get('filename', 'uploaded-document')}"
+            sources = [s.strip() for s in self._coerce_string_list(model.evidence.get("sources")) if s.strip()]
+            if document_source not in sources:
+                model.evidence = {
+                    **(model.evidence if isinstance(model.evidence, dict) else {}),
+                    "sources": [document_source, *sources],
+                }
         return model
 
 

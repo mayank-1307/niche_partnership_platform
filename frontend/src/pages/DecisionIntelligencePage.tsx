@@ -17,10 +17,18 @@ function isPass(value: boolean) {
   return value ? "text-mint" : "text-rose-300";
 }
 
-function decisionClass(value: string) {
+function decisionClass(value: string, yesIsRisk = false) {
   const v = value.trim().toUpperCase();
-  if (v === "YES") return "text-mint";
+  if (v === "YES") return yesIsRisk ? "text-rose-300" : "text-mint";
+  if (v === "NO" && yesIsRisk) return "text-mint";
   if (v === "PARTIAL" || v === "HIGH" || v === "COMPLEX") return "text-amber-300";
+  return "text-rose-300";
+}
+
+function gateStatusClass(value: string) {
+  const v = value.trim().toUpperCase();
+  if (v === "PASS") return "text-mint";
+  if (v === "DEFER" || v === "REVIEW") return "text-amber-300";
   return "text-rose-300";
 }
 
@@ -28,7 +36,7 @@ function labelize(value: string) {
   return value.replace(/_/g, " ");
 }
 
-function getDeterminismLabel(gate: "G1" | "G2" | "G3" | "G4", index: number) {
+function getDeterminismLabel(gate: "G1" | "G2" | "G3" | "G4" | "G5", index: number) {
   if (gate === "G1" && index < 3) return "DETERMINISTIC";
   return "NON-DETERMINISTIC";
 }
@@ -78,12 +86,14 @@ export default function DecisionIntelligencePage() {
   };
 
   const passedGatesCount = report
-    ? [report.gate_1.status, report.gate_2.status, report.gate_3.status, report.gate_4.status].filter((status) => status === "PASS").length
+    ? [report.gate_1.status, report.gate_2.status, report.gate_3.status, report.gate_4.status, report.gate_5.status].filter((status) => status === "PASS").length
     : 0;
 
   const proceedToScoring = () => {
-    window.alert(`${passedGatesCount} out of 4 gate(s) passed.`);
-    navigate("/scoring", { state: { profileId: selectedId } });
+    toast.success(`${passedGatesCount} out of 5 gate(s) passed. Proceeding to scoring.`);
+    window.setTimeout(() => {
+      navigate("/scoring", { state: { profileId: selectedId } });
+    }, 650);
   };
 
   return (
@@ -196,13 +206,7 @@ export default function DecisionIntelligencePage() {
                   Gate 3 - Delivery Feasibility
                 </div>
                 <div
-                  className={`mb-4 text-lg font-semibold ${
-                    report.gate_3.status === "PASS"
-                      ? "text-mint"
-                      : report.gate_3.status === "DEFER"
-                        ? "text-amber-300"
-                        : "text-rose-300"
-                  }`}
+                  className={`mb-4 text-lg font-semibold ${gateStatusClass(report.gate_3.status)}`}
                 >
                   {report.gate_3.status}
                 </div>
@@ -250,6 +254,32 @@ export default function DecisionIntelligencePage() {
                   ))}
                 </div>
               </div>
+
+              <div className="glass rounded-2xl p-5">
+                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
+                  Gate 5 - Geo & Compliance
+                </div>
+                <div className={`mb-4 text-lg font-semibold ${gateStatusClass(report.gate_5.status)}`}>
+                  {report.gate_5.status}
+                </div>
+                <div className="mb-4 text-sm text-slate-300">{report.gate_5.summary || "No summary provided."}</div>
+                <div className="space-y-2 text-sm">
+                  {Object.entries(report.gate_5.criteria).map(([key, criterion], index) => (
+                    <div key={key} className="rounded-lg border border-white/10 bg-black/20 p-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-bold uppercase">{`G5.${index + 1} ${labelize(key)}`}</span>
+                          <span className="rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-cyan">
+                            {getDeterminismLabel("G5", index)}
+                          </span>
+                        </div>
+                        <span className={decisionClass(criterion.decision, true)}>{criterion.decision}</span>
+                      </div>
+                      <div className="mt-2 text-xs text-slate-300">{criterion.reason || "No reason provided."}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="glass mt-6 w-full rounded-2xl p-5">
@@ -257,8 +287,9 @@ export default function DecisionIntelligencePage() {
               <div className="space-y-1 text-base text-slate-200">
                 <div>Gate 1: <span className={isPass(report.gate_1.status === "PASS")}>{report.gate_1.status}</span></div>
                 <div>Gate 2: <span className={isPass(report.gate_2.status === "PASS")}>{report.gate_2.status}</span></div>
-                <div>Gate 3: <span className={isPass(report.gate_3.status === "PASS")}>{report.gate_3.status}</span></div>
+                <div>Gate 3: <span className={gateStatusClass(report.gate_3.status)}>{report.gate_3.status}</span></div>
                 <div>Gate 4: <span className={isPass(report.gate_4.status === "PASS")}>{report.gate_4.status}</span></div>
+                <div>Gate 5: <span className={gateStatusClass(report.gate_5.status)}>{report.gate_5.status}</span></div>
               </div>
               <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-4">
                 <div className="text-xs uppercase tracking-wide text-slate-400">Final Summary</div>

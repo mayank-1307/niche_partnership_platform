@@ -76,12 +76,17 @@ export type Gate4Criteria = {
   commercial_structure_clarity: GateCriterion;
   startup_stage_fit: GateCriterion;
 };
+export type Gate5Criteria = {
+  restricted_geography: GateCriterion;
+  existing_company_x_partnership_conflict: GateCriterion;
+};
 export type DecisionIntelligenceReport = {
   company_name: string;
   gate_1: { status: "PASS" | "FAIL"; summary: string; criteria: Gate1Criteria };
   gate_2: { status: "PASS" | "FAIL"; summary: string; criteria: Gate2Criteria };
   gate_3: { status: "PASS" | "DEFER" | "FAIL"; summary: string; criteria: Gate3Criteria };
   gate_4: { status: "PASS" | "FAIL"; summary: string; criteria: Gate4Criteria };
+  gate_5: { status: "PASS" | "REVIEW" | "FAIL"; summary: string; criteria: Gate5Criteria };
   overall_partnership_recommendation: {
     priority: "HIGH_PRIORITY" | "MEDIUM_PRIORITY" | "LOW_PRIORITY";
     reason: string;
@@ -110,7 +115,15 @@ export type ScoringReport = {
   overall_summary: string;
 };
 
-export async function analyzeCompany(domain: string): Promise<AnalyzeResponse> {
+export async function analyzeCompany(domain: string, sourceDocument?: File | null): Promise<AnalyzeResponse> {
+  if (sourceDocument) {
+    const formData = new FormData();
+    formData.append("domain", domain);
+    formData.append("document", sourceDocument);
+    const res = await api.post<AnalyzeResponse>("/analyze-company", formData);
+    return res.data;
+  }
+
   const res = await api.post<AnalyzeResponse>("/analyze-company", { domain });
   return res.data;
 }

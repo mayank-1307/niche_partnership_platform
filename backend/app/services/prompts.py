@@ -7,6 +7,7 @@ AGENT1_SUMMARY_PROMPT = dedent(
     """
     You are Agent 1 (Company Intelligence Agent).
     Use the provided domain/company hint and public web search snippets to extract high-value company intelligence.
+    If an uploaded document is provided, treat it as a grounded first-party source and use it alongside web evidence.
     The data should be grounded and anti-hallucinated. Focus on quality of data.
 
     Tasks:
@@ -133,6 +134,7 @@ AGENT1_SUMMARY_PROMPT = dedent(
     5. All the information should be latest and updated.
     6. If required data is not available in public web snippets/sources, use the official company website pages (home, about, product, docs, case studies, leadership, pricing, blog, press) as fallback sources and extract only evidence-backed information.
     7. Make sure fallback website-derived data is included in the final JSON output so it can be shown on UI and saved in storage JSON.
+    8. If an uploaded document is provided, extract relevant company facts from it and cite it in the evidence sources when it supports the result.
 
     Return strict JSON with shape:
     {
@@ -148,6 +150,8 @@ AGENT2_STRUCTURING_PROMPT = dedent(
     """
     You are Agent 2 (JSON Structuring Agent).
     Convert the research object into a gate-first analysis JSON. Keep missing info safe defaults.
+    Use the summary, extracted insights, web evidence, and any uploaded document context provided.
+    Treat an uploaded document as an additional grounded source, not as a replacement for web evidence.
     - strings default ""
     - numbers default 0
     - arrays default []
@@ -637,10 +641,42 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
     - PASS: ALL criteria are YES.
     - FAIL: ANY criteria is NO.
 
+    Gate 5 criteria (Geo & Compliance):
+    Definition:
+    Evaluates geographic restrictions and partnership conflicts to ensure regulatory safety, risk avoidance, and alignment with existing Company X relationships.
+
+    1) restricted_geography
+    Definition:
+    Determine whether the company is based in, incorporated in, materially operating from, or primarily serving regions that are restricted, sanctioned, export-controlled, or pose compliance/regulatory risks for Company X.
+    Question:
+    Is the company based in or operating primarily in regions that are restricted, sanctioned, or pose compliance or regulatory risks?
+    Allowed decision options:
+    - YES
+    - NO
+    Decision rule:
+    - If YES, Gate 5 must be FAIL and the overall recommendation should be LOW_PRIORITY.
+
+    2) existing_company_x_partnership_conflict
+    Definition:
+    Determine whether there is an existing partnership with Company X, an active pursuit of partnership, channel overlap, duplicate engagement, competitive conflict, exclusivity concern, or relationship conflict that requires internal review.
+    Question:
+    Is there an existing partnership with Company X, or is the company currently pursuing a partnership that may create conflict, duplication, or overlap?
+    Allowed decision options:
+    - YES
+    - NO
+    Decision rule:
+    - If YES and restricted_geography is NO, Gate 5 must be REVIEW.
+    - If both criteria are NO, Gate 5 must be PASS.
+
+    Gate 5 decision rule:
+    - PASS: restricted_geography is NO and existing_company_x_partnership_conflict is NO.
+    - REVIEW: restricted_geography is NO and existing_company_x_partnership_conflict is YES.
+    - FAIL: restricted_geography is YES.
+
     Overall priority:
-    - HIGH_PRIORITY = Gate1 PASS + Gate2 PASS + Gate3 PASS + Gate4 PASS
-    - MEDIUM_PRIORITY = Gate1 PASS and (Gate2 FAIL or Gate3 DEFER) and Gate4 PASS
-    - LOW_PRIORITY = Gate1 FAIL or Gate3 FAIL or Gate4 FAIL
+    - HIGH_PRIORITY = Gate1 PASS + Gate2 PASS + Gate3 PASS + Gate4 PASS + Gate5 PASS
+    - MEDIUM_PRIORITY = Gate1 PASS + Gate4 PASS + Gate5 PASS/REVIEW, with either Gate2 FAIL or Gate3 DEFER or Gate5 REVIEW requiring mitigation/review.
+    - LOW_PRIORITY = Gate1 FAIL or Gate3 FAIL or Gate4 FAIL or Gate5 FAIL.
     - The overall_partnership_recommendation.reason should be 1-2 sentences that summarize the business case, main strengths, and main risks.
     - Mention the most important gate outcomes and the key criteria driving the recommendation.
 
@@ -689,6 +725,14 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
           "partner_willingness": {"decision": "YES", "reason": "", "confidence_score": 0},
           "commercial_structure_clarity": {"decision": "YES", "reason": "", "confidence_score": 0},
           "startup_stage_fit": {"decision": "YES", "reason": "", "confidence_score": 0}
+        }
+      },
+      "gate_5": {
+        "status": "PASS",
+        "summary": "",
+        "criteria": {
+          "restricted_geography": {"decision": "NO", "reason": "", "confidence_score": 0},
+          "existing_company_x_partnership_conflict": {"decision": "NO", "reason": "", "confidence_score": 0}
         }
       },
       "overall_partnership_recommendation": {
@@ -780,8 +824,14 @@ SCORING_PROMPT_P456 = dedent(
     Evaluate ONLY the provided company JSON and return JSON only.
     Do not invent facts. If evidence is weak or missing, use lower scores.
 
+    Company X context:
+    - Company X is a large enterprise IT services, consulting, systems integration, implementation, and managed-services partner.
+    - Evaluate whether the partner solution can create value for Company X through implementation services, co-sell/channel opportunities, managed services, enterprise transformation programs, and scalable delivery across client industries.
+    - Treat Company X as the implementation/service-provider equivalent wherever legacy schema field names contain provider-specific suffixes.
+    - Preserve the exact JSON field names in the output schema for compatibility.
+
     Scoring pillars and weights:
-    - P4 Business & Strategic Fit for TCS: weight 20
+    - P4 Business & Strategic Fit for Company X: weight 20
     - P5 Market Validation & Feedback: weight 15
     - P6 Delivery Readiness & Risk: weight 15
 

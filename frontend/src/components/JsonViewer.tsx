@@ -1,6 +1,8 @@
 import { Copy, Download } from "lucide-react";
 import toast from "react-hot-toast";
 
+import { formatCurrencyDisplay, isCurrencyKey } from "../lib/format";
+
 function sanitizeFilenamePart(value: string): string {
   return value
     .trim()
@@ -67,14 +69,14 @@ export function JsonViewer({
     }
   };
 
-  const renderValue = (value: unknown, depth = 0): JSX.Element => {
+  const renderValue = (value: unknown, depth = 0, keyName = ""): JSX.Element => {
     if (Array.isArray(value)) {
       return (
         <div className="space-y-2">
           {value.length === 0 && <span className="text-slate-500">[]</span>}
           {value.map((item, index) => (
             <div key={`${depth}-${index}`} className="rounded-lg border border-white/10 bg-black/25 p-2">
-              {renderValue(item, depth + 1)}
+              {renderValue(item, depth + 1, keyName)}
             </div>
           ))}
         </div>
@@ -89,7 +91,7 @@ export function JsonViewer({
           {entries.map(([key, val]) => (
             <div key={`${depth}-${key}`} className="rounded-lg border border-white/10 bg-black/25 p-3">
               <div className="mb-1 text-[11px] uppercase tracking-wide text-cyan/90">{key}</div>
-              {renderValue(val, depth + 1)}
+              {renderValue(val, depth + 1, key)}
             </div>
           ))}
         </div>
@@ -97,10 +99,19 @@ export function JsonViewer({
     }
 
     if (typeof value === "string") {
+      const formattedCurrency = formatCurrencyDisplay(value, keyName);
+      if (formattedCurrency) {
+        return <div className="break-words text-mint">{formattedCurrency}</div>;
+      }
+
       return <div className="break-words text-slate-100">{value || <span className="text-slate-500">""</span>}</div>;
     }
 
     if (typeof value === "number") {
+      if (isCurrencyKey(keyName)) {
+        return <div className="text-mint">{formatCurrencyDisplay(value, keyName)}</div>;
+      }
+
       return <div className="text-mint">{value}</div>;
     }
 

@@ -1,0 +1,280 @@
+{
+  "generated_at": "2026-06-03T06:32:08.780334",
+  "data": {
+    "company_name": "Glean Technologies Inc.",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, United States",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Uber",
+              "Okta",
+              "Confluent",
+              "Gusto",
+              "Workday",
+              "Slack",
+              "Atlassian",
+              "Zoom",
+              "Dropbox",
+              "Cisco"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 202000000,
+            "investors": [
+              "Kleiner Perkins",
+              "Lightspeed Venture Partners",
+              "General Catalyst",
+              "Slack Fund",
+              "IVP (Institutional Venture Partners)",
+              "Sequoia Capital"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series D",
+                "amount_usd": 200000000,
+                "year": 2024
+              },
+              {
+                "round_type": "Series C",
+                "amount_usd": 100000000,
+                "year": 2022
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Glean was founded by former Google executives with deep expertise in search, AI, and enterprise software. The founding team includes Arvind Jain (CEO), a former Distinguished Engineer at Google with over 15 years of experience in search and infrastructure, and T.R. Vishwanath (CTO), who previously led engineering teams at Google and built large-scale distributed systems.",
+            "key_leaders": [
+              {
+                "name": "Arvind Jain",
+                "title": "Co-Founder & CEO",
+                "background": "Former Distinguished Engineer at Google; led search infrastructure and AI initiatives."
+              },
+              {
+                "name": "T.R. Vishwanath",
+                "title": "Co-Founder & CTO",
+                "background": "Former Google engineering leader; built large-scale distributed systems and enterprise search platforms."
+              },
+              {
+                "name": "Howard Lerman",
+                "title": "President",
+                "background": "Former CEO and Co-Founder of Yext; extensive experience in enterprise SaaS and go-to-market strategies."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 5,
+            "case_studies_available": true,
+            "deployment_scale": "Glean is deployed across large enterprises with thousands of users, supporting global workforces. The platform integrates with over 100 enterprise applications and handles millions of queries per month."
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "https://www.crunchbase.com/organization/glean-ai",
+        "https://techcrunch.com/2024/02/21/glean-raises-200m-to-build-ai-powered-workplace-search/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Enterprise search and knowledge discovery",
+              "AI-driven contextual answers and recommendations"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [
+              "Google Workspace",
+              "Microsoft 365",
+              "Slack",
+              "Salesforce"
+            ],
+            "capabilities": [
+              "Unified workplace search across apps and documents",
+              "Secure and compliant knowledge management"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Contextual search and recommendations"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Data security",
+              "Compliance with enterprise standards"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "uploaded-document://Glean_Research_Report.pdf"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [
+              "Enterprise SaaS integration",
+              "Identity management (Okta, Azure AD)",
+              "Cloud infrastructure (AWS, GCP, Azure)"
+            ],
+            "required_skills": [
+              "Integration with enterprise tools",
+              "API management",
+              "Security and compliance configuration"
+            ],
+            "gap_notes": "Training may be required for administrators and end-users to maximize adoption."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "2-4 weeks for administrators; 1-2 weeks for end-users",
+            "training_needs": [
+              "Platform administration",
+              "End-user adoption and best practices"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Enterprise SaaS applications (e.g., Slack, Google Workspace, Microsoft 365, Salesforce)",
+              "Identity providers (e.g., Okta, Azure AD, Google Workspace)",
+              "Document and content repositories (e.g., SharePoint, Box, Dropbox)",
+              "APIs for custom integrations",
+              "Cloud infrastructure (AWS, GCP, or Azure)"
+            ],
+            "dependencies": [
+              "Enterprise tooling ecosystem",
+              "Identity management systems"
+            ],
+            "complexity_notes": "Pre-built connectors and APIs streamline integration, but custom configurations may require additional effort."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Documentation, professional services, and customer support",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "uploaded-document://Glean_Research_Report.pdf"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS (per-user pricing with enterprise contracts)",
+            "pricing_transparency": false,
+            "revenue_structure": "Recurring revenue with enterprise contracts"
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and partner-led (enterprise sales motion with a focus on large organizations)",
+            "channels": [
+              "Direct sales",
+              "System integrators",
+              "Resellers"
+            ],
+            "sales_motion": "High-touch enterprise sales"
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 2500000,
+            "expansion_paths": [
+              "Upsell to additional users",
+              "Cross-sell to new departments",
+              "Expansion into new geographies"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [
+              "System integrator partnerships",
+              "Reseller programs"
+            ],
+            "api_ecosystem": [
+              "APIs for custom integrations",
+              "Pre-built connectors for enterprise tools"
+            ]
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Enterprise contracts with custom pricing and terms; no public pricing available.",
+            "pricing_governance": "Tailored to enterprise needs, with discounts for larger deployments."
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Growth-stage startup",
+            "fit_notes": "Strong fit for large enterprises with complex knowledge management and search needs."
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "https://www.crunchbase.com/organization/glean-ai"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "uploaded-document://Glean_Research_Report.pdf",
+        "Glean_Research_Report.pdf",
+        "(anonymous)\nD:20260602113332+00'00'\n(unspecified)\nD:20260602113332+00'00'\nReportLab PDF Library - www.reportlab.com\n(unspecified)\n(anonymous)\nk#Q5?a+:WY+3+APPKjO=eA;fW2cV*WMmcOi4R!FDb*p:\"od?^UXWo%9R*'bWL(rZn\"Z!gKM#oTE!>,4H>=Fi+]2.doIdZr&>\n<Y?_lcR3[N*1odH7#4nK75o.502$,cZH_b6#UdgOqAQ'E6![OlE5ZNJa`+$%e/`+^kEfJ]Gt5+WHhG]!o>kBSJ8gH3`H,M*'V%NJJ@ClN:i($RlY<1,'XkOH&!4Q+#uoSK>tFEY[;$]r&:FOq,FG67+>N>e1/TL<XeK_:A]Tm(4D_NtI5e=MnUZ%4F'Uf*jblppUm9,eOcOXp%rMt/`4>VG&]Y\"ZIYC/m-d8!,tM2EMQA[]<:E%Y$8oPK'2dcastmFdLW6gI@8W[:&!3:E:EfCuFsVGO4Qf!_@D5_M\nRi`d7?9neKAGr&[L?K04GnV`=CBJuOpX`CngjAXEnFJuu8+Oem6h;BJm9Gh6jL64te#IPDG8Y=,u3*0]Nd%qghD7:&PjO'rX\"g#&JUjS5bq[&+i&*9\"/7Q&T9h5gka*[Vt7]=.[G.T_a8dQP@G'+W6W;9@R=EM-jeBR2:m%ZEG@@PW5?=ZqZ\"M4bMi>[.\nGCnc3ko\"`o;%gNkco,9iGeFua]Mh8OK<rKc2?SRP*N6a3c0uP3-$,K!lQ>AnBi^Zk@REVfJ+'m<RHl*.iqY^o!EDE+j#>_tprh&Q5'3a.aqFDH=[Bbhg*=j\fc5Fd!MjAf^6hL<Uf_]VngOY\"b_Id!fT#_P%cV[qB2Q^j=$R>%ZTp+#bKh`Du>3H-SQdhOAVtZs$O[@\ng/&;bFGCi%(-,?5L;V.5K&WnaZ-Ut]k;R$d?oTjnWuZTr_MIk*[\n`Xt^9j\n57HW]\"(i37q(<0A:4W",
+        "https://glean.com"
+      ],
+      "last_updated": "2026-06-03T06:32:08.672321"
+    }
+  }
+}

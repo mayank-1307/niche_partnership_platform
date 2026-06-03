@@ -1,0 +1,281 @@
+{
+  "generated_at": "2026-06-03T06:25:16.918035",
+  "data": {
+    "company_name": "Glean Technologies Inc.",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, United States",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Atlassian",
+              "Okta",
+              "Databricks",
+              "Confluent",
+              "Gusto",
+              "Workday",
+              "Uber",
+              "Slack",
+              "Zoom",
+              "Dropbox"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 202000000,
+            "investors": [
+              "Lightspeed Venture Partners",
+              "Kleiner Perkins",
+              "General Catalyst",
+              "IVP (Institutional Venture Partners)",
+              "Sequoia Capital",
+              "Adobe Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series D",
+                "amount_usd": 200000000,
+                "year": 2024
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Founders and leadership team have extensive backgrounds in enterprise AI, search, and large-scale systems. CEO Arvind Jain previously served as Chief Architect at Google, leading search infrastructure and AI initiatives. Other executives include former leaders from Google, Facebook, LinkedIn, and Uber with expertise in AI, data platforms, and enterprise software.",
+            "key_leaders": [
+              {
+                "name": "Arvind Jain",
+                "title": "Co-Founder & CEO",
+                "background": "Former Chief Architect at Google, led search infrastructure and AI teams"
+              },
+              {
+                "name": "Tony Gentilcore",
+                "title": "Co-Founder & CTO",
+                "background": "Former Google engineer, specialized in search and distributed systems"
+              },
+              {
+                "name": "Piyush Prahladka",
+                "title": "Co-Founder & Chief Product Officer",
+                "background": "Former Google product leader, worked on enterprise search and AI"
+              },
+              {
+                "name": "Ankit Agarwal",
+                "title": "VP of Engineering",
+                "background": "Former engineering leader at Uber and LinkedIn"
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 5,
+            "case_studies_available": true,
+            "deployment_scale": "Deployed across Fortune 500 companies, supporting tens of thousands of enterprise users. Platform integrates with 100+ enterprise applications and handles petabyte-scale data. Used in production for mission-critical knowledge discovery and decision-making."
+          }
+        }
+      },
+      "sources": [
+        "https://www.crunchbase.com/organization/glean",
+        "https://techcrunch.com/2024/05/15/glean-raises-200m-to-build-ai-powered-enterprise-search",
+        "https://glena.com"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Enterprise search and knowledge discovery",
+              "AI-powered workplace productivity",
+              "Contextual and personalized information retrieval"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [
+              "Google Drive",
+              "Box",
+              "SharePoint",
+              "Salesforce",
+              "Workday"
+            ],
+            "capabilities": [
+              "Unified search across disparate enterprise applications",
+              "Secure and compliant knowledge management"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Slack",
+              "Microsoft Teams",
+              "Zoom"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Data governance",
+              "Compliance tools"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://glena.com",
+        "uploaded-document://Glean_Research_Report.pdf"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [
+              "Enterprise identity integration",
+              "Cloud storage integration",
+              "API and connector development"
+            ],
+            "required_skills": [
+              "Enterprise identity providers (Okta, Azure AD, etc.)",
+              "Cloud storage and document repositories",
+              "Communication platforms (Slack, Microsoft Teams, Zoom)",
+              "CRM and ERP systems (Salesforce, Workday, etc.)",
+              "Custom APIs and connectors"
+            ],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": [
+              "Administrator training for deployment and management",
+              "End-user training for maximizing adoption and productivity"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Enterprise identity providers (Okta, Azure AD, etc.)",
+              "Cloud storage and document repositories (Google Drive, Box, SharePoint, etc.)",
+              "Communication platforms (Slack, Microsoft Teams, Zoom)",
+              "CRM and ERP systems (Salesforce, Workday, etc.)",
+              "Custom APIs and connectors for proprietary systems",
+              "Data governance and compliance tools"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Integration complexity varies based on enterprise environment and existing systems. Glean provides robust documentation, SDKs, and partner support."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Partner and direct support for enterprise deployments",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://glena.com",
+        "uploaded-document://Glean_Research_Report.pdf"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Enterprise SaaS subscription with annual contracts",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and partner-led (system integrators, resellers, and technology alliances)",
+            "channels": [
+              "Direct sales",
+              "System integrators",
+              "Resellers",
+              "Technology alliances"
+            ],
+            "sales_motion": "Enterprise-focused with tailored pricing and deployment"
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 2750000,
+            "expansion_paths": [
+              "Add-ons and premium features",
+              "Expansion to additional departments and use cases"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [
+              "Cloud providers",
+              "System integrators"
+            ],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Tailored to enterprise needs with potential for custom terms and SLAs.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Growth Stage (Series D)",
+            "fit_notes": "Strong fit for enterprise AI and knowledge management initiatives with proven scalability and funding."
+          }
+        }
+      },
+      "sources": [
+        "https://www.crunchbase.com/organization/glean",
+        "https://techcrunch.com/2024/05/15/glean-raises-200m-to-build-ai-powered-enterprise-search"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "uploaded-document://Glean_Research_Report.pdf",
+        "Glean_Research_Report.pdf",
+        "(anonymous)\nD:20260602113332+00'00'\n(unspecified)\nD:20260602113332+00'00'\nReportLab PDF Library - www.reportlab.com\n(unspecified)\n(anonymous)\nk#Q5?a+:WY+3+APPKjO=eA;fW2cV*WMmcOi4R!FDb*p:\"od?^UXWo%9R*'bWL(rZn\"Z!gKM#oTE!>,4H>=Fi+]2.doIdZr&>\n<Y?_lcR3[N*1odH7#4nK75o.502$,cZH_b6#UdgOqAQ'E6![OlE5ZNJa`+$%e/`+^kEfJ]Gt5+WHhG]!o>kBSJ8gH3`H,M*'V%NJJ@ClN:i($RlY<1,'XkOH&!4Q+#uoSK>tFEY[;$]r&:FOq,FG67+>N>e1/TL<XeK_:A]Tm(4D_NtI5e=MnUZ%4F'Uf*jblppUm9,eOcOXp%rMt/`4>VG&]Y\"ZIYC/m-d8!,tM2EMQA[]<:E%Y$8oPK'2dcastmFdLW6gI@8W[:&!3:E:EfCuFsVGO4Qf!_@D5_M\nRi`d7?9neKAGr&[L?K04GnV`=CBJuOpX`CngjAXEnFJuu8+Oem6h;BJm9Gh6jL64te#IPDG8Y=,u3*0]Nd%qghD7:&PjO'rX\"g#&JUjS5bq[&+i&*9\"/7Q&T9h5gka*[Vt7]=.[G.T_a8dQP@G'+W6W;9@R=EM-jeBR2:m%ZEG@@PW5?=ZqZ\"M4bMi>[.\nGCnc3ko\"`o;%gNkco,9iGeFua]Mh8OK<rKc2?SRP*N6a3c0uP3-$,K!lQ>AnBi^Zk@REVfJ+'m<RHl*.iqY^o!EDE+j#>_tprh&Q5'3a.aqFDH=[Bbhg*=j\fc5Fd!MjAf^6hL<Uf_]VngOY\"b_Id!fT#_P%cV[qB2Q^j=$R>%ZTp+#bKh`Du>3H-SQdhOAVtZs$O[@\ng/&;bFGCi%(-,?5L;V.5K&WnaZ-Ut]k;R$d?oTjnWuZTr_MIk*[\n`Xt^9j\n57HW]\"(i37q(<0A:4W",
+        "https://glena.com"
+      ],
+      "last_updated": "2026-06-03T06:25:16.810140"
+    }
+  }
+}
