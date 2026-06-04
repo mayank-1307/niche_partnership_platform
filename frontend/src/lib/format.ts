@@ -9,8 +9,15 @@ export function asNumber(value: unknown): number | null {
 
 const currencyKeyPattern = /(usd|currency|deal.?size|funding|revenue|valuation|contract|amount|budget|price|pricing|cost|arr|mrr)/i;
 const currencyTextPattern = /(\$|usd|dollar|deal size|funding|revenue|valuation|contract value)/i;
+const textFieldKeyPattern =
+  /^(company_summary|summary|reason|notes|founders_experience|gtm_model|monetization_model|implementation_complexity|tcs_implementation_readiness|training_effort_required|support_scalability|deployment_scale|stage|contracting_notes|pricing_governance|fit_notes|website|headquarters|company_name|filename|excerpt|title|snippet|url|source|last_updated|generated_at)$/i;
+
+export function isTextFieldKey(key: string): boolean {
+  return textFieldKeyPattern.test(key);
+}
 
 export function isCurrencyKey(key: string): boolean {
+  if (isTextFieldKey(key)) return false;
   return currencyKeyPattern.test(key);
 }
 
@@ -35,6 +42,8 @@ export function formatUsd(value: unknown): string {
 }
 
 export function formatCurrencyDisplay(value: unknown, key = ""): string | null {
+  if (isTextFieldKey(key)) return null;
+
   if (typeof value === "number") {
     return isCurrencyKey(key) ? formatUsd(value) : null;
   }

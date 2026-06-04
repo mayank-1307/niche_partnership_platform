@@ -1,7 +1,7 @@
 import { Copy, Download } from "lucide-react";
 import toast from "react-hot-toast";
 
-import { formatCurrencyDisplay, isCurrencyKey } from "../lib/format";
+import { formatCurrencyDisplay, isCurrencyKey, isTextFieldKey } from "../lib/format";
 
 function sanitizeFilenamePart(value: string): string {
   return value
@@ -99,6 +99,10 @@ export function JsonViewer({
     }
 
     if (typeof value === "string") {
+      if (isTextFieldKey(keyName)) {
+        return <div className="break-words whitespace-pre-wrap text-slate-100">{value || <span className="text-slate-500">""</span>}</div>;
+      }
+
       const formattedCurrency = formatCurrencyDisplay(value, keyName);
       if (formattedCurrency) {
         return <div className="break-words text-mint">{formattedCurrency}</div>;

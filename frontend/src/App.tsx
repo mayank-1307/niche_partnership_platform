@@ -58,6 +58,8 @@ function renderSourceList(sources: string[]) {
   );
 }
 
+type InputMode = "analyze" | "recent_search";
+
 function InsightToggle({ expanded, onClick, label }: { expanded: boolean; onClick: () => void; label: string }) {
   const Icon = expanded ? ChevronUp : ChevronDown;
   const action = expanded ? "Collapse" : "Expand";
@@ -77,6 +79,7 @@ function InsightToggle({ expanded, onClick, label }: { expanded: boolean; onClic
 }
 
 export default function App() {
+  const [inputMode, setInputMode] = useState<InputMode>("analyze");
   const [domain, setDomain] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AnalyzeResponse | null>(null);
@@ -87,8 +90,19 @@ export default function App() {
   const [loadingRecentProfiles, setLoadingRecentProfiles] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  const isAnalyzeMode = inputMode === "analyze";
+  const inputPlaceholder = isAnalyzeMode
+    ? "Please enter the company website (Eg: https://company.com)"
+    : "Please enter the company partner name(Eg: Company Name)";
+
+  const isInputFrozen = loading || inputLocked;
+
   useEffect(() => {
-    if (inputLocked) {
+    if (isInputFrozen || isAnalyzeMode) {
+      if (isAnalyzeMode) {
+        setRecentProfiles([]);
+        setLoadingRecentProfiles(false);
+      }
       return;
     }
 
@@ -122,11 +136,14 @@ export default function App() {
       active = false;
       window.clearTimeout(timer);
     };
-  }, [domain, inputLocked]);
+  }, [domain, isInputFrozen, isAnalyzeMode]);
 
   const run = async () => {
+    if (!isAnalyzeMode) {
+      return;
+    }
     if (!domain.trim()) {
-      toast.error("Enter a company domain");
+      toast.error("Enter a company website");
       return;
     }
 
@@ -188,7 +205,10 @@ export default function App() {
         company_summary: savedSummary,
         extracted_insights: {},
         evidence: [],
-        structured_json: structured,
+        structured_json: {
+          ...(structured as Record<string, unknown>),
+          company_summary: savedSummary,
+        },
         agent_logs: [],
       });
       setInputLocked(true);
@@ -219,6 +239,13 @@ export default function App() {
   const leaders = asStringList(leadership.key_leaders);
   const companyName = typeof structured.company_name === "string" ? structured.company_name.trim() : "";
   const hasCompanyName = Boolean(result && companyName);
+  const structuredJsonForViewer =
+    result && typeof result.structured_json === "object" && result.structured_json !== null
+      ? {
+          ...(result.structured_json as Record<string, unknown>),
+          ...(result.company_summary?.trim() ? { company_summary: result.company_summary } : {}),
+        }
+      : null;
 
   return (
     <>
@@ -241,87 +268,148 @@ export default function App() {
 
 
       <section className="glass mb-8 rounded-2xl p-4 md:p-6">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-          <div className="w-full">
+        <div className="mb-4 flex flex-wrap gap-4" role="radiogroup" aria-label="Analysis input mode">
+          <label
+            className={`inline-flex items-center gap-2 rounded-lg border border-white/10 bg-black/25 px-4 py-2 text-sm text-slate-200 transition has-[:checked]:border-cyan/50 has-[:checked]:bg-cyan/10 ${
+              isInputFrozen ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:bg-white/5"
+            }`}
+          >
+            <input
+              type="radio"
+              name="input-mode"
+              value="analyze"
+              checked={isAnalyzeMode}
+              onChange={() => setInputMode("analyze")}
+              disabled={isInputFrozen}
+              className="h-4 w-4 accent-cyan disabled:cursor-not-allowed"
+            />
+            <span>Analyze company</span>
+          </label>
+          <label
+            className={`inline-flex items-center gap-2 rounded-lg border border-white/10 bg-black/25 px-4 py-2 text-sm text-slate-200 transition has-[:checked]:border-cyan/50 has-[:checked]:bg-cyan/10 ${
+              isInputFrozen ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:bg-white/5"
+            }`}
+          >
+            <input
+              type="radio"
+              name="input-mode"
+              value="recent_search"
+              checked={!isAnalyzeMode}
+              onChange={() => setInputMode("recent_search")}
+              disabled={isInputFrozen}
+              className="h-4 w-4 accent-cyan disabled:cursor-not-allowed"
+            />
+            <span>Recent search</span>
+          </label>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <input
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
-              placeholder="Please enter the company domain (e.g., https://company.com)"
+              placeholder={inputPlaceholder}
               disabled={inputLocked}
-              className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan/50"
+              className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan/50"
             />
-            <p className="mt-2 text-xs text-slate-400">
-              **The agents are accessing data from the official sites as well as publicly available sources**
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <button onClick={run} disabled={loading || !domain.trim()} className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60">
-              {loading ? "Analyzing..." : "Analyze"}
-            </button>
-            <button
-              type="button"
-              onClick={refreshForNewAnalysis}
-              disabled={loading}
-              className="rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white disabled:opacity-60"
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              onClick={openDocumentPicker}
-              disabled={loading || inputLocked}
-              className="rounded-xl border border-cyan/40 bg-cyan/10 px-6 py-3 font-semibold text-cyan transition hover:bg-cyan/20 disabled:opacity-60"
-            >
-              {sourceDocument ? "Change Source File" : "Upload Source File"}
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
-              onChange={handleDocumentChange}
-              className="hidden"
-              aria-label="Upload company source document"
-            />
-          </div>
-        </div>
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
-          <span>Optional company PDF, DOCX, or text source for grounded analysis.</span>
-          {sourceDocument && (
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-slate-200">
-              <span className="max-w-[16rem] truncate">{sourceDocument.name}</span>
+            <div className="flex shrink-0 flex-wrap items-center gap-3">
+              {isAnalyzeMode && (
+                <button
+                  onClick={run}
+                  disabled={loading || inputLocked || !domain.trim()}
+                  className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60"
+                >
+                  {loading ? "Analyzing..." : "Analyze"}
+                </button>
+              )}
               <button
                 type="button"
-                onClick={clearDocument}
-                disabled={loading || inputLocked}
-                className="font-semibold text-cyan hover:text-white disabled:opacity-60"
+                onClick={refreshForNewAnalysis}
+                disabled={loading}
+                className="rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white disabled:opacity-60"
               >
-                Remove
+                Reset
               </button>
-            </div>
-          )}
-        </div>
-        <div className="mt-4">
-          <div className="mb-2 text-sm text-cyan">{domain.trim() ? "Top 5 Matching Searches" : "Recent 5 Searches"}</div>
-          {loadingRecentProfiles ? (
-            <div className="text-xs text-slate-400">Loading recent searches...</div>
-          ) : recentProfiles.length === 0 ? (
-            <div className="text-xs text-slate-400">{domain.trim() ? "No matching recent searches found." : "No recent searches found."}</div>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {recentProfiles.map((profile) => (
+              {isAnalyzeMode && (
                 <button
-                  key={profile.id}
                   type="button"
-                  onClick={() => void loadRecentAnalysis(profile.id)}
-                  disabled={loading}
-                  className="rounded-lg border border-white/20 bg-black/30 px-3 py-2 text-xs text-slate-200 hover:bg-white/10 disabled:opacity-60"
+                  onClick={openDocumentPicker}
+                  disabled={loading || inputLocked}
+                  className="rounded-xl border border-cyan/40 bg-cyan/10 px-6 py-3 font-semibold text-cyan transition hover:bg-cyan/20 disabled:opacity-60"
                 >
-                  {(profile.company_name || `Profile ${profile.id}`).trim()} ({new Date(profile.created_at).toLocaleDateString()})
+                  {sourceDocument ? "Change Source File" : "Upload Source File"}
                 </button>
-              ))}
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+                onChange={handleDocumentChange}
+                className="hidden"
+                aria-label="Upload company source document"
+              />
             </div>
-          )}
+          </div>
+          <p className="text-xs text-slate-400">
+            {loading && isAnalyzeMode
+              ? "Analysis in progress. This may take a few minutes."
+              : loading && !isAnalyzeMode
+                ? "Loading saved analysis..."
+                : isAnalyzeMode
+                  ? "The agents access data from official sites and publicly available sources."
+                  : "Search saved partner analyses by company name and open a recent result below."}
+          </p>
         </div>
+        {isAnalyzeMode && (
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+            <span>Optional company PDF, DOCX, or text source for grounded analysis.</span>
+            {sourceDocument && (
+              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-slate-200">
+                <span className="max-w-[16rem] truncate">{sourceDocument.name}</span>
+                <button
+                  type="button"
+                  onClick={clearDocument}
+                  disabled={loading || inputLocked}
+                  className="font-semibold text-cyan hover:text-white disabled:opacity-60"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+        {!isAnalyzeMode && (
+          <div className="mt-4">
+            <div className="mb-2 text-sm text-cyan">
+              {loadingRecentProfiles
+                ? "Searching saved analyses..."
+                : domain.trim()
+                  ? "Top 5 Matching Searches"
+                  : "Recent 5 Searches"}
+            </div>
+            {loadingRecentProfiles ? (
+              <div className="text-xs text-slate-400">Loading recent searches...</div>
+            ) : recentProfiles.length === 0 ? (
+              <div className="text-xs text-slate-400">
+                {domain.trim() ? "No matching recent searches found." : "No recent searches found."}
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {recentProfiles.map((profile) => (
+                  <button
+                    key={profile.id}
+                    type="button"
+                    onClick={() => void loadRecentAnalysis(profile.id)}
+                    disabled={loading}
+                    className="rounded-lg border border-white/20 bg-black/30 px-3 py-2 text-xs text-slate-200 hover:bg-white/10 disabled:opacity-60"
+                  >
+                    {(profile.company_name || `Profile ${profile.id}`).trim()} ({new Date(profile.created_at).toLocaleDateString()})
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
@@ -338,7 +426,7 @@ export default function App() {
         </div>
 
         <div className="lg:h-[31rem] lg:min-h-0">
-          <JsonViewer data={result?.structured_json ?? null} downloadUrl={result ? downloadJsonUrl(result.id) : null} companyName={companyName} />
+          <JsonViewer data={structuredJsonForViewer} downloadUrl={result ? downloadJsonUrl(result.id) : null} companyName={companyName} />
         </div>
       </div>
 

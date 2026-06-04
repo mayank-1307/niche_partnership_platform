@@ -9,7 +9,7 @@ export function FixedHeader({ pageTitle }: FixedHeaderProps) {
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#071425]/90 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 py-3 md:px-8">
         <h1 className="text-base font-semibold tracking-wide text-white md:text-lg">
-          <Link to="/" className="transition hover:text-cyan">
+          <Link to="/" className="transition hover:text-cyan hover:underline">
             Niche Partnerships Intelligence Platform
           </Link>
           {pageTitle ? ` / ${pageTitle}` : ""}
