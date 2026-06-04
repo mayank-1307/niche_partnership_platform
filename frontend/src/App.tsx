@@ -299,7 +299,7 @@ export default function App() {
               disabled={isInputFrozen}
               className="h-4 w-4 accent-cyan disabled:cursor-not-allowed"
             />
-            <span>Recent search</span>
+            <span>Recent Analyses</span>
           </label>
         </div>
 
@@ -337,7 +337,7 @@ export default function App() {
                   disabled={loading || inputLocked}
                   className="rounded-xl border border-cyan/40 bg-cyan/10 px-6 py-3 font-semibold text-cyan transition hover:bg-cyan/20 disabled:opacity-60"
                 >
-                  {sourceDocument ? "Change Source File" : "Upload Source File"}
+                  {sourceDocument ? "Change Source File" : "Upload File"}
                 </button>
               )}
               <input
@@ -362,7 +362,7 @@ export default function App() {
         </div>
         {isAnalyzeMode && (
           <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
-            <span>Optional company PDF, DOCX, or text source for grounded analysis.</span>
+            <span>Upload a company document to enhance analysis accuracy.(PDF, DOCX, or text)<i> (optional)</i></span>
             {sourceDocument && (
               <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-slate-200">
                 <span className="max-w-[16rem] truncate">{sourceDocument.name}</span>
