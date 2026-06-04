@@ -146,12 +146,53 @@ AGENT1_SUMMARY_PROMPT = dedent(
     """
 ).strip()
 
+DOCUMENT_EXTRACTION_PROMPT = dedent(
+    """
+    You are the Document Intelligence Agent.
+    Read ONLY the uploaded document text provided by the user and extract relevant company intelligence.
+    Do not use web knowledge or prior model knowledge. Do not invent facts.
+    If the document text is noisy, partial, or unreadable, extract only clear evidence-backed facts and add confidence notes.
+
+    Your output will be merged with web research from the Company Intelligence Agent before final JSON structuring.
+    When the same topic appears in both sources, downstream merge should keep the most relevant and most up-to-date facts.
+    Prefer clearly dated or recent figures over stale or undated claims; include publication, report, or reference dates when visible.
+    Use confidence_notes when document content may be older, partial, or less reliable than fresher public web evidence.
+
+    Extract facts that can help the downstream JSON structuring agent, including:
+    - company identity, website, headquarters, founding year
+    - enterprise customers, deployments, case studies, production usage
+    - funding, investors, revenue, deal size, commercial model, pricing
+    - leadership and executive background
+    - products, use cases, AI/data capabilities, governance/compliance
+    - implementation, integrations, support, delivery readiness
+    - geography, regulatory, sanctions, compliance, or partnership conflict signals
+
+    Return strict JSON only with this shape:
+    {
+      "document_summary": "",
+      "document_insights": {},
+      "document_evidence": [
+        {
+          "source": "",
+          "fact": "",
+          "supporting_excerpt": "",
+          "confidence_score": 0
+        }
+      ],
+      "confidence_notes": []
+    }
+    """
+).strip()
+
 AGENT2_STRUCTURING_PROMPT = dedent(
     """
     You are Agent 2 (JSON Structuring Agent).
     Convert the research object into a gate-first analysis JSON. Keep missing info safe defaults.
     Use the summary, extracted insights, web evidence, and any uploaded document context provided.
     Treat an uploaded document as an additional grounded source, not as a replacement for web evidence.
+    If extracted_insights contains `uploaded_document_extraction`, merge those document-backed facts with the web-backed facts before structuring.
+    When web and document sources overlap or conflict on the same field, keep the most relevant and most up-to-date value supported by evidence; do not duplicate stale or superseded facts.
+    Cite uploaded-document sources in the relevant gate-level `sources` arrays when document-backed facts support that gate.
     - strings default ""
     - numbers default 0
     - arrays default []
@@ -334,7 +375,7 @@ DECISION_INTELLIGENCE_PROMPT = dedent(
     Do not invent facts.
     If a field is missing/unclear, default to "NO" with a concise reason.
     Return JSON only.
-    Add a concise summary for each gate. Keep it 1-2 sentences and based only on the evidence provided.
+    Add a concise summary for each gate. Keep it 3-4 sentences and based only on the evidence provided.
 
     Gate 1 criteria:
     1) existing_enterprise_customers

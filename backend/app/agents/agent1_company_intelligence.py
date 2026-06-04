@@ -91,6 +91,19 @@ class CompanyIntelligenceAgent:
             "web_search": web_hits,
         }
         if uploaded_document is not None:
+            logger.info(
+                "Agent 1 received uploaded document filename=%s excerpt_chars=%s truncated=%s",
+                uploaded_document.filename,
+                len(uploaded_document.excerpt),
+                uploaded_document.truncated,
+            )
+            logs.append(
+                AgentLog(
+                    ts=datetime.utcnow().isoformat(),
+                    agent="agent_1",
+                    message=f"Using uploaded document excerpt from {uploaded_document.filename}",
+                )
+            )
             prompt["uploaded_document"] = {
                 "filename": uploaded_document.filename,
                 "content_type": uploaded_document.content_type,
@@ -132,6 +145,13 @@ class CompanyIntelligenceAgent:
                     credibility_score=0.95,
                 ),
             )
+            logs.append(
+                AgentLog(
+                    ts=datetime.utcnow().isoformat(),
+                    agent="agent_1",
+                    message="Added uploaded document as a first-party evidence source",
+                )
+            )
 
         summary_markdown = (llm.get("summary_markdown") or "").strip()
         if not summary_markdown:
@@ -160,6 +180,12 @@ class CompanyIntelligenceAgent:
                 "truncated": uploaded_document.truncated,
             }
 
+        logger.info(
+            "Agent 1 completed domain=%s evidence_count=%s uploaded_document=%s",
+            domain,
+            len(evidence[:20]),
+            uploaded_document is not None,
+        )
         return ResearchObject(
             company_name=llm.get("company_name") or company_name,
             website=domain,

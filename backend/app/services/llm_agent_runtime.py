@@ -64,6 +64,17 @@ class LLMAgentRuntime:
         )
         return self._clients[provider]
 
+    def _timeout_for_agent(self, agent_name: str) -> int:
+        lower_name = (agent_name or "").strip().lower()
+        override = getattr(settings, f"{lower_name}_request_timeout_seconds", 0) if lower_name else 0
+        try:
+            timeout = int(override)
+        except Exception:
+            timeout = 0
+        if timeout > 0:
+            return timeout
+        return settings.request_timeout_seconds
+
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=8), reraise=True)
     async def run_json(self, *, agent_name: str, system_prompt: str, user_prompt: str) -> dict[str, Any]:
         spec = self._build_spec(agent_name)
@@ -73,7 +84,14 @@ class LLMAgentRuntime:
             raise RuntimeError(f"{spec.provider.upper()} API key missing")
 
         client = self._get_client(spec.provider)
-        logger.info("LLM JSON request started agent=%s provider=%s model=%s", spec.name, spec.provider, spec.model)
+        timeout = self._timeout_for_agent(spec.name)
+        logger.info(
+            "LLM JSON request started agent=%s provider=%s model=%s timeout_seconds=%s",
+            spec.name,
+            spec.provider,
+            spec.model,
+            timeout,
+        )
         response = await client.chat.completions.create(
             model=spec.model,
             messages=[
@@ -82,6 +100,7 @@ class LLMAgentRuntime:
             ],
             response_format={"type": "json_object"},
             temperature=0.2,
+            timeout=timeout,
         )
         content = response.choices[0].message.content or "{}"
         parsed = json.loads(content)

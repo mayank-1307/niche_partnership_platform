@@ -1,0 +1,275 @@
+{
+  "generated_at": "2026-06-03T11:09:17.075881",
+  "data": {
+    "company_name": "Gong.io, Inc.",
+    "website": "https://gong.com",
+    "headquarters": "San Francisco, California, United States",
+    "founded_year": 2015,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "PayPal",
+              "Zendesk",
+              "Shopify",
+              "LinkedIn",
+              "Slack",
+              "HubSpot",
+              "Square",
+              "Dropbox",
+              "Twilio",
+              "ServiceNow",
+              "Zoom",
+              "Snowflake"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 584000000,
+            "investors": [
+              "Sequoia Capital",
+              "Salesforce Ventures",
+              "Coatue",
+              "Battery Ventures",
+              "NextWorld Capital",
+              "Tiger Global Management",
+              "Franklin Templeton",
+              "D1 Capital Partners",
+              "Thrive Capital"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series E",
+                "amount_usd": 250000000,
+                "year": 2021
+              },
+              {
+                "round_type": "Secondary Market",
+                "amount_usd": 75000000,
+                "year": 2020
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Gong was founded by Amit Bendov (CEO) and Eilon Reshef (CTO). Amit Bendov previously co-founded SiSense, a business intelligence company, and served as its President. Eilon Reshef has a background in engineering and product leadership, including roles at Google and other technology firms. The executive team includes leaders with experience in enterprise software, AI, and sales technology from companies like Salesforce, LinkedIn, and Microsoft.",
+            "key_leaders": [
+              {
+                "name": "Amit Bendov",
+                "title": "Co-Founder and CEO",
+                "background": "Co-founder of SiSense; former President and Chief Product Officer at SiSense."
+              },
+              {
+                "name": "Eilon Reshef",
+                "title": "Co-Founder and CTO",
+                "background": "Former engineering and product leader at Google and other tech firms."
+              },
+              {
+                "name": "Nir Zohar",
+                "title": "President and COO",
+                "background": "Former SVP of Business Operations at Wix and executive at Microsoft."
+              },
+              {
+                "name": "Kelly Wright",
+                "title": "Chief Customer Officer",
+                "background": "Former VP of Sales at Tableau and executive at Salesforce."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 8,
+            "case_studies_available": true,
+            "deployment_scale": "Gong is deployed globally across thousands of enterprises, with a focus on sales teams in technology, financial services, and professional services industries. The platform processes millions of customer interactions monthly and supports large-scale enterprise deployments with integrations into CRM and communication systems."
+          }
+        }
+      },
+      "sources": [
+        "https://gong.io",
+        "https://gong.io/customers",
+        "https://gong.io/leadership",
+        "https://www.crunchbase.com/organization/gong-io",
+        "https://techcrunch.com/2021/06/24/gong-raises-250m-at-a-7-25b-valuation-for-its-revenue-intelligence-platform/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Sales conversation analytics and intelligence",
+              "Revenue intelligence and forecasting",
+              "Sales coaching and performance improvement",
+              "Deal execution and pipeline management",
+              "Customer interaction insights and trends",
+              "Competitive intelligence from sales calls",
+              "Automated call transcription and summarization"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Call transcription and analytics",
+              "Email and meeting insights"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://gong.io",
+        "https://gong.io/about",
+        "https://gong.io/customers"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [
+              "Cloud-based SaaS deployment",
+              "API and integration expertise",
+              "Sales and IT coordination"
+            ],
+            "required_skills": [
+              "CRM integration (Salesforce, HubSpot, Microsoft Dynamics)",
+              "Communication platform integration (Zoom, Microsoft Teams, Google Meet)",
+              "Data analytics and interpretation"
+            ],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": [
+              "Sales manager and rep training for insights interpretation",
+              "Platform configuration and customization"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "CRM systems (Salesforce, HubSpot, Microsoft Dynamics)",
+              "Communication platforms (Zoom, Microsoft Teams, Google Meet)",
+              "Email platforms (Outlook, Gmail)",
+              "Identity and access management (Okta, Azure AD)",
+              "Data warehouses and analytics platforms"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Gong offers well-documented APIs and integrations, but configuration for call recording, transcription, and analytics rules may require coordination with sales and IT teams."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Cloud-based SaaS with enterprise support",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://gong.io",
+        "https://gong.io/about"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS, typically priced per user per month with enterprise contracts.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with a focus on enterprise and mid-market customers, supported by a partner ecosystem including system integrators and resellers.",
+            "channels": [
+              "Direct sales",
+              "Partner ecosystem (system integrators, resellers)"
+            ],
+            "sales_motion": "Enterprise-focused with high-value contracts"
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 50000,
+            "expansion_paths": [
+              "Upselling additional features",
+              "Expanding user licenses"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Enterprise contracts typically range from $50,000 to over $1 million annually, depending on user count and deployment scale.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Strong fit for enterprise sales and revenue intelligence use cases with proven commercial viability."
+          }
+        }
+      },
+      "sources": [
+        "https://gong.io",
+        "https://gong.io/press",
+        "https://www.crunchbase.com/organization/gong-io"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://gong.com"
+      ],
+      "last_updated": "2026-06-03T11:09:16.962871"
+    }
+  }
+}

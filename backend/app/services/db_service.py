@@ -12,6 +12,21 @@ from app.core.config import settings
 logger = logging.getLogger(__name__)
 
 
+def _strip_json_null_bytes(value: Any) -> Any:
+    if isinstance(value, str):
+        return value.replace("\x00", "")
+    if isinstance(value, list):
+        return [_strip_json_null_bytes(item) for item in value]
+    if isinstance(value, tuple):
+        return [_strip_json_null_bytes(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            _strip_json_null_bytes(key) if isinstance(key, str) else key: _strip_json_null_bytes(item)
+            for key, item in value.items()
+        }
+    return value
+
+
 class CompanyProfileDatabase:
     def __init__(self) -> None:
         self._ready = False
@@ -74,6 +89,9 @@ class CompanyProfileDatabase:
 
     def _save_company_profile_sync(self, *, company_name: str, artefact: dict[str, Any], username: str) -> int:
         logger.debug("Saving company profile company_name=%s username=%s", company_name, username)
+        safe_company_name = company_name.replace("\x00", "")
+        safe_username = username.replace("\x00", "")
+        safe_artefact = _strip_json_null_bytes(artefact)
         with psycopg.connect(settings.database_url) as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -82,7 +100,7 @@ class CompanyProfileDatabase:
                     VALUES (%s, %s, %s)
                     RETURNING id
                     """,
-                    (company_name, username, psycopg.types.json.Jsonb(artefact)),
+                    (safe_company_name, safe_username, psycopg.types.json.Jsonb(safe_artefact)),
                 )
                 row = cur.fetchone()
                 conn.commit()
@@ -165,6 +183,7 @@ class CompanyProfileDatabase:
             profile_id,
             evaluation_type,
         )
+        safe_report_json = _strip_json_null_bytes(report_json)
         with psycopg.connect(settings.database_url) as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -173,7 +192,7 @@ class CompanyProfileDatabase:
                     VALUES (%s, %s, %s)
                     RETURNING id
                     """,
-                    (profile_id, evaluation_type, psycopg.types.json.Jsonb(report_json)),
+                    (profile_id, evaluation_type, psycopg.types.json.Jsonb(safe_report_json)),
                 )
                 row = cur.fetchone()
                 conn.commit()

@@ -39,6 +39,9 @@ class Settings(BaseSettings):
     database_url: str = ""
 
     request_timeout_seconds: int = 25
+    agent1_request_timeout_seconds: int = 0
+    agent2_request_timeout_seconds: int = 90
+    document_intelligence_request_timeout_seconds: int = 45
     max_pages_to_crawl: int = 12
     max_sitemap_urls: int = 40
 

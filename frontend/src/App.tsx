@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Brain, Eye, EyeOff, ShieldCheck, Sparkles } from "lucide-react";
+import { Brain, ChevronDown, ChevronUp, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -59,13 +59,14 @@ function renderSourceList(sources: string[]) {
 }
 
 function InsightToggle({ expanded, onClick, label }: { expanded: boolean; onClick: () => void; label: string }) {
-  const Icon = expanded ? EyeOff : Eye;
-  const action = expanded ? "Hide" : "Show";
+  const Icon = expanded ? ChevronUp : ChevronDown;
+  const action = expanded ? "Collapse" : "Expand";
 
   return (
     <button
       type="button"
       onClick={onClick}
+      aria-expanded={expanded}
       aria-label={`${action} ${label} details`}
       title={`${action} details`}
       className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/20 text-slate-200 transition hover:bg-white/10"
@@ -241,13 +242,18 @@ export default function App() {
 
       <section className="glass mb-8 rounded-2xl p-4 md:p-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-          <input
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-            placeholder="Please enter the company domain (e.g., https://company.com)"
-            disabled={inputLocked}
-            className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan/50"
-          />
+          <div className="w-full">
+            <input
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+              placeholder="Please enter the company domain (e.g., https://company.com)"
+              disabled={inputLocked}
+              className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-cyan/50"
+            />
+            <p className="mt-2 text-xs text-slate-400">
+              **The agents are accessing data from the official sites as well as publicly available sources**
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
             <button onClick={run} disabled={loading || !domain.trim()} className="rounded-xl bg-gradient-to-r from-cyan to-indigo px-6 py-3 font-semibold text-black disabled:opacity-60">
               {loading ? "Analyzing..." : "Analyze"}
@@ -294,9 +300,6 @@ export default function App() {
             </div>
           )}
         </div>
-        <p className="mt-3 text-xs text-slate-400">
-          **The agents are accessing data from the official sites as well as publicly available sources**
-        </p>
         <div className="mt-4">
           <div className="mb-2 text-sm text-cyan">{domain.trim() ? "Top 5 Matching Searches" : "Recent 5 Searches"}</div>
           {loadingRecentProfiles ? (

@@ -35,6 +35,7 @@ def _normalize_filename(filename: str) -> str:
 
 def _normalize_text(text: str) -> str:
     lines = []
+    text = "".join(char if char in "\n\t" or 32 <= ord(char) != 127 else " " for char in text)
     for raw_line in text.replace("\r", "\n").split("\n"):
         cleaned_line = re.sub(r"[ \t]+", " ", raw_line).strip()
         if cleaned_line:
