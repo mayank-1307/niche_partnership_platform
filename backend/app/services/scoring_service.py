@@ -4,8 +4,8 @@ import json
 import logging
 from typing import Any
 
-from app.services.mistral_client import mistral_client
-from app.services.prompts import SCORING_PROMPT, SCORING_PROMPT_P456
+from app.agents.agent_scoring_p123 import scoring_p123_agent
+from app.agents.agent_scoring_p456 import scoring_p456_agent
 
 logger = logging.getLogger(__name__)
 
@@ -14,16 +14,8 @@ class ScoringService:
     async def evaluate(self, structured_json: dict[str, Any]) -> dict[str, Any]:
         company_name = str(structured_json.get("company_name") or "").strip()
         logger.info("Scoring evaluation started company=%s", company_name)
-        report_p123 = await mistral_client.chat_json(
-            SCORING_PROMPT,
-            json.dumps({"company_json": structured_json}),
-            agent_name="scoring_p123",
-        )
-        report_p456 = await mistral_client.chat_json(
-            SCORING_PROMPT_P456,
-            json.dumps({"company_json": structured_json}),
-            agent_name="scoring_p456",
-        )
+        report_p123 = await scoring_p123_agent.run(structured_json)
+        report_p456 = await scoring_p456_agent.run(structured_json)
         llm_report = self._merge_reports(report_p123, report_p456, structured_json)
         normalized = self._normalize_report(llm_report, structured_json)
         if not normalized:

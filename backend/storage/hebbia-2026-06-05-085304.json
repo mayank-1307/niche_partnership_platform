@@ -1,0 +1,264 @@
+{
+  "generated_at": "2026-06-05T08:53:04.430996",
+  "data": {
+    "company_name": "Hebbia",
+    "website": "https://hebbia.com",
+    "headquarters": "New York, New York, United States",
+    "founded_year": 2020,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Blackstone",
+              "Kirkland & Ellis",
+              "Sullivan & Cromwell",
+              "Evercore",
+              "Moelis & Company",
+              "Perella Weinberg Partners",
+              "TPG",
+              "Vista Equity Partners"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 130000000,
+            "investors": [
+              "Andreessen Horowitz (a16z)",
+              "Google Ventures (GV)",
+              "Index Ventures",
+              "Peter Thiel",
+              "Nat Friedman",
+              "Daniel Gross"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series B",
+                "amount_usd": 130000000,
+                "year": 2024
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Hebbia was founded by George Sivulka, who previously worked at Palantir Technologies and holds a PhD in Computational Mathematics from Stanford University. The leadership team includes executives with backgrounds at Palantir, Google, and other enterprise AI and data companies, bringing deep expertise in AI, enterprise software, and financial services.",
+            "key_leaders": [
+              {
+                "name": "George Sivulka",
+                "title": "Founder & CEO",
+                "background": "Formerly at Palantir Technologies; PhD in Computational Mathematics from Stanford University."
+              },
+              {
+                "name": "Alexandr Wang",
+                "title": "Board Member (Scale AI CEO)",
+                "background": "CEO and founder of Scale AI; advisor and investor in Hebbia."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 3,
+            "case_studies_available": true,
+            "deployment_scale": "Hebbia\u2019s Matrix platform is deployed across multiple enterprise clients in financial services, legal, and consulting sectors. The platform supports large-scale, production-grade workflows, including due diligence, contract analysis, and deal execution, with integrations into enterprise data systems."
+          }
+        }
+      },
+      "sources": [
+        "https://hebbia.com",
+        "https://hebbia.com/customers",
+        "https://hebbia.com/leadership",
+        "https://www.crunchbase.com/organization/hebbia",
+        "https://techcrunch.com/2024/02/27/hebbia-raises-130m-to-automate-complex-knowledge-work-with-ai/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Automated due diligence for M&A and private equity",
+              "Contract analysis and legal workflow automation",
+              "Financial research and document processing",
+              "Knowledge extraction from unstructured data"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [
+              "Enterprise data lakes and warehouses (e.g., Snowflake, Databricks)",
+              "Document management systems (e.g., iManage, NetDocuments)"
+            ],
+            "capabilities": [
+              "Integration with enterprise data systems",
+              "Structured and unstructured data processing"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": true,
+            "capabilities": [
+              "Automated workflows for knowledge-intensive tasks",
+              "Enterprise-grade deployment and scalability"
+            ]
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Natural language queries for data interaction"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "Financial services",
+              "Legal",
+              "Consulting"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Enterprise security and compliance standards"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://hebbia.com",
+        "https://hebbia.com/about",
+        "https://hebbia.com/blog",
+        "https://hebbia.com/press"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [
+              "Enterprise data integration",
+              "AI workflow automation",
+              "Security and compliance"
+            ],
+            "required_skills": [
+              "Customization for regulated industries",
+              "Integration with enterprise data systems"
+            ],
+            "gap_notes": "Implementation may require customization for specific workflows, particularly in regulated industries."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": [
+              "Platform deployment and configuration",
+              "Workflow customization for enterprise use cases"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Enterprise data lakes and warehouses (e.g., Snowflake, Databricks)",
+              "Document management systems (e.g., iManage, NetDocuments)",
+              "APIs for custom data connectors",
+              "Single Sign-On (SSO) and identity providers (e.g., Okta, Azure AD)",
+              "Cloud platforms (AWS, GCP, Azure)"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Designed for enterprise deployment with a focus on security, compliance, and integration with existing data systems."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Documentation and support for deployment; partner-led implementation could accelerate adoption.",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://hebbia.com",
+        "https://hebbia.com/about"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Enterprise subscription (SaaS) with custom pricing based on usage, user count, and workflow complexity.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with a focus on enterprise clients in financial services, legal, and consulting. The company also engages with strategic partners for go-to-market initiatives.",
+            "channels": [
+              "Direct sales",
+              "Strategic partnerships"
+            ],
+            "sales_motion": "Enterprise-focused"
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 1000000,
+            "expansion_paths": [
+              "Expansion within existing enterprise clients",
+              "New industry verticals"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Enterprise-focused contracts with custom pricing based on usage and workflow complexity.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Growth-stage (Series B funded)",
+            "fit_notes": "Strong fit for enterprise AI workflow automation in high-value industries."
+          }
+        }
+      },
+      "sources": [
+        "https://hebbia.com",
+        "https://www.crunchbase.com/organization/hebbia",
+        "https://techcrunch.com/2024/02/27/hebbia-raises-130m-to-automate-complex-knowledge-work-with-ai/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://hebbia.com"
+      ],
+      "last_updated": "2026-06-05T08:53:04.300204"
+    }
+  }
+}

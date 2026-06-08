@@ -1,0 +1,24 @@
+from __future__ import annotations
+
+import json
+import logging
+from typing import Any
+
+from app.services.mistral_client import mistral_client
+from app.services.prompts import DECISION_INTELLIGENCE_PROMPT
+
+logger = logging.getLogger(__name__)
+
+
+class DecisionIntelligenceAgent:
+    async def run(self, structured_json: dict[str, Any]) -> dict[str, Any]:
+        company_name = str(structured_json.get("company_name") or "").strip()
+        logger.info("Decision intelligence agent evaluation started company=%s", company_name)
+        return await mistral_client.chat_json(
+            DECISION_INTELLIGENCE_PROMPT,
+            json.dumps({"company_json": structured_json}),
+            agent_name="decision_intelligence",
+        )
+
+
+decision_intelligence_agent = DecisionIntelligenceAgent()

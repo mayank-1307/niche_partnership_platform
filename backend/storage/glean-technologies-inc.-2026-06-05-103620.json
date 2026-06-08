@@ -1,0 +1,248 @@
+{
+  "generated_at": "2026-06-05T10:36:20.938413",
+  "data": {
+    "company_name": "Glean Technologies Inc.",
+    "website": "https://glean.com",
+    "headquarters": "Palo Alto, California, United States",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Atlassian",
+              "Okta",
+              "Confluent",
+              "Gusto",
+              "Workday",
+              "Databricks",
+              "Figma",
+              "Notion",
+              "Slack",
+              "Zoom"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 228000000,
+            "investors": [
+              "Lightspeed Venture Partners",
+              "Kleiner Perkins",
+              "General Catalyst",
+              "IVP (Institutional Venture Partners)",
+              "Sequoia Capital",
+              "Adage Capital Management"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series D",
+                "amount_usd": 200000000,
+                "year": 2024
+              },
+              {
+                "round_type": "Series C",
+                "amount_usd": 100000000,
+                "year": 2022
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Glean was founded by Arvind Jain (CEO), a former Google Distinguished Engineer and engineering leader with deep expertise in search, infrastructure, and AI. The founding team includes ex-Google engineers and leaders with backgrounds in large-scale systems, search, and enterprise software. The leadership team has extensive experience in building scalable AI-driven platforms and delivering enterprise-grade solutions.",
+            "key_leaders": [
+              {
+                "name": "Arvind Jain",
+                "title": "Co-Founder & CEO",
+                "background": "Former Google Distinguished Engineer; led infrastructure and search teams at Google."
+              },
+              {
+                "name": "T.R. Vishwanath",
+                "title": "Co-Founder & CTO",
+                "background": "Former Google engineer with expertise in search, machine learning, and distributed systems."
+              },
+              {
+                "name": "Pavan Kumar",
+                "title": "Co-Founder & VP of Engineering",
+                "background": "Former Google engineer focused on search and AI infrastructure."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 5,
+            "case_studies_available": true,
+            "deployment_scale": "Glean is deployed across large enterprises with thousands of users. The platform supports global deployments, integrates with 100+ enterprise applications, and serves production workloads in regulated industries. The company reports high adoption rates and scalability across diverse enterprise environments."
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/customers",
+        "https://glean.com/leadership",
+        "https://www.crunchbase.com/organization/glean",
+        "https://techcrunch.com/2024/02/27/glean-raises-200m-at-2-2b-valuation-for-its-enterprise-search-platform/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Enterprise search and knowledge discovery",
+              "Unified workplace intelligence",
+              "AI-powered contextual search across apps and documents"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [],
+            "capabilities": [
+              "Integration with 100+ enterprise applications",
+              "Secure and governed access to enterprise knowledge"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Personalized and role-based search experiences"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Secure and governed access to enterprise knowledge"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/about",
+        "https://glean.com/customers"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Enterprise identity providers (e.g., Okta, Azure AD)",
+              "Cloud and on-premises data sources (e.g., Google Drive, SharePoint, Confluence, Slack, Salesforce)",
+              "APIs for custom integrations",
+              "Single Sign-On (SSO) and security protocols",
+              "Data connectors for 100+ enterprise applications"
+            ],
+            "dependencies": [],
+            "complexity_notes": ""
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "https://glean.com/about"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "SaaS (Software-as-a-Service) with enterprise subscription pricing based on user count and features.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with a focus on enterprise customers, supported by a partner ecosystem and integrations with major workplace platforms.",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 550000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Glean demonstrates strong commercial viability with a clear enterprise sales motion, significant funding, and a growing customer base. The company has established partnerships with major enterprise software providers and shows openness to collaboration with integrators and service partners."
+          }
+        }
+      },
+      "sources": [
+        "https://glean.com",
+        "https://www.crunchbase.com/organization/glean",
+        "https://techcrunch.com/2024/02/27/glean-raises-200m-at-2-2b-valuation-for-its-enterprise-search-platform/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://glean.com"
+      ],
+      "last_updated": "2026-06-05T10:36:20.800362"
+    }
+  }
+}

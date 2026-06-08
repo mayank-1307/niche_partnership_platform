@@ -4,8 +4,7 @@ import json
 import logging
 from typing import Any
 
-from app.services.mistral_client import mistral_client
-from app.services.prompts import DECISION_INTELLIGENCE_PROMPT
+from app.agents.agent_decision_intelligence import decision_intelligence_agent
 
 logger = logging.getLogger(__name__)
 
@@ -13,11 +12,7 @@ class DecisionIntelligenceService:
     async def evaluate(self, structured_json: dict[str, Any]) -> dict[str, Any]:
         company_name = str(structured_json.get("company_name") or "").strip()
         logger.info("Decision intelligence evaluation started company=%s", company_name)
-        llm_report = await mistral_client.chat_json(
-            DECISION_INTELLIGENCE_PROMPT,
-            json.dumps({"company_json": structured_json}),
-            agent_name="decision_intelligence",
-        )
+        llm_report = await decision_intelligence_agent.run(structured_json)
         normalized = self._normalize_report(llm_report, structured_json)
         if not normalized:
             top_level = list(llm_report.keys()) if isinstance(llm_report, dict) else []

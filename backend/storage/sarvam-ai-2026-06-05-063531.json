@@ -1,0 +1,232 @@
+{
+  "generated_at": "2026-06-05T06:35:31.865340",
+  "data": {
+    "company_name": "Sarvam AI",
+    "website": "https://sarvam.ai",
+    "headquarters": "Bengaluru, Karnataka, India",
+    "founded_year": 2023,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Unannounced enterprise pilots in banking, telecom, and customer support",
+              "Strategic partnerships with Indian enterprises"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 41000000,
+            "investors": [
+              "Lightspeed Venture Partners",
+              "Khosla Ventures",
+              "Peak XV Partners (formerly Sequoia Capital India)"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Seed",
+                "amount_usd": 41000000,
+                "year": 2023
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "The founding team comprises former researchers and leaders from AI labs and tech companies. Vivek Raghavan (Co-founder) is a former Chief AI Evangelist at EkStep Foundation and a key contributor to India's Aadhaar biometric ID system. Pratyush Kumar (Co-founder) has a background in AI research and product development, with experience in building scalable AI systems.",
+            "key_leaders": [
+              {
+                "name": "Vivek Raghavan",
+                "title": "Co-founder",
+                "background": "Former Chief AI Evangelist at EkStep Foundation; key contributor to India's Aadhaar biometric ID system; expertise in NLP and large-scale AI systems."
+              },
+              {
+                "name": "Pratyush Kumar",
+                "title": "Co-founder",
+                "background": "AI researcher and product leader with experience in building scalable AI systems and voice-first applications."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Commercial",
+            "years_in_market": 1,
+            "case_studies_available": false,
+            "deployment_scale": "Early-stage enterprise pilots and deployments in India; focus on Indic language models and voice-first agents."
+          }
+        }
+      },
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/about",
+        "https://sarvam.ai/team",
+        "https://techcrunch.com/2023/12/05/sarvam-ai-raises-41m-to-build-indias-answer-to-openais-custom-models/",
+        "https://yourstory.com/2023/12/sarvam-ai-funding-lightspeed-khosla-peak-xv",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-million-in-seed-round-led-by-lightspeed-11701780003303.html"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Building and deploying Indic language models for enterprise applications",
+              "Voice-first AI agents for customer support and interaction"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": true,
+            "capabilities": [
+              "Enterprise-grade AI platforms for business automation and decision-making"
+            ]
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Voice-first AI agents"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "Banking",
+              "Telecom",
+              "Customer support"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": false,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://sarvam.ai",
+        "https://sarvam.ai/blog",
+        "https://techcrunch.com/2023/12/05/sarvam-ai-raises-41m-to-build-indias-answer-to-openais-custom-models/"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [
+              "AI model integration and customization",
+              "Cloud infrastructure management (AWS, Azure, or GCP)",
+              "Enterprise identity and access management",
+              "Voice and text data pipeline development"
+            ],
+            "gap_notes": "Voice-first and Indic language focus may require additional localization and integration effort for non-Indian markets."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "APIs for model integration and customization",
+              "Cloud infrastructure (AWS, Azure, or GCP)",
+              "Enterprise identity and access management systems",
+              "Voice and text data pipelines for training and deployment"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Limited public documentation on implementation details or partner enablement programs."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "MEDIUM",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://sarvam.ai",
+        "https://techcrunch.com/2023/12/05/sarvam-ai-raises-41m-to-build-indias-answer-to-openais-custom-models/"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Enterprise contracts, SaaS, and custom AI solution licensing",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and strategic partnerships with Indian enterprises",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 0,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Early-stage",
+            "fit_notes": "Strong commercial potential in the Indian market for Indic language and voice AI solutions; backed by prominent investors."
+          }
+        }
+      },
+      "sources": [
+        "https://sarvam.ai",
+        "https://yourstory.com/2023/12/sarvam-ai-funding-lightspeed-khosla-peak-xv",
+        "https://www.livemint.com/companies/start-ups/sarvam-ai-raises-41-million-in-seed-round-led-by-lightspeed-11701780003303.html"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://sarvam.ai"
+      ],
+      "last_updated": "2026-06-05T06:35:31.760660"
+    }
+  }
+}

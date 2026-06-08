@@ -1,0 +1,258 @@
+{
+  "generated_at": "2026-06-08T06:48:32.185842",
+  "data": {
+    "company_name": "Clari Inc.",
+    "website": "https://clari.com",
+    "headquarters": "Sunnyvale, California, United States",
+    "founded_year": 2012,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Adobe",
+              "Okta",
+              "Zoom",
+              "Dropbox",
+              "SAP Concur",
+              "Cisco",
+              "Dell Technologies",
+              "Workday",
+              "Snowflake",
+              "Atlassian"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 268000000,
+            "investors": [
+              "Sequoia Capital",
+              "Bain Capital Ventures",
+              "Sapphire Ventures",
+              "Madrona Venture Group",
+              "Tenaya Capital",
+              "Pioneer Square Labs",
+              "Thomvest Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series E",
+                "amount_usd": 150000000,
+                "year": 2021
+              },
+              {
+                "round_type": "Series D",
+                "amount_usd": 60000000,
+                "year": 2019
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Clari was founded by Andy Byrne (CEO) and Venkat Rangan (CTO). Andy Byrne has a background in enterprise software, previously co-founding Clearwell Systems, which was acquired by Symantec. Venkat Rangan has expertise in AI, machine learning, and data infrastructure, with prior experience at companies like Microsoft and Clearwell Systems.",
+            "key_leaders": [
+              {
+                "name": "Andy Byrne",
+                "title": "Co-Founder & CEO",
+                "background": "Co-founded Clearwell Systems (acquired by Symantec), former VP at Symantec."
+              },
+              {
+                "name": "Venkat Rangan",
+                "title": "Co-Founder & CTO",
+                "background": "Former engineer at Microsoft and Clearwell Systems, expert in AI and data infrastructure."
+              },
+              {
+                "name": "Kevin Knieriem",
+                "title": "Chief Revenue Officer",
+                "background": "Former SVP at Salesforce and Oracle."
+              },
+              {
+                "name": "Mark Woollen",
+                "title": "Chief Product Officer",
+                "background": "Former VP of Product at Salesforce and Oracle."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 11,
+            "case_studies_available": true,
+            "deployment_scale": "Clari is deployed globally across multiple industries, including technology, healthcare, financial services, and telecommunications. The platform supports thousands of users and integrates with major CRM systems like Salesforce and Microsoft Dynamics."
+          }
+        }
+      },
+      "sources": [
+        "https://clari.com",
+        "https://clari.com/customers",
+        "https://clari.com/leadership",
+        "https://www.crunchbase.com/organization/clari",
+        "https://techcrunch.com/2021/06/09/clari-raises-150m-to-expand-its-ai-powered-revenue-operations-platform/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Revenue forecasting and pipeline management",
+              "Sales execution and deal closure optimization",
+              "Revenue intelligence and predictive analytics",
+              "Automation of revenue operations workflows"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [
+              "Salesforce CRM",
+              "Microsoft Dynamics 365",
+              "Snowflake"
+            ],
+            "capabilities": [
+              "Cross-functional alignment between sales, marketing, and finance",
+              "AI-driven insights for revenue growth and risk mitigation"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": false,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://clari.com",
+        "https://clari.com/about",
+        "https://clari.com/customers"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Salesforce CRM",
+              "Microsoft Dynamics 365",
+              "Marketo",
+              "Eloqua",
+              "Outlook and Gmail integrations",
+              "Slack and Microsoft Teams",
+              "Snowflake and other data warehouses",
+              "Identity providers (Okta, Azure AD)"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Clari offers a cloud-based SaaS platform with pre-built integrations for major CRM and marketing automation systems. Implementation typically requires configuration, data mapping, and user training."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://clari.com",
+        "https://clari.com/about"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS, enterprise contracts with tiered pricing based on user count and features.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with a focus on enterprise customers, supported by a partner ecosystem including system integrators and resellers.",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 550000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Clari targets mid-market to large enterprise customers with a high-touch sales model. The company has demonstrated strong revenue growth and customer retention."
+          }
+        }
+      },
+      "sources": [
+        "https://clari.com",
+        "https://www.crunchbase.com/organization/clari",
+        "https://www.forbes.com/sites/alexkonrad/2021/06/09/clari-150-million-revenue-ai/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://clari.com"
+      ],
+      "last_updated": "2026-06-08T06:48:31.990121"
+    }
+  }
+}

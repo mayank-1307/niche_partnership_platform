@@ -1,0 +1,243 @@
+{
+  "generated_at": "2026-06-05T05:48:27.110019",
+  "data": {
+    "company_name": "EvoluteIQ",
+    "website": "https://evoluteiq.com",
+    "headquarters": "Bengaluru, Karnataka, India",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "HDFC Bank",
+              "ICICI Bank",
+              "Bharti Airtel",
+              "Max Life Insurance",
+              "Tata AIG",
+              "SBI General Insurance"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 15000000,
+            "investors": [
+              "Eight Roads Ventures",
+              "Temasek-backed fund",
+              "GrowX Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series A",
+                "amount_usd": 15000000,
+                "year": 2022
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "The founding team comprises ex-McKinsey, ex-Microsoft, and ex-Google executives with deep expertise in AI, enterprise software, and digital transformation. CEO Sandeep Natoo has a background in scaling AI-driven platforms, while CTO Anand Mahadevan has prior experience in building large-scale data and automation systems at Microsoft and other tech firms.",
+            "key_leaders": [
+              {
+                "name": "Sandeep Natoo",
+                "title": "Co-Founder & CEO",
+                "background": "Ex-McKinsey, ex-Microsoft; expertise in AI and enterprise transformation."
+              },
+              {
+                "name": "Anand Mahadevan",
+                "title": "Co-Founder & CTO",
+                "background": "Ex-Microsoft, ex-Google; expertise in AI, data engineering, and automation."
+              },
+              {
+                "name": "Rajesh Padmanabhan",
+                "title": "Chief Business Officer",
+                "background": "Ex-Wipro, ex-TCS; enterprise sales and go-to-market leadership."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 4,
+            "case_studies_available": true,
+            "deployment_scale": "Global deployments with enterprise production usage across BFSI, telecom, and insurance sectors. The platform supports thousands of users and integrates with enterprise systems like SAP, Salesforce, and core banking platforms."
+          }
+        }
+      },
+      "sources": [
+        "https://evoluteiq.com",
+        "https://evoluteiq.com/about",
+        "https://evoluteiq.com/customers",
+        "https://evoluteiq.com/leadership",
+        "https://evoluteiq.com/case-studies",
+        "https://www.crunchbase.com/organization/evoluteiq",
+        "https://yourstory.com/2022/03/evoluteiq-raises-15-million-series-a-eight-roads-temasek",
+        "https://economictimes.indiatimes.com/tech/funding/evoluteiq-raises-15-mn-in-series-a-round-led-by-eight-roads-ventures/articleshow/89856782.cms"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Hyper-automation of business processes",
+              "AI-driven decision intelligence for financial services"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [],
+            "capabilities": [
+              "Intelligent document processing and workflow automation"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": true,
+            "capabilities": [
+              "Enterprise-grade AI governance and compliance"
+            ]
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "BFSI",
+              "Telecom",
+              "Insurance"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Enterprise-grade AI governance and compliance"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://evoluteiq.com",
+        "https://evoluteiq.com/platform",
+        "https://evoluteiq.com/case-studies"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": "Integration with legacy systems (e.g., core banking) may require specialized expertise."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "REST APIs",
+              "SAP",
+              "Salesforce",
+              "Core banking systems",
+              "Identity providers (e.g., Active Directory, Okta)",
+              "Cloud platforms (AWS, Azure, GCP)",
+              "Data lakes and warehouses (Snowflake, BigQuery)"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Low-code/no-code capabilities reduce custom development effort. Documentation and partner support are available."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Cloud, on-premises, and hybrid deployment models available.",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://evoluteiq.com",
+        "https://evoluteiq.com/platform"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Enterprise contract (subscription-based with custom pricing for large deployments)",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with partner-led enterprise go-to-market. Focus on BFSI, telecom, and insurance sectors.",
+            "channels": [],
+            "sales_motion": "High-touch sales approach tailored to enterprise needs."
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 1250000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Pricing is tailored to enterprise needs and not publicly disclosed.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Strong fit for large enterprise deployments in regulated industries."
+          }
+        }
+      },
+      "sources": [
+        "https://evoluteiq.com",
+        "https://evoluteiq.com/press",
+        "https://www.crunchbase.com/organization/evoluteiq"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://evoluteiq.com"
+      ],
+      "last_updated": "2026-06-05T05:48:26.952749"
+    }
+  }
+}

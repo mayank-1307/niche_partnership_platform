@@ -1,0 +1,243 @@
+{
+  "generated_at": "2026-06-05T06:29:43.108862",
+  "data": {
+    "company_name": "Kore.ai",
+    "website": "https://kore.ai",
+    "headquarters": "Orlando, Florida, United States",
+    "founded_year": 2013,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Wells Fargo",
+              "AT&T",
+              "PNC Bank",
+              "Cigna",
+              "HSBC",
+              "Telstra",
+              "Vodafone",
+              "UnitedHealthcare",
+              "Humana",
+              "DBS Bank"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 73500000,
+            "investors": [
+              "Vistara Growth",
+              "NEA (New Enterprise Associates)",
+              "FFL Partners",
+              "Colt Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series D",
+                "amount_usd": 50000000,
+                "year": 2021
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Kore.ai was founded by Raj Koneru, who serves as the CEO. Koneru has over 25 years of experience in enterprise software, AI, and automation, having previously founded and led Kony, Inc., a mobile application development platform acquired by Temenos. The leadership team includes executives with backgrounds in AI, cloud computing, and enterprise software from companies like IBM, Microsoft, Oracle, and Cisco.",
+            "key_leaders": [
+              {
+                "name": "Raj Koneru",
+                "title": "Founder & CEO",
+                "background": "Founder of Kony, Inc.; former leadership roles at Oracle and Siebel Systems."
+              },
+              {
+                "name": "Kiran Karunakaran",
+                "title": "Chief Technology Officer",
+                "background": "Formerly at Microsoft and Oracle; expertise in AI, cloud, and enterprise platforms."
+              },
+              {
+                "name": "Mark Holmes",
+                "title": "Chief Revenue Officer",
+                "background": "Previously held leadership roles at Salesforce, IBM, and Oracle."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 10,
+            "case_studies_available": true,
+            "deployment_scale": "Kore.ai's platform is deployed globally across multiple industries, supporting millions of interactions monthly. The platform is used in production by Fortune 500 companies for customer service, employee assistance, and process automation. It supports omnichannel deployments (web, mobile, voice, messaging) and integrates with enterprise systems like CRM, ERP, and contact center platforms."
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/company/",
+        "https://kore.ai/about-us/leadership/",
+        "https://kore.ai/customers/",
+        "https://kore.ai/press-releases/kore-ai-raises-50-million-series-d-funding/",
+        "https://www.crunchbase.com/organization/kore-ai"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Customer service automation and virtual assistants",
+              "Employee virtual assistants for HR, IT, and operations"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": true,
+            "capabilities": [
+              "AI-driven process automation and workflow integration"
+            ]
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Omnichannel conversational experiences (voice, chat, messaging)"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "Banking",
+              "Healthcare",
+              "Telecom",
+              "Retail"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/platform/",
+        "https://kore.ai/customers/",
+        "https://kore.ai/blog/"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "CRM systems (Salesforce, ServiceNow, Microsoft Dynamics)",
+              "Contact center platforms (Genesys, Avaya, Cisco)",
+              "Enterprise ERP and HR systems (SAP, Workday)",
+              "Messaging platforms (WhatsApp, Facebook Messenger, Slack, Microsoft Teams)",
+              "Voice assistants (Amazon Alexa, Google Assistant)",
+              "Identity and authentication systems (Okta, Active Directory)",
+              "Cloud platforms (AWS, Azure, Google Cloud)"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Kore.ai provides comprehensive documentation, SDKs, and APIs for integration. The platform supports low-code/no-code development for chatbots but may require customization for complex enterprise workflows. Deployment can be cloud-based, on-premises, or hybrid."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/docs/",
+        "https://kore.ai/platform/"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based (SaaS) with enterprise licensing. Pricing is typically based on usage (e.g., per interaction, per user, or per channel).",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with a strong focus on enterprise accounts. The company also leverages a partner ecosystem, including system integrators, resellers, and technology alliances.",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 550000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Enterprise deals are typically custom-negotiated.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Mature sales motion targeting large enterprises, with a focus on industries like BFSI, healthcare, and telecom."
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/company/",
+        "https://kore.ai/press-releases/kore-ai-raises-50-million-series-d-funding/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://kore.ai"
+      ],
+      "last_updated": "2026-06-05T06:29:43.010626"
+    }
+  }
+}

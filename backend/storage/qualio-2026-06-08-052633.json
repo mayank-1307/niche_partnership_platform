@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-06-08T05:26:33.040432",
+  "data": {
+    "company_name": "Qualio",
+    "website": "https://www.qualio.com",
+    "headquarters": "San Francisco, California, United States",
+    "founded_year": 2012,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Sutro Biopharma",
+              "CureVac",
+              "GenEdit",
+              "NexImmune",
+              "Tizona Therapeutics",
+              "Amunix",
+              "Alector",
+              "Sana Biotechnology"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 100000000,
+            "investors": [
+              "TCV (Technology Crossover Ventures)",
+              "Scale Venture Partners",
+              "Battery Ventures",
+              "Sapphire Ventures",
+              "Next Coast Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series C",
+                "amount_usd": 94000000,
+                "year": 2022
+              },
+              {
+                "round_type": "Series B",
+                "amount_usd": 19000000,
+                "year": 2020
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Qualio was founded by Robert Fenton, who previously worked in quality and operations roles at medical device and biotech companies. The leadership team includes executives with backgrounds in life sciences, regulatory compliance, enterprise software, and scaling SaaS platforms. The CEO, Robert Fenton, has been recognized for his expertise in quality management and regulatory technology.",
+            "key_leaders": [
+              {
+                "name": "Robert Fenton",
+                "title": "CEO and Founder",
+                "background": "Previously held quality and operations roles in medical device and biotech firms. Advocate for modernizing quality management in life sciences."
+              },
+              {
+                "name": "Marc Olesen",
+                "title": "President and Chief Operating Officer",
+                "background": "Former SVP and GM at McAfee, with experience in scaling enterprise SaaS businesses."
+              },
+              {
+                "name": "David Cronin",
+                "title": "Chief Technology Officer",
+                "background": "Former engineering leader at Box and Salesforce, with expertise in cloud infrastructure and enterprise software."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 12,
+            "case_studies_available": true,
+            "deployment_scale": "Qualio is deployed globally across hundreds of life sciences companies, including startups and mid-sized enterprises. The platform supports thousands of users and is designed for scalability in regulated environments. It is used for document control, training, CAPA, and audit management in production environments."
+          }
+        }
+      },
+      "sources": [
+        "https://www.qualio.com",
+        "https://www.qualio.com/customers",
+        "https://www.qualio.com/leadership",
+        "https://www.crunchbase.com/organization/qualio",
+        "https://techcrunch.com/2022/03/08/qualio-raises-94m-to-scale-its-quality-management-platform-for-life-sciences/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": false,
+            "use_cases": []
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Document control and versioning for regulatory submissions",
+              "Training management and compliance tracking",
+              "CAPA (Corrective and Preventive Actions) workflow automation",
+              "Audit management and regulatory reporting",
+              "Supplier and risk management in regulated environments"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://www.qualio.com",
+        "https://www.qualio.com/about"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [
+              "Domain expertise in quality management and regulatory standards (e.g., FDA 21 CFR Part 11, ISO 13485)"
+            ],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "APIs for ERP, PLM, and other enterprise systems",
+              "Single Sign-On (SSO) and identity providers (e.g., Okta, Azure AD)",
+              "Cloud storage integrations (e.g., Box, Google Drive)",
+              "eSignature integrations (e.g., DocuSign, Adobe Sign)"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Integration with existing enterprise systems may require customization."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://www.qualio.com"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS, with pricing tiers based on company size, user count, and feature requirements.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and partner-led, with a focus on life sciences companies. Qualio also leverages channel partners and integrators in the regulatory technology ecosystem.",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 150000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Qualio demonstrates strong commercial viability in the life sciences sector, with a focus on high-growth companies. The company has a dedicated sales team and partner ecosystem to support enterprise adoption."
+          }
+        }
+      },
+      "sources": [
+        "https://www.qualio.com",
+        "https://www.crunchbase.com/organization/qualio",
+        "https://techcrunch.com/2022/03/08/qualio-raises-94m-to-scale-its-quality-management-platform-for-life-sciences/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://app.qualio.com"
+      ],
+      "last_updated": "2026-06-08T05:26:32.897218"
+    }
+  }
+}

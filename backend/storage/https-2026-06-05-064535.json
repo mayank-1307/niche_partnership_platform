@@ -1,0 +1,169 @@
+{
+  "generated_at": "2026-06-05T06:45:35.691658",
+  "data": {
+    "company_name": "",
+    "website": "",
+    "headquarters": "",
+    "founded_year": 0,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": false,
+            "notable_clients": []
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": false,
+            "total_funding_usd": 0,
+            "investors": [],
+            "recent_rounds": []
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "",
+            "key_leaders": []
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "",
+            "years_in_market": 0,
+            "case_studies_available": false,
+            "deployment_scale": ""
+          }
+        }
+      },
+      "sources": []
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": false,
+            "use_cases": []
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": false,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": []
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [],
+            "dependencies": [],
+            "complexity_notes": ""
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": []
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 0,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": false,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "",
+            "fit_notes": ""
+          }
+        }
+      },
+      "sources": []
+    },
+    "evidence": {
+      "sources": [
+        "https://https;"
+      ],
+      "last_updated": "2026-06-05T06:45:35.566076"
+    }
+  }
+}

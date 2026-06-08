@@ -1,0 +1,259 @@
+{
+  "generated_at": "2026-06-05T06:08:39.465701",
+  "data": {
+    "company_name": "GEP",
+    "website": "https://www.gep.com",
+    "headquarters": "Clark, New Jersey, United States",
+    "founded_year": 1999,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Microsoft",
+              "Coca-Cola",
+              "Unilever",
+              "Walmart",
+              "BP",
+              "Chevron",
+              "Nestl\u00e9",
+              "3M",
+              "Dell Technologies",
+              "Johnson & Johnson"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 0,
+            "investors": [
+              "KKR (Kohlberg Kravis Roberts)"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Private Equity",
+                "amount": "",
+                "year": 2021
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "GEP was founded by Subhash Makhija (CEO) and David Clevenger. Subhash Makhija has over 25 years of experience in procurement, supply chain, and enterprise software, having previously worked with global consulting firms and technology providers. The leadership team includes veterans from procurement, supply chain, and enterprise software domains, with backgrounds at companies like IBM, Accenture, and SAP.",
+            "key_leaders": [
+              {
+                "name": "Subhash Makhija",
+                "title": "Co-Founder & CEO",
+                "background": "Over 25 years in procurement, supply chain, and enterprise software. Former consultant with global firms."
+              },
+              {
+                "name": "David Clevenger",
+                "title": "Co-Founder & President",
+                "background": "Expertise in procurement transformation and enterprise software delivery."
+              },
+              {
+                "name": "Dipan Karumsi",
+                "title": "Chief Technology Officer",
+                "background": "Technology leader with experience in AI, cloud, and enterprise platforms."
+              },
+              {
+                "name": "Paul Blake",
+                "title": "Chief Marketing Officer",
+                "background": "Former executive at IBM and SAP with focus on procurement and supply chain solutions."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 25,
+            "case_studies_available": true,
+            "deployment_scale": "GEP\u2019s platforms are deployed globally across Fortune 500 enterprises, supporting thousands of users and billions in spend under management. The company operates in over 100 countries with multi-cloud and on-premise deployment options."
+          }
+        }
+      },
+      "sources": [
+        "https://www.gep.com",
+        "https://www.gep.com/about",
+        "https://www.gep.com/company/leadership",
+        "https://www.gep.com/customers",
+        "https://www.gep.com/news/gep-announces-strategic-investment-from-kkr",
+        "https://www.crunchbase.com/organization/gep"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Procurement transformation and digitalization",
+              "AI-driven spend analytics and cost optimization",
+              "End-to-end source-to-pay automation"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [],
+            "capabilities": [
+              "Spend analytics",
+              "Supply chain visibility and risk management",
+              "Data-driven procurement insights"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Contract lifecycle management and compliance",
+              "Supplier management and collaboration"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://www.gep.com/solutions",
+        "https://www.gep.com/customers"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "HIGH",
+            "available_skills": [],
+            "required_skills": [
+              "Procurement and supply chain domain expertise",
+              "ERP and financial systems integration",
+              "AI and data analytics",
+              "Enterprise software deployment"
+            ],
+            "gap_notes": "Deep domain expertise required for deployment, especially in complex enterprise environments."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM to HIGH",
+            "ramp_time": "",
+            "training_needs": [
+              "Multi-phase rollouts",
+              "Data migration",
+              "Integration with existing procurement and ERP systems"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "ERP systems (SAP, Oracle, Workday, Microsoft Dynamics)",
+              "Financial systems (e.g., Coupa, Ariba, Jaggaer)",
+              "Identity and access management (IAM) systems",
+              "Data lakes and warehouses (Snowflake, AWS, Azure, Google Cloud)",
+              "APIs for custom integrations",
+              "Legacy procurement and supply chain systems"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Highly configurable solutions requiring professional services and partner ecosystems for deployment."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Professional services and partner ecosystems",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://www.gep.com/solutions",
+        "https://www.gep.com/about"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Enterprise contracts, subscription-based SaaS, and managed services",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales, partner-led (system integrators, consulting firms), and enterprise sales motion",
+            "channels": [
+              "Direct sales",
+              "Partner-led (e.g., Accenture, Deloitte)"
+            ],
+            "sales_motion": "High-touch enterprise sales with long sales cycles"
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 5000000,
+            "expansion_paths": [
+              "Multi-million dollar contracts for enterprise deployments (typical range: $1M\u2013$20M+ annually for large enterprises)"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [
+              "Alliances with Accenture, Deloitte, and other global system integrators"
+            ],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Pricing is typically customized based on scope, user count, and services required.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "High-touch enterprise model with long sales cycles and custom pricing."
+          }
+        }
+      },
+      "sources": [
+        "https://www.gep.com",
+        "https://www.gep.com/about"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://gep.com"
+      ],
+      "last_updated": "2026-06-05T06:08:39.331594"
+    }
+  }
+}
