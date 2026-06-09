@@ -28,6 +28,62 @@ def _strip_json_null_bytes(value: Any) -> Any:
     return value
 
 
+def _as_record(value: Any) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def _clean_confidence(value: Any) -> float | None:
+    try:
+        confidence = float(value)
+    except Exception:
+        return None
+
+    if 0.0 <= confidence <= 1.0:
+        confidence *= 100
+    return max(0.0, min(100.0, confidence))
+
+
+def _confidence_values(value: Any) -> list[float]:
+    if isinstance(value, dict):
+        values: list[float] = []
+        direct = _clean_confidence(value.get("confidence_score"))
+        if direct is not None:
+            values.append(direct)
+        for item in value.values():
+            values.extend(_confidence_values(item))
+        return values
+    if isinstance(value, list):
+        values: list[float] = []
+        for item in value:
+            values.extend(_confidence_values(item))
+        return values
+    return []
+
+
+def _average_confidence(value: Any) -> float | None:
+    values = _confidence_values(value)
+    if not values:
+        return None
+    return round(sum(values) / len(values), 2)
+
+
+def _jsonb_or_none(value: Any) -> Any:
+    if value is None:
+        return None
+    if isinstance(value, (dict, list)) and not value:
+        return None
+    return psycopg.types.json.Jsonb(value)
+
+
+def _section_evidence(source_json: dict[str, Any], section_key: str) -> dict[str, Any] | None:
+    data = _as_record(source_json.get("data") or source_json)
+    section = _as_record(data.get(section_key))
+    sources = section.get("sources")
+    if isinstance(sources, list) and sources:
+        return {"sources": sources}
+    return None
+
+
 class CompanyProfileDatabase:
     def __init__(self) -> None:
         self._ready = False
@@ -386,6 +442,7 @@ class CompanyProfileDatabase:
         logger.info("Database: Saving company profile for company_name=%s (username=%s)", company_name, username)
         safe_company_name = company_name.replace("\x00", "")
         safe_artefact = _strip_json_null_bytes(artefact)
+        research_confidence_score = _average_confidence(safe_artefact)
         data = safe_artefact.get("data") or {}
         
         website_url = data.get("website") or ""
@@ -578,20 +635,21 @@ class CompanyProfileDatabase:
                     """
                     INSERT INTO partner_research_runs (
                         research_run_id, partner_id, research_version_no, triggered_by_user_id, trigger_type, research_status,
-                        extracted_profile_json, evidence_summary_json, source_references_json
+                        extracted_profile_json, evidence_summary_json, source_references_json, overall_confidence_score
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
                     """,
                     (
-                        research_run_id,
-                        partner_id,
-                        version_no,
-                        sys_user_id,
-                        'MANUAL',
-                        'COMPLETED',
+                        research_run_id, 
+                        partner_id, 
+                        version_no, 
+                        sys_user_id, 
+                        'MANUAL', 
+                        'COMPLETED', 
                         psycopg.types.json.Jsonb(safe_artefact),
                         psycopg.types.json.Jsonb(evidence),
-                        psycopg.types.json.Jsonb(evidence_sources)
+                        psycopg.types.json.Jsonb(evidence_sources),
+                        research_confidence_score
                     )
                 )
                 conn.commit()
@@ -714,17 +772,29 @@ class CompanyProfileDatabase:
         safe_report_json = _strip_json_null_bytes(report_json)
         sys_user_id = '00000000-0000-0000-0000-000000000000'
         sys_role_id = '00000000-0000-0000-0000-000000000001'
-        default_framework_id = '00000000-0000-0000-0000-000000000003'
         
         with psycopg.connect(settings.database_url) as conn:
             with conn.cursor() as cur:
                 cur.execute("SET search_path TO npip, public;")
+                cur.execute(
+                    """
+                    SELECT framework_id
+                    FROM evaluation_frameworks
+                    ORDER BY created_at DESC
+                    LIMIT 1;
+                    """
+                )
+                framework_row = cur.fetchone()
+                if not framework_row:
+                    logger.error("Database: No evaluation framework found")
+                    raise RuntimeError("No evaluation framework found")
+                default_framework_id = framework_row[0]
                 
                 # Fetch partner_id
                 logger.info("Database: Fetching partner_id associated with research_run_id=%s", profile_id)
                 cur.execute(
                     """
-                    SELECT partner_id FROM partner_research_runs WHERE research_run_id = %s;
+                    SELECT partner_id, extracted_profile_json FROM partner_research_runs WHERE research_run_id = %s;
                     """,
                     (str(profile_id),)
                 )
@@ -733,6 +803,7 @@ class CompanyProfileDatabase:
                     logger.error("Database: No research run found for UUID: %s", profile_id)
                     raise RuntimeError(f"No research run found for UUID: {profile_id}")
                 partner_id = row[0]
+                extracted_profile_json = row[1] if isinstance(row[1], dict) else {}
                 logger.info("Database: Found partner_id=%s for research_run_id=%s", partner_id, profile_id)
                 
                 # Compute version
@@ -753,6 +824,7 @@ class CompanyProfileDatabase:
                 recommendation_code = None
                 decision_rationale = None
                 pillar_scores_json = None
+                overall_confidence_score = _average_confidence(safe_report_json)
                 
                 if evaluation_type == 'decision_intelligence':
                     priority = safe_report_json.get("overall_partnership_recommendation", {}).get("priority") or "LOW_PRIORITY"
@@ -793,9 +865,10 @@ class CompanyProfileDatabase:
                     INSERT INTO partner_evaluations (
                         evaluation_id, partner_id, research_run_id, framework_id, evaluation_version_no,
                         evaluation_context_json, gate_overall_status, total_score_pct, recommendation_code,
-                        decision_rationale, evaluation_status, created_by, created_by_role_id, updated_by
+                        decision_rationale, overall_confidence_score, pillar_scores_json, evaluation_status,
+                        created_by, created_by_role_id, updated_by
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
                     """,
                     (
                         evaluation_id,
@@ -808,6 +881,8 @@ class CompanyProfileDatabase:
                         total_score_pct,
                         recommendation_code,
                         decision_rationale,
+                        overall_confidence_score,
+                        _jsonb_or_none(pillar_scores_json),
                         'COMPLETED',
                         sys_user_id,
                         sys_role_id,
@@ -824,6 +899,12 @@ class CompanyProfileDatabase:
                         "gate_4": "Commercial Viability",
                         "gate_5": "Compliance & Geo Risk"
                     }
+                    gate_evidence_sections = {
+                        "gate_1": "enterprise_credibility",
+                        "gate_2": "strategic_relevance",
+                        "gate_3": "delivery_feasibility",
+                        "gate_4": "commercial_viability",
+                    }
                     for g_key, g_group in gate_groups.items():
                         g_data = safe_report_json.get(g_key)
                         if not isinstance(g_data, dict):
@@ -833,6 +914,12 @@ class CompanyProfileDatabase:
                         gate_result = str(g_data.get("status") or "FAIL").upper()
                         llm_commentary = g_data.get("summary") or ""
                         gate_input_value = g_data.get("criteria") or {}
+                        gate_evidence = (
+                            g_data.get("evidence_json")
+                            or g_data.get("evidence")
+                            or _section_evidence(extracted_profile_json, gate_evidence_sections.get(g_key, ""))
+                        )
+                        gate_confidence_score = _average_confidence(gate_input_value)
                         
                         logger.info("Database: Inserting evaluation_gate_result for gate %s (result=%s)", gate_code, gate_result)
                         logger.info(
@@ -843,9 +930,9 @@ class CompanyProfileDatabase:
                             """
                             INSERT INTO evaluation_gate_results (
                                 evaluation_gate_result_id, evaluation_id, gate_code, gate_group,
-                                gate_input_value, gate_result, llm_commentary
+                                gate_input_value, gate_result, llm_commentary, evidence_json, confidence_score
                             )
-                            VALUES (%s, %s, %s, %s, %s, %s, %s);
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
                             """,
                             (
                                 str(uuid.uuid4()),
@@ -854,7 +941,9 @@ class CompanyProfileDatabase:
                                 g_group,
                                 psycopg.types.json.Jsonb(gate_input_value),
                                 gate_result,
-                                llm_commentary
+                                llm_commentary,
+                                _jsonb_or_none(gate_evidence),
+                                gate_confidence_score
                             )
                         )
                         
@@ -894,6 +983,14 @@ class CompanyProfileDatabase:
                         "p5_market_validation_feedback": "P5",
                         "p6_delivery_readiness_risk": "P6"
                     }
+                    pillar_evidence_sections = {
+                        "p1_domain_solution_depth": "strategic_relevance",
+                        "p2_product_engineering_readiness": "delivery_feasibility",
+                        "p3_ai_transparency_trustworthiness": "strategic_relevance",
+                        "p4_business_strategic_fit_for_tcs": "commercial_viability",
+                        "p5_market_validation_feedback": "enterprise_credibility",
+                        "p6_delivery_readiness_risk": "delivery_feasibility",
+                    }
                     for p_key, pillar_code in pillar_codes.items():
                         p_data = pillars.get(p_key)
                         if not isinstance(p_data, dict):
@@ -909,7 +1006,14 @@ class CompanyProfileDatabase:
                             crit_name = crit_key.replace("_", " ").title()
                             assigned_score = crit_val.get("score") or 0.0
                             rationale_text = crit_val.get("reason") or ""
-                            confidence_score = crit_val.get("confidence_score") or 0.0
+                            confidence_score = _clean_confidence(crit_val.get("confidence_score")) or 0.0
+                            criterion_evidence = (
+                                crit_val.get("evidence_json")
+                                or crit_val.get("evidence")
+                                or p_data.get("evidence_json")
+                                or p_data.get("evidence")
+                                or _section_evidence(extracted_profile_json, pillar_evidence_sections.get(p_key, ""))
+                            )
                             weighted_contribution = (float(assigned_score) / 5.0) * float(pillar_weight)
                             
                             logger.info(
@@ -925,10 +1029,10 @@ class CompanyProfileDatabase:
                                 INSERT INTO evaluation_criterion_scores (
                                     evaluation_criterion_score_id, evaluation_id, pillar_code,
                                     criterion_code, criterion_name, assigned_score, pillar_weight_pct,
-                                    significance_level, rationale_text, confidence_score, weighted_contribution,
-                                    calculated_by
+                                    significance_level, rationale_text, evidence_json, confidence_score,
+                                    weighted_contribution, calculated_by
                                 )
-                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
                                 """,
                                 (
                                     str(uuid.uuid4()),
@@ -940,6 +1044,7 @@ class CompanyProfileDatabase:
                                     pillar_weight,
                                     'STANDARD',
                                     rationale_text,
+                                    _jsonb_or_none(criterion_evidence),
                                     confidence_score,
                                     weighted_contribution,
                                     sys_user_id
