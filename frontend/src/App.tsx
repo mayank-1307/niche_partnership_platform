@@ -260,7 +260,7 @@ export default function App() {
     }
   };
 
-  const loadRecentAnalysis = async (profileId: number) => {
+  const loadRecentAnalysis = async (profileId: string | number) => {
     setLoading(true);
     try {
       const profile = await getCompanyProfile(profileId);

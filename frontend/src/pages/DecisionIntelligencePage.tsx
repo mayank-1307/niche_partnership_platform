@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, ChevronDown, ChevronUp } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 import { FixedHeader } from "../components/FixedHeader";
@@ -41,6 +41,24 @@ function getDeterminismLabel(gate: "G1" | "G2" | "G3" | "G4" | "G5", index: numb
   return "NON-DETERMINISTIC";
 }
 
+function InsightToggle({ expanded, onClick, label }: { expanded: boolean; onClick: () => void; label: string }) {
+  const Icon = expanded ? ChevronUp : ChevronDown;
+  const action = expanded ? "Collapse" : "Expand";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-expanded={expanded}
+      aria-label={`${action} ${label} details`}
+      title={`${action} details`}
+      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/20 text-slate-200 transition hover:bg-white/10"
+    >
+      <Icon className="h-4 w-4" />
+    </button>
+  );
+}
+
 export default function DecisionIntelligencePage() {
   const navigate = useNavigate();
   const [items, setItems] = useState<CompanyProfileSummary[]>([]);
@@ -49,6 +67,11 @@ export default function DecisionIntelligencePage() {
   const [report, setReport] = useState<DecisionIntelligenceReport | null>(null);
   const [loading, setLoading] = useState(false);
   const [loadingProfiles, setLoadingProfiles] = useState(false);
+  const [expandedBlocks, setExpandedBlocks] = useState<Record<string, boolean>>({});
+
+  const toggleBlock = (key: string) => {
+    setExpandedBlocks((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   useEffect(() => {
     const loadProfiles = async () => {
@@ -72,7 +95,7 @@ export default function DecisionIntelligencePage() {
     setReport(null);
     try {
       const [selectedProfile, gateReport] = await Promise.all([
-        getCompanyProfile(Number(selectedId)),
+        getCompanyProfile(selectedId),
         getDecisionIntelligenceReport(selectedId),
       ]);
       setProfile(selectedProfile);
@@ -149,10 +172,13 @@ export default function DecisionIntelligencePage() {
         {report ? (
           <div>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  Gate 1 - Enterprise Credibility
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0 glass">
+                <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                  <div className="text-sm font-bold uppercase tracking-wide text-cyan">Gate 1 - Enterprise Credibility</div>
+                  <InsightToggle expanded={Boolean(expandedBlocks.gate_1)} onClick={() => toggleBlock("gate_1")} label="gate_1" />
                 </div>
+                {expandedBlocks.gate_1 && (
+                  <div className="pt-2">
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_1.status === "PASS")}`}>
                   {report.gate_1.status}
                 </div>
@@ -173,12 +199,17 @@ export default function DecisionIntelligencePage() {
                     </div>
                   ))}
                 </div>
+                </div>
+                )}
               </div>
 
-              <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  Gate 2 - Strategic Relevance
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0 glass">
+                <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                  <div className="text-sm font-bold uppercase tracking-wide text-cyan">Gate 2 - Strategic Relevance</div>
+                  <InsightToggle expanded={Boolean(expandedBlocks.gate_2)} onClick={() => toggleBlock("gate_2")} label="gate_2" />
                 </div>
+                {expandedBlocks.gate_2 && (
+                  <div className="pt-2">
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_2.status === "PASS")}`}>
                   {report.gate_2.status}
                 </div>
@@ -199,12 +230,17 @@ export default function DecisionIntelligencePage() {
                     </div>
                   ))}
                 </div>
+                </div>
+                )}
               </div>
 
-              <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  Gate 3 - Delivery Feasibility
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0 glass">
+                <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                  <div className="text-sm font-bold uppercase tracking-wide text-cyan">Gate 3 - Delivery Feasibility</div>
+                  <InsightToggle expanded={Boolean(expandedBlocks.gate_3)} onClick={() => toggleBlock("gate_3")} label="gate_3" />
                 </div>
+                {expandedBlocks.gate_3 && (
+                  <div className="pt-2">
                 <div
                   className={`mb-4 text-lg font-semibold ${gateStatusClass(report.gate_3.status)}`}
                 >
@@ -227,12 +263,17 @@ export default function DecisionIntelligencePage() {
                     </div>
                   ))}
                 </div>
+                </div>
+                )}
               </div>
 
-              <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  Gate 4 - Commercial Viability
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0 glass">
+                <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                  <div className="text-sm font-bold uppercase tracking-wide text-cyan">Gate 4 - Commercial Viability</div>
+                  <InsightToggle expanded={Boolean(expandedBlocks.gate_4)} onClick={() => toggleBlock("gate_4")} label="gate_4" />
                 </div>
+                {expandedBlocks.gate_4 && (
+                  <div className="pt-2">
                 <div className={`mb-4 text-lg font-semibold ${isPass(report.gate_4.status === "PASS")}`}>
                   {report.gate_4.status}
                 </div>
@@ -253,12 +294,17 @@ export default function DecisionIntelligencePage() {
                     </div>
                   ))}
                 </div>
+                </div>
+                )}
               </div>
 
-              <div className="glass rounded-2xl p-5">
-                <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase text-cyan">
-                  Gate 5 - Geo & Compliance
+              <div className="max-h-[32rem] overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0 glass">
+                <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                  <div className="text-sm font-bold uppercase tracking-wide text-cyan">Gate 5 - Geo & Compliance</div>
+                  <InsightToggle expanded={Boolean(expandedBlocks.gate_5)} onClick={() => toggleBlock("gate_5")} label="gate_5" />
                 </div>
+                {expandedBlocks.gate_5 && (
+                  <div className="pt-2">
                 <div className={`mb-4 text-lg font-semibold ${gateStatusClass(report.gate_5.status)}`}>
                   {report.gate_5.status}
                 </div>
@@ -279,11 +325,18 @@ export default function DecisionIntelligencePage() {
                     </div>
                   ))}
                 </div>
+                </div>
+                )}
               </div>
             </div>
 
-            <div className="glass mt-6 w-full rounded-2xl p-5">
-              <div className="mb-2 text-sm text-cyan">Gating Summary</div>
+            <div className="glass mt-6 w-full max-h-[32rem] overflow-auto rounded-xl border border-white/10 bg-black/20 px-4 pb-4 pt-0">
+              <div className="sticky top-0 z-10 -mx-4 mb-2 flex items-center justify-between gap-2 border-b border-white/10 bg-slate-900 px-4 py-2">
+                <div className="text-sm font-bold uppercase tracking-wide text-cyan">Gating Summary</div>
+                <InsightToggle expanded={Boolean(expandedBlocks.summary)} onClick={() => toggleBlock("summary")} label="summary" />
+              </div>
+              {expandedBlocks.summary && (
+                <div className="pt-2">
               <div className="space-y-1 text-base text-slate-200">
                 <div>Gate 1: <span className={isPass(report.gate_1.status === "PASS")}>{report.gate_1.status}</span></div>
                 <div>Gate 2: <span className={isPass(report.gate_2.status === "PASS")}>{report.gate_2.status}</span></div>
@@ -297,6 +350,8 @@ export default function DecisionIntelligencePage() {
                   {report.overall_partnership_recommendation.reason || "No summary provided."}
                 </div>
               </div>
+              </div>
+              )}
               <div className="mt-4">
                 <button
                   type="button"

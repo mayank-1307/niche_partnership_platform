@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import uuid
 from email import policy
 from email.parser import BytesParser
 
@@ -29,8 +30,14 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-def _extract_profile_id(file_id: str) -> int | None:
-    return int(file_id) if file_id.isdigit() else None
+def _extract_profile_id(file_id: str) -> str | int | None:
+    if file_id.isdigit():
+        return int(file_id)
+    try:
+        uuid.UUID(file_id)
+        return file_id
+    except ValueError:
+        return None
 
 
 async def _parse_multipart_analysis_request(request: Request) -> tuple[str, UploadedDocumentContext | None]:
@@ -146,8 +153,9 @@ async def download_json(file_id: str):
         logger.info("Serving stored JSON file_id=%s from disk", file_id)
         return FileResponse(path=target, media_type="application/json", filename=f"{file_id}.json")
 
-    if file_id.isdigit():
-        row = await company_profile_db.get_company_profile(int(file_id))
+    profile_id = _extract_profile_id(file_id)
+    if profile_id is not None:
+        row = await company_profile_db.get_company_profile(profile_id)
         artefact = row.get("artefact") if row else None
         if isinstance(artefact, dict):
             logger.info("Serving stored JSON file_id=%s from database", file_id)
@@ -185,8 +193,12 @@ async def decision_intelligence_profiles(
 
 
 @router.get("/decision-intelligence/profiles/{profile_id}", response_model=CompanyProfileDetail)
-async def decision_intelligence_profile(profile_id: int) -> CompanyProfileDetail:
-    row = await company_profile_db.get_company_profile(profile_id)
+async def decision_intelligence_profile(profile_id: str) -> CompanyProfileDetail:
+    parsed_id = _extract_profile_id(profile_id)
+    if parsed_id is None:
+        raise HTTPException(status_code=400, detail="Invalid profile identifier format")
+        
+    row = await company_profile_db.get_company_profile(parsed_id)
     if not row:
         logger.warning("Company profile not found profile_id=%s", profile_id)
         raise HTTPException(status_code=404, detail="Profile not found")
@@ -207,10 +219,11 @@ async def decision_intelligence_profile(profile_id: int) -> CompanyProfileDetail
 @router.get("/decision-intelligence/{file_id}")
 async def decision_intelligence(file_id: str):
     logger.info("Generating decision intelligence file_id=%s", file_id)
-    # Numeric IDs are database profiles; other IDs refer to disk JSON exports.
+    # Numeric or UUID IDs are database profiles; other IDs refer to disk JSON exports.
     row_exists = False
-    if file_id.isdigit():
-        row = await company_profile_db.get_company_profile(int(file_id))
+    profile_id = _extract_profile_id(file_id)
+    if profile_id is not None:
+        row = await company_profile_db.get_company_profile(profile_id)
         artefact = row.get("artefact") if row else None
         wrapped = artefact if isinstance(artefact, dict) else None
         row_exists = row is not None
@@ -236,10 +249,11 @@ async def decision_intelligence(file_id: str):
 @router.get("/scoring/{file_id}")
 async def scoring(file_id: str):
     logger.info("Generating scoring report file_id=%s", file_id)
-    # Numeric IDs are database profiles; other IDs refer to disk JSON exports.
+    # Numeric or UUID IDs are database profiles; other IDs refer to disk JSON exports.
     row_exists = False
-    if file_id.isdigit():
-        row = await company_profile_db.get_company_profile(int(file_id))
+    profile_id = _extract_profile_id(file_id)
+    if profile_id is not None:
+        row = await company_profile_db.get_company_profile(profile_id)
         artefact = row.get("artefact") if row else None
         wrapped = artefact if isinstance(artefact, dict) else None
         row_exists = row is not None

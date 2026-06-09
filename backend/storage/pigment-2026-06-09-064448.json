@@ -1,0 +1,260 @@
+{
+  "generated_at": "2026-06-09T06:44:48.605445",
+  "data": {
+    "company_name": "Pigment",
+    "website": "https://pigment.com",
+    "headquarters": "New York, New York, United States",
+    "founded_year": 2019,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Bayer",
+              "Dialpad",
+              "Euronext",
+              "Gorgias",
+              "Klarna",
+              "Miro",
+              "Monzo",
+              "PayFit",
+              "Pernod Ricard",
+              "S4 Capital",
+              "Scale AI",
+              "Sonder",
+              "TrueLayer",
+              "Vimeo"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 277400000,
+            "investors": [
+              "ICONIQ Growth",
+              "Meritech Capital Partners",
+              "Bessemer Venture Partners",
+              "FirstMark Capital",
+              "Blossom Capital",
+              "IVP (Institutional Venture Partners)",
+              "General Catalyst"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series D",
+                "amount_usd": 145000000,
+                "year": 2024
+              },
+              {
+                "round_type": "Series C",
+                "amount_usd": 88000000,
+                "year": 2022
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Pigment was founded by El\u00e9onore Crespo (Co-CEO), Romain Niccoli (Co-CEO), and Fran\u00e7ois Candelon (CTO). El\u00e9onore Crespo previously worked at Google as a Financial Analyst and at Index Ventures as an investor. Romain Niccoli was a co-founder of Criteo, a publicly traded ad-tech company, where he served as CTO. Fran\u00e7ois Candelon has a strong technical background in data and AI-driven platforms.",
+            "key_leaders": [
+              {
+                "name": "El\u00e9onore Crespo",
+                "title": "Co-CEO & Co-Founder",
+                "background": "Former Financial Analyst at Google and investor at Index Ventures."
+              },
+              {
+                "name": "Romain Niccoli",
+                "title": "Co-CEO & Co-Founder",
+                "background": "Co-founder and former CTO of Criteo (CRTO)."
+              },
+              {
+                "name": "Fran\u00e7ois Candelon",
+                "title": "CTO & Co-Founder",
+                "background": "Technical leader with expertise in data platforms and AI."
+              },
+              {
+                "name": "Nicolas Dessaigne",
+                "title": "Chief Business Officer",
+                "background": "Former CEO and co-founder of Algolia."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 5,
+            "case_studies_available": true,
+            "deployment_scale": "Global deployments with enterprise production usage across multiple industries, including finance, technology, and retail. Supports large-scale planning and analytics workflows."
+          }
+        }
+      },
+      "sources": [
+        "https://pigment.com",
+        "https://pigment.com/customers",
+        "https://pigment.com/leadership",
+        "https://www.crunchbase.com/organization/pigment",
+        "https://techcrunch.com/2024/01/16/pigment-raises-145m-to-build-the-future-of-business-planning/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Financial planning and analysis (FP&A)",
+              "Operational planning and forecasting",
+              "Scenario modeling and stress testing",
+              "Real-time business performance tracking"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [],
+            "capabilities": [
+              "Data unification and governance for planning processes",
+              "Real-time collaboration and decision-making"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Data governance for planning processes"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://pigment.com",
+        "https://pigment.com/about",
+        "https://pigment.com/customers",
+        "https://pigment.com/blog"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": "Medium effort may be required for enterprise-wide adoption due to the complexity of planning workflows."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "ERP systems (e.g., SAP, Oracle, NetSuite)",
+              "HRIS platforms (e.g., Workday, BambooHR)",
+              "CRM systems (e.g., Salesforce)",
+              "Data warehouses (e.g., Snowflake, BigQuery, Redshift)",
+              "Business intelligence tools (e.g., Tableau, Power BI, Looker)",
+              "APIs for custom integrations",
+              "Single Sign-On (SSO) providers"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Pigment offers a cloud-native platform with pre-built connectors, APIs, and documentation to support implementation partners."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://pigment.com",
+        "https://pigment.com/blog"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS, with enterprise contracts tailored to customer needs.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales with a growing partner ecosystem, including alliances with consulting and implementation firms.",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 300000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "fit_notes": "Strong commercial viability with a clear enterprise sales motion, significant funding, and a growing list of high-profile customers."
+          }
+        }
+      },
+      "sources": [
+        "https://pigment.com",
+        "https://www.crunchbase.com/organization/pigment",
+        "https://techcrunch.com/2024/01/16/pigment-raises-145m-to-build-the-future-of-business-planning/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://pigment.com"
+      ],
+      "last_updated": "2026-06-09T06:44:48.465316"
+    }
+  }
+}

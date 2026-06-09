@@ -1,0 +1,272 @@
+{
+  "generated_at": "2026-06-09T05:56:44.421417",
+  "data": {
+    "company_name": "Kore.ai, Inc.",
+    "website": "https://kore.ai",
+    "headquarters": "Orlando, Florida, United States",
+    "founded_year": 2013,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Wells Fargo",
+              "AT&T",
+              "PNC Bank",
+              "Cigna",
+              "HSBC",
+              "Telstra",
+              "Samsung",
+              "Visa",
+              "eBay",
+              "Cisco"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 73500000,
+            "investors": [
+              "Vistara Growth",
+              "NEA (New Enterprise Associates)",
+              "FFL Partners",
+              "Colt Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series D",
+                "amount_usd": 50000000,
+                "year": 2021
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Kore.ai was founded by Raj Koneru, who serves as the CEO. Koneru has over 25 years of experience in enterprise software, previously founding Kony, Inc., a mobile application development platform acquired by Temenos in 2019. The leadership team includes veterans from companies like Oracle, IBM, Microsoft, and Cisco, with deep expertise in AI, enterprise software, and cloud technologies.",
+            "key_leaders": [
+              {
+                "name": "Raj Koneru",
+                "title": "Founder & CEO",
+                "background": "Founder of Kony, Inc.; former leadership roles at Oracle and Siebel Systems."
+              },
+              {
+                "name": "Kishore Gaddam",
+                "title": "Chief Technology Officer",
+                "background": "Formerly at Microsoft and Oracle; expertise in AI, cloud, and enterprise architecture."
+              },
+              {
+                "name": "Mark Hanson",
+                "title": "Chief Revenue Officer",
+                "background": "Previously held leadership roles at Salesforce, Oracle, and IBM."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 10,
+            "case_studies_available": true,
+            "deployment_scale": "Kore.ai's platform is deployed globally across multiple industries, supporting millions of interactions monthly. The company claims over 200 enterprise customers, including Fortune 500 companies, with deployments in production environments for customer service, HR, and IT automation."
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/company/",
+        "https://kore.ai/about-us/leadership/",
+        "https://kore.ai/customers/",
+        "https://kore.ai/press-releases/kore-ai-raises-50-million-series-d-funding/",
+        "https://www.crunchbase.com/organization/kore-ai"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Customer service automation and support",
+              "Employee virtual assistants for HR and IT",
+              "Omnichannel conversational experiences (voice, chat, messaging)"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": true,
+            "capabilities": [
+              "AI-driven process automation for banking, healthcare, and telecom"
+            ]
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": [
+              "Voice",
+              "Chat",
+              "Messaging"
+            ]
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "Banking",
+              "Healthcare",
+              "Retail",
+              "Telecommunications"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "SOC 2",
+              "HIPAA",
+              "GDPR"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/platform/",
+        "https://kore.ai/customers/",
+        "https://kore.ai/docs/"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [
+              "Low-code/no-code platform for conversational AI",
+              "Documentation and SDKs for custom integrations"
+            ],
+            "required_skills": [
+              "Enterprise system integration (e.g., Salesforce, ServiceNow)",
+              "AI model training and NLP",
+              "Compliance and security standards (e.g., SOC 2, HIPAA)"
+            ],
+            "gap_notes": "Customization for industry-specific use cases and integration with legacy systems may require specialized skills."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": [
+              "Platform-specific training for building and deploying virtual assistants",
+              "Integration training for enterprise systems and APIs"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Omnichannel support (e.g., Microsoft Teams, Slack, WhatsApp, SMS, voice)",
+              "Enterprise systems (e.g., Salesforce, ServiceNow, SAP, Workday)",
+              "Identity providers (e.g., Okta, Azure AD, Ping Identity)",
+              "Cloud platforms (e.g., AWS, Azure, Google Cloud)",
+              "APIs for custom integrations and data sources"
+            ],
+            "dependencies": [
+              "Legacy system compatibility",
+              "Compliance with security standards"
+            ],
+            "complexity_notes": "Enterprise deployments may require customization for industry-specific use cases and compliance with security standards."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Partner ecosystem and direct support for enterprise customers",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/platform/",
+        "https://kore.ai/docs/"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS, with pricing tiers based on usage (e.g., number of interactions, channels, or users). Enterprise contracts are typically customized.",
+            "pricing_transparency": false,
+            "revenue_structure": "Premium solution for large organizations with long-term contracts."
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales for enterprise customers, complemented by a partner ecosystem including system integrators, resellers, and technology alliances.",
+            "channels": [
+              "Direct sales",
+              "Partner ecosystem (system integrators, resellers, technology alliances)"
+            ],
+            "sales_motion": "Enterprise-focused with long-term contracts."
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 550000,
+            "expansion_paths": [
+              "Scaling usage (interactions, channels, users)",
+              "Expanding to new departments or use cases within existing customers",
+              "Upselling premium features or customization"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [
+              "Alliances with Microsoft, AWS, and Accenture",
+              "System integrators and resellers"
+            ],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Enterprise contracts are typically customized based on scale and requirements.",
+            "pricing_governance": "Pricing is not publicly disclosed and varies based on deployment scale and customization."
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Growth Stage",
+            "fit_notes": "Kore.ai is well-suited for enterprise deployments with a mature product, strong leadership, and proven customer base. The company is past the startup phase and demonstrates scalability and commercial viability."
+          }
+        }
+      },
+      "sources": [
+        "https://kore.ai/company/",
+        "https://kore.ai/press-releases/kore-ai-raises-50-million-series-d-funding/",
+        "https://www.crunchbase.com/organization/kore-ai"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://kore.ai"
+      ],
+      "last_updated": "2026-06-09T05:56:44.285410"
+    }
+  }
+}

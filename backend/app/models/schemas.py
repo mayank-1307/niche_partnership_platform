@@ -38,7 +38,6 @@ class GateAnalysisItem(BaseModel):
     facts: dict[str, Any] = Field(default_factory=dict)
 
 
-
 class EnterpriseCredibilityGateSection(BaseModel):
     sub_parts: dict[str, GateAnalysisItem] = Field(default_factory=dict)
     sources: list[str] = Field(default_factory=list)
@@ -199,7 +198,7 @@ class HealthResponse(BaseModel):
 
 
 class CompanyProfileSummary(BaseModel):
-    id: int
+    id: str
     company_name: str | None = None
     username: str = ""
     created_at: datetime
@@ -210,7 +209,7 @@ class CompanyProfileListResponse(BaseModel):
 
 
 class CompanyProfileDetail(BaseModel):
-    id: int
+    id: str
     company_name: str | None = None
     username: str = ""
     artefact: dict[str, Any]

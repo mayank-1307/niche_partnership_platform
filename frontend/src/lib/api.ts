@@ -28,14 +28,14 @@ export type StoredJsonPayload = {
 };
 
 export type CompanyProfileSummary = {
-  id: number;
+  id: string | number;
   company_name: string | null;
   username: string;
   created_at: string;
 };
 
 export type CompanyProfileDetail = {
-  id: number;
+  id: string | number;
   company_name: string | null;
   username: string;
   created_at: string;
@@ -154,7 +154,7 @@ export async function listCompanyProfiles(query = ""): Promise<CompanyProfileSum
   return res.data.items ?? [];
 }
 
-export async function getCompanyProfile(id: number): Promise<CompanyProfileDetail> {
+export async function getCompanyProfile(id: string | number): Promise<CompanyProfileDetail> {
   const res = await api.get<CompanyProfileDetail>(`/decision-intelligence/profiles/${id}`);
   return res.data;
 }

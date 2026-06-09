@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
@@ -37,6 +37,7 @@ class CrawlService:
         return " ".join(text.split())
 
     async def _fetch_text(self, client: httpx.AsyncClient, url: str) -> str:
+        logger.info("Crawl: Fetching data from URL: %s", url)
         resp = await client.get(url, follow_redirects=True)
         resp.raise_for_status()
         return resp.text
@@ -94,20 +95,22 @@ class CrawlService:
             sitemap_urls = await self._get_sitemap_urls(client, base_url)
             discovered = await self._discover_links(client, base_url)
             targets = list(dict.fromkeys(sitemap_urls + discovered))[: settings.max_pages_to_crawl]
-            logger.debug("Crawl targets resolved base_url=%s targets=%s", base_url, len(targets))
+            logger.info("Crawl: Resolved %d crawl targets for base_url=%s", len(targets), base_url)
 
             pages: list[PageContent] = []
             for url in targets:
                 try:
                     if not await self._allowed_by_robots(client, base_url, url):
-                        logger.debug("Crawl skipped by robots url=%s", url)
+                        logger.info("Crawl: Skipped by robots.txt, url=%s", url)
                         continue
                     html = await self._fetch_text(client, url)
                     extracted = self._extract_text(html)
                     if len(extracted.strip()) < 120:
+                        logger.info("Crawl: Skipped page with insufficient text content, url=%s", url)
                         continue
                     soup = BeautifulSoup(html, "html.parser")
                     title = (soup.title.string if soup.title else "").strip()
+                    logger.info("Crawl: Successfully fetched and parsed page: %s (Title: %r)", url, title)
                     pages.append(PageContent(url=url, title=title, text=extracted[:10000]))
                 except Exception:
                     logger.exception("Crawl page failed url=%s", url)

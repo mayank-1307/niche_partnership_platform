@@ -1,0 +1,250 @@
+{
+  "generated_at": "2026-06-09T05:25:23.196021",
+  "data": {
+    "company_name": "Jasper AI, Inc.",
+    "website": "https://jasper.ai",
+    "headquarters": "Austin, Texas, United States",
+    "founded_year": 2021,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "Airbnb",
+              "IBM",
+              "Logitech",
+              "Harley-Davidson",
+              "SentinelOne",
+              "Amplitude",
+              "Intuit Mailchimp",
+              "HubSpot",
+              "Salesforce"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 131000000,
+            "investors": [
+              "Insight Partners",
+              "Coatue",
+              "Bessemer Venture Partners",
+              "IVP (Institutional Venture Partners)",
+              "Foundation Capital",
+              "HubSpot Ventures",
+              "Salesforce Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series A",
+                "amount_usd": 125000000,
+                "year": 2022
+              },
+              {
+                "round_type": "Seed",
+                "amount_usd": 6000000,
+                "year": 2021
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Jasper was founded by Dave Rogenmoser (CEO), John Phillip Morgan (CTO), and Chris Hull. Dave Rogenmoser previously co-founded Proof, a conversion optimization platform, and has experience in SaaS and digital marketing. John Phillip Morgan has a background in software engineering and AI, while Chris Hull brings expertise in product development and growth.",
+            "key_leaders": [
+              {
+                "name": "Dave Rogenmoser",
+                "title": "Co-Founder & CEO",
+                "background": "Co-founder of Proof, experience in SaaS and digital marketing."
+              },
+              {
+                "name": "John Phillip Morgan",
+                "title": "Co-Founder & CTO",
+                "background": "Software engineering and AI expertise."
+              },
+              {
+                "name": "Chris Hull",
+                "title": "Co-Founder & Chief Product Officer",
+                "background": "Product development and growth expertise."
+              },
+              {
+                "name": "Shane Orlick",
+                "title": "President",
+                "background": "Former President at Proof, experience in scaling SaaS companies."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Scaled",
+            "years_in_market": 3,
+            "case_studies_available": true,
+            "deployment_scale": "Jasper is used by over 100,000 businesses globally, including enterprise clients. The platform supports multi-user collaboration, brand voice customization, and integrations with tools like Google Docs, Microsoft Word, and various CMS platforms."
+          }
+        }
+      },
+      "sources": [
+        "https://jasper.ai",
+        "https://jasper.ai/customers",
+        "https://www.crunchbase.com/organization/jasper-ai",
+        "https://techcrunch.com/2022/10/18/jasper-raises-125m-series-a-at-1-5b-valuation-for-its-ai-content-platform/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "AI-powered content creation for marketing teams",
+              "Brand voice customization and compliance",
+              "Scaling content production for blogs, social media, and ads",
+              "SEO-optimized content generation",
+              "Enterprise-grade content workflows and collaboration"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": true,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://jasper.ai",
+        "https://jasper.ai/about",
+        "https://jasper.ai/integrations",
+        "https://jasper.ai/blog"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "API access for custom integrations",
+              "Google Docs and Microsoft Word add-ins",
+              "CMS platforms (e.g., WordPress, HubSpot)",
+              "Single Sign-On (SSO) for enterprise security",
+              "Browser extensions for content generation"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Jasper offers a well-documented API, enterprise support, and integrations with popular tools, making it feasible for implementation partners."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://jasper.ai",
+        "https://jasper.ai/integrations",
+        "https://jasper.ai/blog"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based (SaaS), with tiered pricing for individuals, teams, and enterprises.",
+            "pricing_transparency": true,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales for enterprise clients, self-service for SMBs, and partner-led for agencies and resellers.",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 25000,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Scaled",
+            "fit_notes": "Jasper demonstrates strong commercial viability with a clear GTM strategy, enterprise sales motion, and a growing partner ecosystem."
+          }
+        }
+      },
+      "sources": [
+        "https://jasper.ai",
+        "https://jasper.ai/pricing",
+        "https://jasper.ai/about",
+        "https://www.crunchbase.com/organization/jasper-ai"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://jasper.ai"
+      ],
+      "last_updated": "2026-06-09T05:25:22.927383"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import logging
 from typing import Any
@@ -68,13 +68,14 @@ class SearchService:
         logger.info("Search started provider=%s domain=%s", provider or "duckduckgo", normalized_domain)
         for q in queries:
             try:
+                logger.info("Search: Fetching search results for query: %r using provider: %s", q, provider or "duckduckgo")
                 if provider == "tavily" and settings.tavily_api_key:
                     res = await self._tavily(q, 4)
                 elif provider == "serper" and settings.serper_api_key:
                     res = await self._serper(q, 4)
                 else:
                     res = self._duckduckgo(q, 4)
-                logger.debug("Search query completed provider=%s results=%s query=%s", provider or "duckduckgo", len(res), q)
+                logger.info("Search: Fetched %d result(s) for query: %r", len(res), q)
                 hits.extend(res)
             except Exception:
                 logger.exception("Search query failed provider=%s query=%s", provider or "duckduckgo", q)
