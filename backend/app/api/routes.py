@@ -223,6 +223,13 @@ async def decision_intelligence(file_id: str):
     row_exists = False
     profile_id = _extract_profile_id(file_id)
     if profile_id is not None:
+        cached_report = await company_profile_db.get_evaluation_report(
+            profile_id=profile_id, evaluation_type="decision_intelligence"
+        )
+        if cached_report:
+            logger.info("Serving cached decision intelligence report file_id=%s", file_id)
+            return {"file_id": file_id, "report": cached_report, "is_cached": True}
+
         row = await company_profile_db.get_company_profile(profile_id)
         artefact = row.get("artefact") if row else None
         wrapped = artefact if isinstance(artefact, dict) else None
@@ -243,7 +250,7 @@ async def decision_intelligence(file_id: str):
     report = await decision_intelligence_service.evaluate(structured)
     await _persist_report(file_id, "decision_intelligence", report, row_exists)
     logger.info("Decision intelligence generated file_id=%s", file_id)
-    return {"file_id": file_id, "report": report}
+    return {"file_id": file_id, "report": report, "is_cached": False}
 
 
 @router.get("/scoring/{file_id}")
@@ -253,6 +260,13 @@ async def scoring(file_id: str):
     row_exists = False
     profile_id = _extract_profile_id(file_id)
     if profile_id is not None:
+        cached_report = await company_profile_db.get_evaluation_report(
+            profile_id=profile_id, evaluation_type="scoring"
+        )
+        if cached_report:
+            logger.info("Serving cached scoring report file_id=%s", file_id)
+            return {"file_id": file_id, "report": cached_report, "is_cached": True}
+
         row = await company_profile_db.get_company_profile(profile_id)
         artefact = row.get("artefact") if row else None
         wrapped = artefact if isinstance(artefact, dict) else None
@@ -273,4 +287,4 @@ async def scoring(file_id: str):
     report = await scoring_service.evaluate(structured)
     await _persist_report(file_id, "scoring", report, row_exists)
     logger.info("Scoring report generated file_id=%s", file_id)
-    return {"file_id": file_id, "report": report}
+    return {"file_id": file_id, "report": report, "is_cached": False}

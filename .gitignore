@@ -1,3 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Existing
 .env
 .env.example
 node_modules/

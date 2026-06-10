@@ -33,9 +33,13 @@ export default function ScoringPage() {
       setLoading(true);
       setReport(null);
       try {
-        const scoringReport = await getScoringReport(profileId);
-        setReport(scoringReport);
-        toast.success("Scoring generated");
+        const scoreResponse = await getScoringReport(profileId);
+        setReport(scoreResponse.report);
+        if (scoreResponse.is_cached) {
+          toast("Evaluation is already done.", { icon: "ℹ️" });
+        } else {
+          toast.success("Scoring generated");
+        }
       } catch (error: any) {
         toast.error(error?.response?.data?.detail || "Failed to generate scoring");
       } finally {

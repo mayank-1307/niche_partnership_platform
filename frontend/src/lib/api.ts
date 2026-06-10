@@ -142,9 +142,9 @@ export async function getStoredJson(fileId: string): Promise<StoredJsonPayload> 
   return res.data;
 }
 
-export async function getDecisionIntelligenceReport(fileId: string): Promise<DecisionIntelligenceReport> {
-  const res = await api.get<{ file_id: string; report: DecisionIntelligenceReport }>(`/decision-intelligence/${fileId}`);
-  return res.data.report;
+export async function getDecisionIntelligenceReport(fileId: string): Promise<{report: DecisionIntelligenceReport, is_cached?: boolean}> {
+  const res = await api.get<{ file_id: string; report: DecisionIntelligenceReport; is_cached?: boolean }>(`/decision-intelligence/${fileId}`);
+  return { report: res.data.report, is_cached: res.data.is_cached };
 }
 
 export async function listCompanyProfiles(query = ""): Promise<CompanyProfileSummary[]> {
@@ -159,7 +159,7 @@ export async function getCompanyProfile(id: string | number): Promise<CompanyPro
   return res.data;
 }
 
-export async function getScoringReport(fileId: string): Promise<ScoringReport> {
-  const res = await api.get<{ file_id: string; report: ScoringReport }>(`/scoring/${fileId}`);
-  return res.data.report;
+export async function getScoringReport(fileId: string): Promise<{report: ScoringReport, is_cached?: boolean}> {
+  const res = await api.get<{ file_id: string; report: ScoringReport; is_cached?: boolean }>(`/scoring/${fileId}`);
+  return { report: res.data.report, is_cached: res.data.is_cached };
 }

@@ -94,13 +94,17 @@ export default function DecisionIntelligencePage() {
     setProfile(null);
     setReport(null);
     try {
-      const [selectedProfile, gateReport] = await Promise.all([
+      const [selectedProfile, gateReportResponse] = await Promise.all([
         getCompanyProfile(selectedId),
         getDecisionIntelligenceReport(selectedId),
       ]);
       setProfile(selectedProfile);
-      setReport(gateReport);
-      toast.success("Decision intelligence generated");
+      setReport(gateReportResponse.report);
+      if (gateReportResponse.is_cached) {
+        toast("Evaluation is already done.", { icon: "ℹ️" });
+      } else {
+        toast.success("Decision intelligence generated");
+      }
     } catch (error: any) {
       toast.error(error?.response?.data?.detail || "Failed to generate decision intelligence");
     } finally {

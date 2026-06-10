@@ -1072,4 +1072,61 @@ class CompanyProfileDatabase:
         )
 
 
+    def _get_evaluation_report_sync(
+        self,
+        *,
+        profile_id: str | int,
+        evaluation_type: str,
+    ) -> dict[str, Any] | None:
+        logger.info("Database: Fetching evaluation report for profile_id=%s (evaluation_type=%s)", profile_id, evaluation_type)
+        is_valid_uuid = False
+        try:
+            uuid.UUID(str(profile_id))
+            is_valid_uuid = True
+        except ValueError:
+            pass
+            
+        if not is_valid_uuid:
+            return None
+            
+        with psycopg.connect(settings.database_url, row_factory=dict_row) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SET search_path TO npip, public;")
+                if evaluation_type == 'decision_intelligence':
+                    condition = "gate_overall_status IS NOT NULL"
+                elif evaluation_type == 'scoring':
+                    condition = "total_score_pct IS NOT NULL"
+                else:
+                    return None
+                    
+                cur.execute(
+                    f"""
+                    SELECT evaluation_context_json 
+                    FROM partner_evaluations 
+                    WHERE research_run_id = %s AND {condition}
+                    ORDER BY created_at DESC
+                    LIMIT 1;
+                    """,
+                    (str(profile_id),)
+                )
+                row = cur.fetchone()
+                
+        if row and row.get("evaluation_context_json"):
+            return row["evaluation_context_json"]
+        return None
+
+    async def get_evaluation_report(
+        self,
+        *,
+        profile_id: str | int,
+        evaluation_type: str,
+    ) -> dict[str, Any] | None:
+        self._require_ready()
+        return await asyncio.to_thread(
+            self._get_evaluation_report_sync,
+            profile_id=profile_id,
+            evaluation_type=evaluation_type,
+        )
+
+
 company_profile_db = CompanyProfileDatabase()
