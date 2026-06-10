@@ -480,7 +480,7 @@ export default function App() {
                       disabled={loading}
                       className="rounded-lg border border-white/20 bg-black/30 px-3 py-2 text-xs text-slate-200 hover:bg-white/10 disabled:opacity-60"
                     >
-                      {(profile.company_name || `Profile ${profile.id}`).trim()} ({new Date(profile.created_at).toLocaleDateString()})
+                      {(profile.company_name || `Profile ${profile.id}`).trim()} ({new Date(profile.created_at).toLocaleString()})
                     </button>
                   ))}
                 </div>
