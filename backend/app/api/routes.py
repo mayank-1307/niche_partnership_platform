@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import uuid
@@ -28,6 +29,7 @@ from app.services.storage_service import json_storage_service
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+_scoring_locks: dict[str, asyncio.Lock] = {}
 
 
 def _extract_profile_id(file_id: str) -> str | int | None:
@@ -257,8 +259,17 @@ async def decision_intelligence(file_id: str):
 async def scoring(file_id: str):
     logger.info("Generating scoring report file_id=%s", file_id)
     # Numeric or UUID IDs are database profiles; other IDs refer to disk JSON exports.
-    row_exists = False
     profile_id = _extract_profile_id(file_id)
+    if profile_id is not None:
+        lock = _scoring_locks.setdefault(str(profile_id), asyncio.Lock())
+        async with lock:
+            return await _generate_scoring_report(file_id, profile_id)
+
+    return await _generate_scoring_report(file_id, profile_id)
+
+
+async def _generate_scoring_report(file_id: str, profile_id: str | int | None):
+    row_exists = False
     if profile_id is not None:
         cached_report = await company_profile_db.get_evaluation_report(
             profile_id=profile_id, evaluation_type="scoring"

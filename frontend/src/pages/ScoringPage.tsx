@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -21,8 +21,12 @@ export default function ScoringPage() {
   const profileId = typeof location.state?.profileId === "string" ? location.state.profileId : "";
   const [report, setReport] = useState<ScoringReport | null>(null);
   const [loading, setLoading] = useState(false);
+  const requestedProfileId = useRef<string | null>(null);
 
   useEffect(() => {
+    if (requestedProfileId.current === profileId) return;
+    requestedProfileId.current = profileId;
+
     const loadScoring = async () => {
       if (!profileId) {
         toast.error("Choose a company profile from Decision Intelligence first");

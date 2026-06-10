@@ -1,0 +1,219 @@
+{
+  "generated_at": "2026-06-10T06:03:04.801932",
+  "data": {
+    "company_name": "Uqualio",
+    "website": "https://uqualio.com",
+    "headquarters": "Copenhagen, Denmark",
+    "founded_year": 2016,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "ISS Facility Services",
+              "Arla Foods",
+              "Danish Crown",
+              "LEGO Education",
+              "PANDORA",
+              "Siemens Healthineers"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 0,
+            "investors": [
+              "PreSeed Ventures (formerly SEED Capital Denmark)",
+              "Capnova"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Seed",
+                "amount": "",
+                "year": 2017
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "The founding team has backgrounds in eLearning, software development, and enterprise training solutions. CEO Bjarne Bergmann S\u00f8rensen has experience in scaling SaaS platforms and previously worked in leadership roles at companies focused on digital learning and corporate training.",
+            "key_leaders": [
+              {
+                "name": "Bjarne Bergmann S\u00f8rensen",
+                "title": "CEO & Co-Founder",
+                "background": "Experienced in SaaS scaling, digital learning, and corporate training platforms."
+              },
+              {
+                "name": "Morten Flink",
+                "title": "CTO & Co-Founder",
+                "background": "Technical leadership in video-based learning platforms and cloud infrastructure."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Commercial",
+            "years_in_market": 7,
+            "case_studies_available": true,
+            "deployment_scale": "Uqualio serves customers globally, including enterprise clients in Europe and North America. The platform supports scalable deployments for onboarding, compliance training, and partner enablement, with analytics for tracking engagement and certification."
+          }
+        }
+      },
+      "sources": [
+        "https://uqualio.com",
+        "https://uqualio.com/about-us/",
+        "https://uqualio.com/customers/",
+        "https://uqualio.com/leadership/",
+        "https://uqualio.com/case-studies/",
+        "https://www.crunchbase.com/organization/uqualio",
+        "https://www.linkedin.com/company/uqualio/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": false,
+            "use_cases": []
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": false,
+            "platforms": [],
+            "capabilities": []
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": false,
+            "capabilities": []
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": false,
+            "verticals": []
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://uqualio.com",
+        "https://uqualio.com/customers/",
+        "https://uqualio.com/case-studies/"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "LOW",
+            "available_skills": [],
+            "required_skills": [],
+            "gap_notes": ""
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "LOW to MEDIUM",
+            "ramp_time": "",
+            "training_needs": []
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Single Sign-On (SSO) providers (e.g., Azure AD, Okta, Google Workspace)",
+              "Learning Management Systems (LMS) via SCORM/xAPI",
+              "Content Delivery Networks (CDNs) for video hosting",
+              "APIs for custom integrations and reporting"
+            ],
+            "dependencies": [],
+            "complexity_notes": ""
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://uqualio.com",
+        "https://uqualio.com/integrations/"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based (SaaS), with pricing tiers based on user volume and features.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and partner-led (resellers, integrators, and training consultants).",
+            "channels": [],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 0,
+            "expansion_paths": []
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Commercial",
+            "fit_notes": ""
+          }
+        }
+      },
+      "sources": [
+        "https://uqualio.com",
+        "https://uqualio.com/partners/"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://uqualio.com"
+      ],
+      "last_updated": "2026-06-10T06:03:04.596587"
+    }
+  }
+}
