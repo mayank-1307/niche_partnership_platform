@@ -387,8 +387,49 @@ class CompanyProfileDatabase:
                     );
                     """
                 )
-                
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS partner_decisions (
+                        decision_id UUID PRIMARY KEY,
+                        evaluation_id UUID NOT NULL REFERENCES partner_evaluations(evaluation_id),
+                        partner_id UUID NOT NULL REFERENCES partners(partner_id),
+                        decision_code VARCHAR(50) NOT NULL,
+                        decision_status VARCHAR(50) NOT NULL,
+                        decision_notes TEXT,
+                        approved_rejected_by UUID REFERENCES users(user_id),
+                        approver_role_id UUID REFERENCES roles(role_id),
+                        approved_rejected_at TIMESTAMPTZ,
+                        final_rationale TEXT,
+                        supporting_evidence_json JSONB,
+                        previous_decision_id UUID REFERENCES partner_decisions(decision_id),
+                        effective_from TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                        effective_to TIMESTAMPTZ,
+                        created_by UUID REFERENCES users(user_id),
+                        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                        updated_by UUID REFERENCES users(user_id),
+                        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                    );
+                    """
+                )
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS audit_events (
+                        audit_event_id UUID PRIMARY KEY,
+                        entity_type VARCHAR(100) NOT NULL,
+                        entity_id UUID NOT NULL,
+                        action_code VARCHAR(100) NOT NULL,
+                        action_details_json JSONB,
+                        acted_by_user_id UUID REFERENCES users(user_id),
+                        acted_by_role_id UUID REFERENCES roles(role_id),
+                        acted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                        source_channel VARCHAR(50) DEFAULT 'UI',
+                        immutable_hash VARCHAR(128)
+                    );
+                    """
+                )
+
                 # 4. Create System Seed rows to satisfy foreign keys
+
                 cur.execute(
                     """
                     INSERT INTO users (user_id, user_principal_name, display_name, email, is_active)
