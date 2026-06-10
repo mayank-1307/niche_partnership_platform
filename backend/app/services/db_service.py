@@ -32,6 +32,31 @@ def _as_record(value: Any) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
+def _collect_sources(value: Any) -> list[str]:
+    sources: list[str] = []
+    seen: set[str] = set()
+
+    def visit(item: Any, key: str = "") -> None:
+        if key == "sources" and isinstance(item, list):
+            for source in item:
+                if not isinstance(source, str):
+                    continue
+                normalized = source.strip()
+                if normalized and normalized not in seen:
+                    seen.add(normalized)
+                    sources.append(normalized)
+            return
+        if isinstance(item, dict):
+            for child_key, child_value in item.items():
+                visit(child_value, child_key)
+        elif isinstance(item, list):
+            for child_value in item:
+                visit(child_value)
+
+    visit(value)
+    return sources
+
+
 def _clean_confidence(value: Any) -> float | None:
     try:
         confidence = float(value)
@@ -451,14 +476,6 @@ class CompanyProfileDatabase:
                     ON CONFLICT (user_role_id) DO NOTHING;
                     """
                 )
-                cur.execute(
-                    """
-                    INSERT INTO evaluation_frameworks (framework_id, framework_code, framework_name, version_no, status, description, created_by, updated_by)
-                    VALUES ('00000000-0000-0000-0000-000000000003', 'DEFAULT', 'Default Evaluation Framework', '1.0', 'ACTIVE', 'System default evaluation framework', '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000')
-                    ON CONFLICT (framework_id) DO NOTHING;
-                    """
-                )
-                
                 conn.commit()
 
     async def connect(self) -> None:
@@ -663,7 +680,7 @@ class CompanyProfileDatabase:
                 # Insert research run
                 research_run_id = str(uuid.uuid4())
                 evidence = data.get("evidence") or {}
-                evidence_sources = evidence.get("sources") or []
+                evidence_sources = _collect_sources(data)
                 
                 logger.info(
                     "Database: Inserting research run (research_run_id=%s, version=%s) for partner_id=%s",
@@ -829,7 +846,7 @@ class CompanyProfileDatabase:
                 if not framework_row:
                     logger.error("Database: No evaluation framework found")
                     raise RuntimeError("No evaluation framework found")
-                default_framework_id = framework_row[0]
+                framework_id = framework_row[0]
                 
                 # Fetch partner_id
                 logger.info("Database: Fetching partner_id associated with research_run_id=%s", profile_id)
@@ -854,7 +871,7 @@ class CompanyProfileDatabase:
                     FROM partner_evaluations 
                     WHERE partner_id = %s AND framework_id = %s;
                     """,
-                    (partner_id, default_framework_id)
+                    (partner_id, framework_id)
                 )
                 eval_version_no = cur.fetchone()[0]
                 
@@ -899,7 +916,7 @@ class CompanyProfileDatabase:
                 )
                 logger.info(
                     "Database: Evaluation data insert values - partner_id=%r, research_run_id=%r, framework_id=%r, evaluation_version_no=%r, gate_overall_status=%r, total_score_pct=%r, recommendation_code=%r, decision_rationale=%r, context_json=%s",
-                    partner_id, str(profile_id), default_framework_id, eval_version_no, gate_overall_status, total_score_pct, recommendation_code, decision_rationale, safe_report_json
+                    partner_id, str(profile_id), framework_id, eval_version_no, gate_overall_status, total_score_pct, recommendation_code, decision_rationale, safe_report_json
                 )
                 cur.execute(
                     """
@@ -915,7 +932,7 @@ class CompanyProfileDatabase:
                         evaluation_id,
                         partner_id,
                         str(profile_id),
-                        default_framework_id,
+                        framework_id,
                         eval_version_no,
                         psycopg.types.json.Jsonb(safe_report_json),
                         gate_overall_status,
@@ -1043,8 +1060,14 @@ class CompanyProfileDatabase:
                         for crit_key, crit_val in sub_criteria.items():
                             if not isinstance(crit_val, dict):
                                 continue
-                            
-                            crit_name = crit_key.replace("_", " ").title()
+
+                            criterion_parts = crit_key.split("_", 2)
+                            if len(criterion_parts) == 3:
+                                criterion_code = "_".join(criterion_parts[:2]).upper()
+                                crit_name = criterion_parts[2].replace("_", " ").title()
+                            else:
+                                criterion_code = crit_key.upper()
+                                crit_name = crit_key.replace("_", " ").title()
                             assigned_score = crit_val.get("score") or 0.0
                             rationale_text = crit_val.get("reason") or ""
                             confidence_score = _clean_confidence(crit_val.get("confidence_score")) or 0.0
@@ -1059,11 +1082,11 @@ class CompanyProfileDatabase:
                             
                             logger.info(
                                 "Database: Inserting evaluation_criterion_score pillar=%s, criterion=%s, score=%s",
-                                pillar_code, crit_key, assigned_score
+                                pillar_code, criterion_code, assigned_score
                             )
                             logger.info(
                                 "Database: Evaluation criterion score insert values - pillar_code=%r, criterion_code=%r, criterion_name=%r, assigned_score=%r, pillar_weight_pct=%r, rationale_text=%r, confidence_score=%r, weighted_contribution=%r",
-                                pillar_code, crit_key, crit_name, assigned_score, pillar_weight, rationale_text, confidence_score, weighted_contribution
+                                pillar_code, criterion_code, crit_name, assigned_score, pillar_weight, rationale_text, confidence_score, weighted_contribution
                             )
                             cur.execute(
                                 """
@@ -1079,7 +1102,7 @@ class CompanyProfileDatabase:
                                     str(uuid.uuid4()),
                                     evaluation_id,
                                     pillar_code,
-                                    crit_key,
+                                    criterion_code,
                                     crit_name,
                                     assigned_score,
                                     pillar_weight,

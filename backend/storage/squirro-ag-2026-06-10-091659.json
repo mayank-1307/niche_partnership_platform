@@ -1,0 +1,281 @@
+{
+  "generated_at": "2026-06-10T09:16:59.144545",
+  "data": {
+    "company_name": "Squirro AG",
+    "website": "https://squirro.com",
+    "headquarters": "Zurich, Switzerland",
+    "founded_year": 2012,
+    "enterprise_credibility": {
+      "sub_parts": {
+        "existing_enterprise_customers": {
+          "facts": {
+            "has_enterprise_clients": true,
+            "notable_clients": [
+              "UBS",
+              "Credit Suisse",
+              "Generali",
+              "Swiss Re",
+              "Zurich Insurance Group",
+              "Raiffeisen Switzerland",
+              "Baloise Group",
+              "Helvetia",
+              "Avaloq",
+              "SIX Group"
+            ]
+          }
+        },
+        "institutional_funding": {
+          "facts": {
+            "is_funded": true,
+            "total_funding_usd": 25000000,
+            "investors": [
+              "Octopus Ventures",
+              "Redalpine",
+              "SIX Group",
+              "Swisscom Ventures",
+              "Verizon Ventures"
+            ],
+            "recent_rounds": [
+              {
+                "round_type": "Series B",
+                "amount_usd": 10000000,
+                "year": 2021
+              },
+              {
+                "round_type": "Series A",
+                "amount_usd": 8000000,
+                "year": 2017
+              }
+            ]
+          }
+        },
+        "proven_leadership_team": {
+          "facts": {
+            "founders_experience": "Squirro was founded by Dorothee Blessing, Dr. Dorian Selz, and Dr. Michael Hartung. The founders bring extensive experience in enterprise software, AI, and data analytics. Dorothee Blessing previously worked at Goldman Sachs and McKinsey & Company. Dr. Dorian Selz co-founded local.ch and has a background in digital transformation. Dr. Michael Hartung has expertise in machine learning and data science, with prior roles in academia and industry.",
+            "key_leaders": [
+              {
+                "name": "Dr. Dorian Selz",
+                "title": "Co-Founder & CEO",
+                "background": "Co-founder of local.ch, former Head of Digital Strategy at Swisscom, PhD in Computer Science from ETH Zurich."
+              },
+              {
+                "name": "Dorothee Blessing",
+                "title": "Co-Founder & Chairwoman",
+                "background": "Former Partner at McKinsey & Company, Managing Director at Goldman Sachs, MBA from INSEAD."
+              },
+              {
+                "name": "Dr. Michael Hartung",
+                "title": "Co-Founder & CTO",
+                "background": "PhD in Machine Learning from ETH Zurich, former researcher in AI and data science."
+              },
+              {
+                "name": "Philipp Schloter",
+                "title": "Chief Revenue Officer",
+                "background": "Former Global Head of Sales at Avaloq, extensive experience in enterprise software sales."
+              }
+            ]
+          }
+        },
+        "production_grade_product_evidence": {
+          "facts": {
+            "stage": "Enterprise Scale",
+            "years_in_market": 11,
+            "case_studies_available": true,
+            "deployment_scale": "Global deployments across financial services, insurance, and telecommunications sectors. Platform supports enterprise-grade production environments with high availability, security, and scalability. Deployed in regulated industries with strict compliance requirements."
+          }
+        }
+      },
+      "sources": [
+        "https://squirro.com",
+        "https://squirro.com/customers/",
+        "https://squirro.com/company/leadership/",
+        "https://squirro.com/resources/case-studies/",
+        "https://www.crunchbase.com/organization/squirro",
+        "https://www.linkedin.com/company/squirro/"
+      ]
+    },
+    "strategic_relevance": {
+      "sub_parts": {
+        "ai_transformation_alignment": {
+          "facts": {
+            "ai_transformation": true,
+            "use_cases": [
+              "Cognitive search and knowledge discovery for enterprise data",
+              "AI-driven automation for customer service and claims processing",
+              "Regulatory compliance and risk management in financial services",
+              "Fraud detection and anti-money laundering (AML)",
+              "Customer 360 and personalized recommendations"
+            ]
+          }
+        },
+        "data_modernization_alignment": {
+          "facts": {
+            "data_modernization": true,
+            "platforms": [],
+            "capabilities": [
+              "Integration with enterprise data sources (CRM, ERP, document management systems)",
+              "Contextual intelligence and decision support"
+            ]
+          }
+        },
+        "ai_operations_alignment": {
+          "facts": {
+            "ai_operations": true,
+            "capabilities": [
+              "AI-driven automation",
+              "Predictive analytics for insurance underwriting"
+            ]
+          }
+        },
+        "conversational_ai_alignment": {
+          "facts": {
+            "conversational_ai": false,
+            "interfaces": []
+          }
+        },
+        "industry_ai_alignment": {
+          "facts": {
+            "industry_ai": true,
+            "verticals": [
+              "Financial services",
+              "Insurance",
+              "Telecommunications"
+            ]
+          }
+        },
+        "governance_compliance_alignment": {
+          "facts": {
+            "governance_compliance": true,
+            "controls": [
+              "Regulatory compliance",
+              "Risk management",
+              "Fraud detection",
+              "Anti-money laundering (AML)"
+            ],
+            "certifications": []
+          }
+        }
+      },
+      "sources": [
+        "https://squirro.com",
+        "https://squirro.com/resources/case-studies/",
+        "https://www.swisscom.ch/en/business/enterprise/offer/it-services/squirro.html"
+      ]
+    },
+    "delivery_feasibility": {
+      "delivery_feasibility": {
+        "skill_availability": {
+          "facts": {
+            "implementation_complexity": "MEDIUM",
+            "available_skills": [
+              "Enterprise data integration",
+              "AI and machine learning",
+              "Cloud platforms (AWS, Azure, Google Cloud)"
+            ],
+            "required_skills": [
+              "Custom integration with enterprise systems",
+              "AI model training and deployment",
+              "Security and compliance expertise"
+            ],
+            "gap_notes": "Integration with existing enterprise systems may require customization based on specific use cases."
+          }
+        },
+        "training_effort": {
+          "facts": {
+            "training_effort_required": "MEDIUM",
+            "ramp_time": "",
+            "training_needs": [
+              "Technical training for implementation and integration",
+              "Business user training for platform adoption"
+            ]
+          }
+        },
+        "integration_feasibility": {
+          "facts": {
+            "integration_requirements": [
+              "Enterprise data sources (e.g., CRM, ERP, document management systems)",
+              "Cloud platforms (AWS, Azure, Google Cloud)",
+              "Identity providers (e.g., Active Directory, Okta)",
+              "APIs for custom integrations",
+              "On-premise or hybrid deployment options"
+            ],
+            "dependencies": [],
+            "complexity_notes": "Squirro offers comprehensive documentation, SDKs, and professional services to support implementation. The platform is designed for enterprise scalability and supports multi-tenant deployments."
+          }
+        },
+        "support_scalability": {
+          "facts": {
+            "support_scalability": "HIGH",
+            "support_model": "Professional services and partner ecosystem",
+            "scaling_constraints": []
+          }
+        }
+      },
+      "sources": [
+        "https://squirro.com",
+        "https://www.verizonventures.com/portfolio/squirro"
+      ]
+    },
+    "commercial_viability": {
+      "sub_parts": {
+        "monetization_clarity": {
+          "facts": {
+            "monetization_model": "Subscription-based SaaS and enterprise licensing. Pricing is typically based on usage, number of users, and deployment scale.",
+            "pricing_transparency": false,
+            "revenue_structure": ""
+          }
+        },
+        "gtm_feasibility": {
+          "facts": {
+            "gtm_model": "Direct sales and partner-led. Squirro has a global sales team and works with system integrators, resellers, and technology partners.",
+            "channels": [
+              "Direct sales",
+              "System integrators",
+              "Resellers",
+              "Technology partners"
+            ],
+            "sales_motion": ""
+          }
+        },
+        "revenue_upside": {
+          "facts": {
+            "estimated_deal_size_usd": 1250000,
+            "expansion_paths": [
+              "Multi-year enterprise contracts",
+              "Expansion into new verticals (e.g., healthcare, public sector)"
+            ]
+          }
+        },
+        "partner_willingness": {
+          "facts": {
+            "partner_willingness": true,
+            "partner_programs": [],
+            "api_ecosystem": []
+          }
+        },
+        "commercial_structure_clarity": {
+          "facts": {
+            "contracting_notes": "Pricing is tailored to enterprise needs and typically involves multi-year contracts.",
+            "pricing_governance": ""
+          }
+        },
+        "startup_stage_fit": {
+          "facts": {
+            "stage": "Growth Stage",
+            "fit_notes": "Squirro demonstrates strong commercial viability with a focus on enterprise customers in regulated industries. The company has a mature partner ecosystem and a proven track record of large-scale deployments."
+          }
+        }
+      },
+      "sources": [
+        "https://squirro.com",
+        "https://www.crunchbase.com/organization/squirro"
+      ]
+    },
+    "evidence": {
+      "sources": [
+        "https://squirro.com"
+      ],
+      "last_updated": "2026-06-10T09:16:59.039047"
+    }
+  }
+}
